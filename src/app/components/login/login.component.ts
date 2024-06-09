@@ -21,12 +21,11 @@ export class LoginComponent {
 
   public user:User;
 
-  
   constructor(
     private _userService:UserService
   ){
     this.status=-1;
-    this.user=new User(1,1,"","","","","","","")
+    this.user=new User(1,1,"","","","","","","","");
   }
 
   onSubmit(form:any){

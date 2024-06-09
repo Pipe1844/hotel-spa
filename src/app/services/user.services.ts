@@ -46,4 +46,44 @@ export class UserService{
 
         return this._hhttp.get(this.urlAPI+'user/getidentity', options);
     }
+
+    /*******************************************************************Métodos imagen**********************************************************************************************/
+
+    upLoadImage(image: File): Observable<any> {
+        const formData: FormData = new FormData(); 
+        formData.append('file', image, image.name);
+        const bearerToken = sessionStorage.getItem('token');
+        let headers = new HttpHeaders();
+        if (bearerToken) {
+        headers = headers.set('bearertoken', `${bearerToken}`);
+        }
+        return this._hhttp.post(this.urlAPI+'user/uploadimage', formData, { headers });
+    }
+
+    updateImage(image: File, filename: string){
+        const formData: FormData = new FormData(); 
+        formData.append('file', image, image.name);
+        const bearerToken = sessionStorage.getItem('token');
+        let headers = new HttpHeaders();
+        if (bearerToken) {
+        headers = headers.set('bearertoken', `${bearerToken}`);
+        }
+        return this._hhttp.put(this.urlAPI+'user/updateimage/'+filename, formData, { headers });
+    }
+
+    getImage(filename: string): Observable<any> {
+        let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+        let options = {
+            headers
+        };
+        return this._hhttp.get(`${this.urlAPI}user/getimage/${filename}`, options);
+    }
+
+    destroyImage(filename:string):Observable<any>{
+        let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+        let options = {
+            headers
+        };
+        return this._hhttp.delete(`${this.urlAPI}user/image/${filename}`, options);
+    }
 }
