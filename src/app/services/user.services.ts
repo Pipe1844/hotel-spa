@@ -10,7 +10,7 @@ import { Observable } from "rxjs";
 export class UserService{
     private urlAPI:string
     constructor(
-        private _hhttp:HttpClient
+        private _hhttp: HttpClient
     ){
         this.urlAPI=server.url
     }
@@ -18,12 +18,29 @@ export class UserService{
     login(user:User):Observable<any>{
         let userJson=JSON.stringify(user);
         let params='data='+userJson;
-        let headers=new HttpHeaders().set('content-Type','application/x-www-form-urlencoded')
+        let headers=new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded')
         let options={
             headers
         }
 
         return this._hhttp.post(this.urlAPI+'user/login', params, options)
 
+    }
+
+    getIdentityFromAPI():Observable<any>{
+        let headers;
+        let bearerToken=sessionStorage.getItem('token');
+        if(bearerToken){
+            headers=new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded')
+            .set('bearertoken', bearerToken);
+        }else{
+            headers=new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
+        }
+
+        let options={
+            headers
+        }
+
+        return this._hhttp.get(this.urlAPI+'user/getidentity', options);
     }
 }
