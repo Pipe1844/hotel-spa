@@ -12,7 +12,7 @@ export class UserService{
     constructor(
         private _hhttp: HttpClient
     ){
-        this.urlAPI=server.url
+        this.urlAPI=server.url;
     }
 
     login(user:User):Observable<any>{

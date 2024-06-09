@@ -46,7 +46,7 @@ export class LoginComponent {
                 sessionStorage.setItem('identity', JSON.stringify(resp));
               },
               error:(error:Error)=>{
-              
+                console.log(error);
               }
             })
 
