@@ -1,0 +1,117 @@
+
+<body class="">
+    
+
+    <nav class="navbar navbar-expand-lg"> <!--navbar-->
+        <div class="container-fluid">
+
+
+          <a class="navbar-brand logo" href="#">Hades Ressorts</a> <!--logo-->
+
+
+          <button class="navbar-toggler shadow-none border-0 text-dark"
+           type="button"
+            data-bs-toggle="offcanvas"
+             data-bs-target="#offcanvasNavbar"
+              aria-controls="offcanvasNavbar">
+
+            <span class="navbar-toggler-icon dark"></span>
+            
+          </button> <!--toggle Btn-->
+
+
+
+          <div class="sidebar offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel"> <!--sidebar-->
+            <div class="offcanvas-header text-white border-bottom"> <!--sidebar header-->
+              <h5 class="offcanvas-title logo" id="offcanvasNavbarLabel">Hades Ressorts</h5>
+              <button type="button" class="btn-close btn-close-dark shadow-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+
+
+
+            <div class="offcanvas-body d-flex flex-column p-4 flex-lg-row"> <!--sidebar Body-->
+              <ul class="navbar-nav justify-content-center align-items-center fs-6 flex-grow-1 pe-3" >
+                <li class="nav-item mx-2" >
+                  <a class="nav-link active text-dark fw-bold" aria-current="page" href="#">Inicio</a>
+                </li>
+
+                <li class="nav-item mx-2">
+                  <a class="nav-link text-dark fw-bold" href="#">Reservar</a>
+                </li>
+
+                <li class="nav-item mx-2">
+                    <a class="nav-link text-dark fw-bold" href="#">Nosotros</a>
+                  </li>
+
+                  <li class="nav-item mx-2">
+                    <a class="nav-link text-dark fw-bold" href="#">Contacto</a>
+                  </li>
+                
+              </ul>
+              
+              @if(!identity){
+                <div class="d-flex flex-column align-items-center gap-3 flex-lg-row" > <!--SingIn & LogIn-->
+                  <a [routerLink]="['login']" class="text-dark text-decoration-none fw-bold">Ingresar</a>
+                  <a href="#signin" class="text-white text-decoration-none px-3 py-1 rounded-4 fw-bold" 
+                  style="
+                      background-color: rgba(255, 0, 197, 1);
+                      font-weight: 600;
+                      color: #fff;
+                    
+                  ">Registrarse</a>
+                </div>
+              }@else{
+                <div class="d-flex flex-column align-items-center gap-3 flex-lg-row" > <!--SingIn & LogIn-->
+                  @if(identity.correo){
+                    <a href="#perfil" class="text-dark text-decoration-none px-3 py-1 rounded-4 fw-bold" 
+                  style="
+                      background-color: rgba(255, 0, 197, 1);
+                  ">UserName</a>
+                  }
+                </div>
+              }
+
+            </div>
+          </div>
+
+          
+
+        </div>
+      </nav>
+
+      
+       
+     
+      
+        <div class="content">
+
+          <div class="left">
+  
+              <div class="Designer">
+                  <h6 class="TP">Hades</h6>
+                  <h1 class="TG">Ressorts</h1>
+                  <h6 class="TP">The best</h6>
+                  <h1 class="TG">Option</h1>
+              </div>
+          </div>
+  
+          <div class="right">
+            
+            <iframe src='https://my.spline.design/untitled-cf2656c90a05eb2a46fa733202c596bf/' frameborder='0' width='150%' height='150%'></iframe>
+              
+          </div>
+      </div>
+
+
+
+</body>
+
+<script>
+const nav = document.querySelector('nav')
+
+	window.addEventListener('scroll', function(){
+		nav.classList.toggle('active', window.scrollY >0)
+	})
+</script>
+
+

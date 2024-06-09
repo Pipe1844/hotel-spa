@@ -1,0 +1,139 @@
+body{
+    background: #F0F0F0;
+    background-blend-mode: multiply;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    min-width: 100%;
+}
+
+@media (max-width: 991px) {
+    .sidebar{
+        background-color: rgba(255, 255, 255, 0.648);
+        backdrop-filter: blur(10px);
+    }
+    
+}
+
+#root {
+    width: 300px;
+    height: 300px;
+}
+
+
+nav.active{
+
+	background: rgba(255,255,255,0.1);
+ backdrop-filter: blur(5px);
+	padding: 15px;
+}
+
+.logo{
+    font-family: "Monsieur La Doulaise", cursive;
+    font-weight: 700;
+    font-style: normal;
+    color: rgba(255, 0, 197, 1);
+    font-size: 2rem;;
+
+}
+
+
+.content{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.left{
+    flex: 1;
+    padding: 20px;
+    margin: 20px;
+    margin-left: 9rem;
+    margin-top: 9rem;
+}
+
+
+.TP{
+    font-family: "Monsieur La Doulaise", cursive;
+    font-weight: 700;
+    font-style: normal;
+    color: rgba(255, 0, 197, 1);
+    font-size: 2rem;
+    text-align: center;
+    
+}
+
+.TG{
+    color: #000;
+    font-size: 10rem;
+    font-family: "Six Caps", sans-serif;
+    font-weight: 1000;
+    font-style: normal;
+    text-align: center;
+}
+
+
+.right{
+    flex: 2;
+}
+
+  iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+
+
+
+
+  @media (max-width: 985px) {
+
+    .logo{
+        font-size: 1rem;
+    }
+
+    .content {
+        flex-direction: column;
+    }
+
+    .left{
+        margin-left: 20px;
+        margin-bottom: 10rem;
+        
+    }
+
+    
+
+    .TG{
+        font-size: 9rem;
+    }
+    
+    .title1{
+        font-size: 3rem;
+        padding: 4px;
+    }
+    
+    .title2{
+        font-size: 4rem;    
+        padding: 4 px;
+    }
+
+    .section {
+        flex-direction: column-reverse;
+    }
+
+    .right{
+        
+        height: 500px;
+    }
+
+    iframe {
+        width: 100%;
+        height: 400px;
+        border: none;
+    }
+
+}
