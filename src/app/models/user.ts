@@ -8,6 +8,7 @@ export class User{
         public usuario:string,
         public apellido:string,
         public telefono:string,
-        public rol:string
+        public rol:string,
+        public imagen:string
     ){}
 }
