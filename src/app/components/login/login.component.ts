@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { User } from '../../models/user';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink, Router } from '@angular/router';
 import { RouterOutlet } from '@angular/router';
 import { UserService } from '../../services/user.services';
 
@@ -23,7 +23,9 @@ export class LoginComponent {
 
   
   constructor(
-    private _userService:UserService
+    private _userService:UserService,
+    private _router:Router,
+    private _routes:ActivatedRoute
   ){
     this.status=-1;
     this.user=new User(1,1,"","","","","","","")
@@ -44,9 +46,11 @@ export class LoginComponent {
               next:(resp:any)=>{
                 //console.log(resp);
                 sessionStorage.setItem('identity', JSON.stringify(resp));
+                this._router.navigate(['']);
               },
               error:(error:Error)=>{
               console.log(error);
+              this.status=1;
               }
             })
 
