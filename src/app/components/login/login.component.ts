@@ -35,8 +35,25 @@ export class LoginComponent {
 
     this._userService.login(this.user).subscribe({
       next:(response:any)=>{
-        console.log(response)
-        sessionStorage.setItem('token' ,response);
+
+
+        if(response.status!=401){
+            sessionStorage.setItem("token",response);
+
+            this._userService.getIdentityFromAPI().subscribe({
+              next:(resp:any)=>{
+                console.log(resp);
+                sessionStorage.setItem('identity', JSON.stringify(resp));
+              },
+              error:(error:Error)=>{
+              
+              }
+            })
+
+        }else{
+          this.status=0;  
+        }
+
       },
 
       error:(err:any)=>{
