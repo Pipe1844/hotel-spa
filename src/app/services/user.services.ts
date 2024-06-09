@@ -30,6 +30,9 @@ export class UserService{
     getIdentityFromAPI():Observable<any>{
         let headers;
         let bearerToken=sessionStorage.getItem('token');
+
+        //console.log(bearerToken);
+
         if(bearerToken){
             headers=new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded')
             .set('bearertoken', bearerToken);
