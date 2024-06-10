@@ -22,7 +22,9 @@ export class LoginComponent {
   public user:User;
 
   constructor(
-    private _userService:UserService
+    private _userService:UserService,
+    private _router:Router,
+    private _routes:ActivatedRoute
   ){
     this.status=-1;
     this.user=new User(1,1,"","","","","","","","");
@@ -43,9 +45,13 @@ export class LoginComponent {
               next:(resp:any)=>{
                 //console.log(resp);
                 sessionStorage.setItem('identity', JSON.stringify(resp));
+                this._router.navigate(['']);
               },
               error:(error:Error)=>{
-                console.log(error);
+
+              console.log(error);
+              this.status=1;
+
               }
             })
 

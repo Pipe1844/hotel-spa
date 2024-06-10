@@ -1,7 +1,11 @@
 
 <body class="vh-100 overflow-hidden">
 
-
+  @if (status===0) {
+    <p>Usuario o contraseña incorrecta</p>
+  }@else if(status===1) {
+    <p>Error del servidor, Contacte un administrador</p>
+  }
   
 
 <div class="content">
@@ -17,6 +21,8 @@
         </svg>
       </button>
     </a>
+
+    
 
     <div class="heading">Iniciar Sesion</div>
     <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" class="form">
