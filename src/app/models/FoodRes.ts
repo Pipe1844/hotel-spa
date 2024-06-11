@@ -1,4 +1,4 @@
-export class ResAlimentacion {
+export class FoodRes {
     constructor(
         public id: number,
         public idUser: number,

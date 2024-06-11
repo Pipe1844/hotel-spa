@@ -1,4 +1,4 @@
-export class Alimentacion {
+export class Food {
     constructor(
         public id: number,
         public horario: string,

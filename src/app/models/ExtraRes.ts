@@ -1,4 +1,4 @@
-export class ResExtras{
+export class ExtraRes{
     constructor(
         public id:number,
         public idUser:number,

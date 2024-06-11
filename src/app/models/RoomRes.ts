@@ -1,4 +1,4 @@
-export class ResHabitacion {
+export class RoomRes {
     constructor(
         public id: number,
         public idUser: number,

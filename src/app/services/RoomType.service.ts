@@ -1,13 +1,13 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { server } from "./global ";
-import { ResHabitacion } from "../models/ResHabitacion";
+import { RoomType } from "../models/RoomType";
 import { Observable } from "rxjs";
 
 @Injectable({
     providedIn:'root'
 })
-export class ResHabitacionService{
+export class TipoHabitacionService{
     private urlAPI:string
     constructor(
         private _hhttp: HttpClient

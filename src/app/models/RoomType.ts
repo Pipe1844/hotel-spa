@@ -1,4 +1,4 @@
-export class TipoHabitacion {
+export class RoomType {
     constructor(
         public id: number,
         public nombre: string,

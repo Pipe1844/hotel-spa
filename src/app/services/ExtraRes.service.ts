@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { server } from "./global ";
-import { ResExtras } from "../models/ResExtras";
+import { ExtraRes } from "../models/ExtraRes";
 import { Observable } from "rxjs";
 
 @Injectable({

@@ -1,4 +1,4 @@
-export class Extras {
+export class Extra {
     constructor(
         public id: number,
         public nombre: string,
