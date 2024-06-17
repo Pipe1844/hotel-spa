@@ -1,22 +1,35 @@
 <div>
-  <div style="display: flex; width: 90rem;">
-    <div style="width: 15%; display: flex; justify-content: space-evenly;">
-      <button mat-fab aria-label="Agregar" (click)="create()">
-        <mat-icon>add</mat-icon>
-      </button>
-      <button mat-fab aria-label="Actualizar" [disabled]="selection.selected.length != 1" (click)="update()">
-        <mat-icon>edit</mat-icon>
-      </button>
-      <button mat-fab aria-label="Eliminar" [disabled]="selection.selected.length == 0" (click)="deleteSelected()">
-        <mat-icon>delete</mat-icon>
-      </button>
+
+
+  
+
+
+
+  <div class="content">
+
+    <div class="btnContent" style="display: flex; width: 90rem;">
+      <div style="width: 15%; display: flex; justify-content: space-evenly;">\
+  
+        <button mat-fab aria-label="Agregar" (click)="create()">
+          <mat-icon>add</mat-icon>
+        </button>
+  
+        <button mat-fab aria-label="Actualizar" [disabled]="selection.selected.length != 1" (click)="update()">
+          <mat-icon>edit</mat-icon>
+        </button>
+  
+        <button mat-fab aria-label="Eliminar" [disabled]="selection.selected.length == 0" (click)="deleteSelected()">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+  
+      <mat-form-field style="width: 20%;">
+        <mat-label>Buscar</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ej. Randy" #filter>
+      </mat-form-field>
+  
     </div>
-    <mat-form-field style="width: 20%;">
-      <mat-label>Buscar</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Ej. Randy" #filter>
-    </mat-form-field>
-  </div>
-  <div class="mat-elevation-z8">
+
     <table mat-table [dataSource]="dataSource" matSort>
 
       <!-- Checkbox Column -->
@@ -102,6 +115,7 @@
       <tr class="mat-row" *matNoDataRow>
         <td class="mat-cell" colspan="4">No data matching the filter "{{filter.value}}"</td>
       </tr>
+
     </table>
 
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
