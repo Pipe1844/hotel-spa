@@ -7,7 +7,7 @@ import { Observable } from "rxjs";
 @Injectable({
     providedIn:'root'
 })
-export class ResExtrasService{
+export class ExtraResService{
     private urlAPI:string
     constructor(
         private _hhttp: HttpClient

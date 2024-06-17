@@ -1,19 +1,19 @@
 <div>
   <div style="display: flex; width: 90rem;">
     <div style="width: 15%; display: flex; justify-content: space-evenly;">
-      <button mat-fab aria-label="Agregar" (click)="createUser()">
+      <button mat-fab aria-label="Agregar" (click)="create()">
         <mat-icon>add</mat-icon>
       </button>
-      <button mat-fab aria-label="Actualizar" [disabled]="selection.selected.length != 1" (click)="updateUser()">
+      <button mat-fab aria-label="Actualizar" [disabled]="selection.selected.length != 1" (click)="update()">
         <mat-icon>edit</mat-icon>
       </button>
-      <button mat-fab aria-label="Eliminar" [disabled]="selection.selected.length == 0" (click)="deleteSelectedUsers()">
+      <button mat-fab aria-label="Eliminar" [disabled]="selection.selected.length == 0" (click)="deleteSelected()">
         <mat-icon>delete</mat-icon>
       </button>
     </div>
     <mat-form-field style="width: 20%;">
-      <mat-label>Filter</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Buscar" #filter>
+      <mat-label>Buscar</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ej. Randy" #filter>
     </mat-form-field>
   </div>
   <div class="mat-elevation-z8">
@@ -33,7 +33,7 @@
         </td>
       </ng-container>
 
-      <!-- ID Column -->
+      <!-- Id Column -->
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
         <td mat-cell *matCellDef="let user"> {{user.id}} </td>

@@ -12,44 +12,46 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { SelectionModel } from '@angular/cdk/collections';
 import { server } from '../../services/global ';
+import { RoomTypeService } from '../../services/RoomType.service';
 import { User } from '../../models/User';
 import { UserService } from '../../services/User.services';
+import { RoomType } from '../../models/RoomType';
 
 @Component({
-  selector: 'app-user-admin',
+  selector: 'app-room-type-admin',
   standalone: true,
   imports: [MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatFormFieldModule,
     MatInputModule, MatTableModule, MatSlideToggleModule, FormsModule, MatIconModule,
-    MatButtonModule, ReactiveFormsModule, MatTableModule, MatCheckboxModule, MatDividerModule,
+    MatButtonModule, ReactiveFormsModule, MatTableModule, MatCheckboxModule, MatDividerModule
   ],
-  templateUrl: './user-admin.component.html',
-  styleUrl: './user-admin.component.css',
-  providers: [UserService]
+  templateUrl: './room-type-admin.component.html',
+  styleUrl: './room-type-admin.component.css',
+  providers: [RoomTypeService, UserService]
 })
-export class UserAdminComponent implements AfterViewInit {
-
+export class RoomTypeAdminComponent implements AfterViewInit {
   private checkAutorization;
   public user: User;
   public identity: any;
-  public urlGetImageApi: string = server.url + "user/getimage/";
+  public roomType: RoomType;
   public selectedFile: File | null = null;
 
   /******************************************Variables para la tabla**************************************************************************/
 
-  displayedColumns: string[] = ['select', 'id', 'cedula', 'nombre', 'apellido', 'correo', 'usuario', 'telefono', 'rol', 'imagen'];
-  dataSource = new MatTableDataSource<User>([]);
-  selection = new SelectionModel<User>(true, []);
+  displayedColumns: string[] = ['select', 'id', 'nombre', 'precio', 'capacidad'];
+  dataSource = new MatTableDataSource<RoomType>([]);
+  selection = new SelectionModel<RoomType>(true, []);
 
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private roomTypeService: RoomTypeService) {
     this.user = new User(1, 1, "", "", "", "", "", "", "", "");
     this.identity = this.userService.getIdentityFromStorage();
     this.checkAutorization = setInterval(() => {
       this.identity = this.userService.getIdentityFromStorage();
     }, 1000)
+    this.roomType = new RoomType(1, "", 0, 0);
     this.index();
   }
 
@@ -84,7 +86,7 @@ export class UserAdminComponent implements AfterViewInit {
   }
 
   /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: User): string {
+  checkboxLabel(row?: RoomType): string {
     if (!row) {
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
     }
@@ -94,9 +96,9 @@ export class UserAdminComponent implements AfterViewInit {
   /**************************************************************Métodos del Service**********************************************************************************/
 
   index() {
-    this.userService.index().subscribe({
+    this.roomTypeService.index().subscribe({
       next: (response: any) => {
-        this.dataSource.data = response['users'];
+        this.dataSource.data = response['data'];
         console.log(this.dataSource.data);
       },
       error: (err: Error) => {
@@ -107,14 +109,8 @@ export class UserAdminComponent implements AfterViewInit {
 
   create(/*form: any*/) {
     //if (form.valid) {
-    let filename: any;
-    if (this.selectedFile == null) {
-      filename = "";
-    } else {
-      filename = this.uploadImage();
-    }
-    this.user = new User(1, 504510344, "Nathaly", "nath@gmail.com", "1234", "nath", "Ramírez", "70054237", "cliente", filename);
-    this.userService.create(this.user).subscribe({
+    this.roomType = new RoomType(1, "Cama King", 50000, 2);
+    this.roomTypeService.create(this.roomType).subscribe({
       next: (response: any) => {
         console.log(response);
       },
@@ -126,29 +122,16 @@ export class UserAdminComponent implements AfterViewInit {
         this.selection.clear();
       }
     })
-    this.index();
+
     //}
   }
 
   update() {
-    let filename: any;
-
-    if (this.user.imagen != "") {
-      if (this.selectedFile != null) {
-        filename = this.updateImage(this.user.imagen);
-      }
-    } else {
-      if (this.selectedFile == null) {
-        filename = "";
-      } else {
-        filename = this.uploadImage();
-      }
-    }
-
-    let user = new User(3, 504510344, "Nathaly", "nath@gmail.com", "1234", "Nath", "Ramírez", "70054237", "cliente", filename);
-    this.userService.update(user).subscribe({
+    this.roomType = new RoomType(12, "Cama King", 25000, 2);
+    this.roomTypeService.update(this.roomType).subscribe({
       next: (response: any) => {
         console.log(response);
+        
       },
       error: (err: Error) => {
         console.log(err);
@@ -158,84 +141,24 @@ export class UserAdminComponent implements AfterViewInit {
         this.selection.clear();
       }
     });
-    this.index();
-    this.selection.clear();
-  }
-
-  changeRole(id: number, status: boolean) {
-    let rol = "cliente";
-    if (status) {
-      rol = "admin"
-    }
-    this.user.id = id;
-    this.user.rol = rol;
-
-    this.userService.updateRole(this.user).subscribe({
-      next: (response: any) => {
-        console.log(response);
-        this.index();
-        this.selection.clear();
-      },
-      error: (err: Error) => {
-        console.log(err);
-      },
-      complete:()=>{
-        this.index();
-        this.selection.clear();
-      }
-    })
   }
 
   deleteSelected() {
-    this.selection.selected.forEach(user => {
-      if (user.id != this.identity.iss) {
-        this.userService.delete(user.id).subscribe({
-          next: (response: any) => {
-            console.log('Eliminado: ' + user.nombre);
-          },
-          error: (err: Error) => {
-            console.log(err);
-          }
-        })
-      } else {
-        console.log('No te puedes eliminar a ti');
-      }
+    this.selection.selected.forEach(roomType => {
+      this.roomTypeService.delete(roomType.id).subscribe({
+        next: (response: any) => {
+          console.log('Eliminado: ' + roomType.nombre);
+        },
+        error: (err: Error) => {
+          console.log(err);
+        },
+        complete:()=>{
+          this.index();
+          this.selection.clear();
+        }
+      })
     });
-    this.index();
-    this.selection.clear();
+
   }
-
-  /*******************************************************************Métodos imagen**********************************************************************************************/
-
-  uploadImage(): any {
-    this.userService.uploadImage(this.selectedFile!).subscribe({
-      next: (response: any) => {
-        console.log(response);
-        return response['filename'];
-      },
-      error: (err: Error) => {
-        console.log(err);
-        return "";
-      }
-    })
-  }
-
-  updateImage(filename: string) {
-    this.userService.updateImage(this.selectedFile!, filename).subscribe({
-      next: (response: any) => {
-        console.log(response);
-        return response['filename'];
-      },
-      error: (err: Error) => {
-        console.log(err);
-        return "";
-      }
-    })
-  }
-
   /****************************************************************Demás métodos******************************************************************************************************/
-
-  onImageFileChange(event: any): void {
-    this.selectedFile = event.target.files[0];
-  }
 }

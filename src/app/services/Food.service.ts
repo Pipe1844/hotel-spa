@@ -7,7 +7,7 @@ import { Observable } from "rxjs";
 @Injectable({
     providedIn:'root'
 })
-export class AlimentacionService{
+export class FoodService{
     private urlAPI:string
     constructor(
         private _hhttp: HttpClient
