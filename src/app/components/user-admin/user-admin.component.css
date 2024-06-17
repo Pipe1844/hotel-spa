@@ -1,4 +1,113 @@
+body{
+    
+    min-height: 100vh;
+}
+
 .content{
     width: 80%;
-    
+    margin: auto;
+    margin-top: 8rem;
+    min-height: 30rem;
+    padding: 20px;
+    border-radius: 30px;
+    box-shadow: rgba(170, 170, 170, 0.8784313725) 0px 30px 30px -5px;
+    background: #F8F9FD;
 }
+
+.tabla{
+    border-radius: 30px;
+}
+
+.btn{
+    background: rgb(244, 155, 223);
+}
+
+.find{
+   background-color: rgb(244, 155, 223) ;
+}
+
+
+.input {
+    width: 100%;
+    border: none;
+    outline: none;
+    border-radius: 15px;
+    padding: 1em;
+    background-color: #e8e8e8;
+    box-shadow: inset 2px 5px 10px rgba(0,0,0,0.3);
+    transition: 300ms ease-in-out;
+    margin-bottom: 25px;
+  }
+
+  .button {
+    padding: 15px 25px;
+    border: unset;
+    border-radius: 15px;
+    color: #e8e8e8;
+    z-index: 1;
+    background:
+    radial-gradient(
+      circle at 50% 0,
+      rgba(255, 0, 197, 1),
+      rgba(255, 0, 0, 0) 70.71%
+    ),
+    radial-gradient(
+      circle at 6.7% 75%,
+      rgb(230, 0, 255),
+      rgba(0, 0, 255, 0) 70.71%
+    ),
+    radial-gradient(
+        circle at 93.3% 75%,
+        rgb(223, 73, 156),
+        rgba(0, 255, 0, 0) 70.71%
+      ) beige;
+    position: relative;
+    font-weight: 600;
+    font-size: 17px;
+    box-shadow: 13px 13px 100px #969696,
+    -13px -13px 100px #ffffff;
+    transition: all 250ms;
+    overflow: hidden;
+
+    width: 100%;
+   }
+   
+   .button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    border-radius: 15px;
+    background-color: #fff;
+    z-index: -1;
+    -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    transition: all 250ms
+   }
+   
+   .button:hover {
+    color: #000;
+    background-color: #e8e8e8;
+    transform: scale(1.05);
+    box-shadow: 13px 13px 100px #969696,
+               -13px -13px 100px #ffffff;
+   }
+   
+   .button:hover::before {
+    width: 100%;
+   }
+
+   .heading {
+    text-align: center;
+    font-family: "Six Caps", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    color: #000;
+    font-size: 3rem;;
+  }
+
+ 
+  
+

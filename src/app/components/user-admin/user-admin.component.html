@@ -1,3 +1,8 @@
+<body>
+  
+
+
+
 <div>
 
 
@@ -8,29 +13,183 @@
   <div class="content">
 
     <div class="btnContent" style="display: flex; width: 90rem;">
-      <div style="width: 15%; display: flex; justify-content: space-evenly;">\
+      <div style="width: 15%; display: flex; justify-content: space-evenly;">
   
-        <button mat-fab aria-label="Agregar" (click)="create()">
+        <button mat-fab aria-label="crear" class="btn" data-bs-toggle="modal" data-bs-target="#Crear" data-bs-whatever="@mdo">
           <mat-icon>add</mat-icon>
         </button>
+
+         
+
   
-        <button mat-fab aria-label="Actualizar" [disabled]="selection.selected.length != 1" (click)="update()">
+        <button mat-fab aria-label="Actualizar" [disabled]="selection.selected.length != 1" (click)="update()" class="btn" data-bs-toggle="modal" data-bs-target="#Actualizar" data-bs-whatever="@mdo">
           <mat-icon>edit</mat-icon>
         </button>
   
-        <button mat-fab aria-label="Eliminar" [disabled]="selection.selected.length == 0" (click)="deleteSelected()">
+        <button mat-fab aria-label="Eliminar" [disabled]="selection.selected.length == 0" (click)="deleteSelected()" class="btn">
           <mat-icon>delete</mat-icon>
         </button>
       </div>
   
-      <mat-form-field style="width: 20%;">
+      <mat-form-field >
         <mat-label>Buscar</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Ej. Randy" #filter>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ej. Randy" #filter >
       </mat-form-field>
   
     </div>
 
-    <table mat-table [dataSource]="dataSource" matSort>
+
+   <!-- Dialogo crear-->
+
+    <div class="modal fade" id="Crear" tabindex="-1" aria-labelledby="Crear" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="heading" id="Crear">Crear Usuario</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+
+          <div class="modal-body">
+
+            <form>
+              <div class="mb-3">
+                <input id="cedula" type="number" #cedula="ngModel" name="cedula" autocomplete="off" name="cedula" class="input" placeholder="Cedula" pattern="" [(ngModel)]="user.cedula" required>
+              @if (!cedula.valid && cedula.touched) {
+                <small class="invalid-feedback d-block">Formato invalido</small>
+              }
+
+              <input id="nombre" type="text" #nombre="ngModel" autocomplete="off" name="nombre" class="input" placeholder="Nombre" pattern="" [(ngModel)]="user.nombre" required>
+              @if (!nombre.valid && nombre.touched) {
+                <small class="invalid-feedback d-block">Formato invalido</small>
+              }
+
+              <input id="apellido" type="text" #apellido="ngModel" autocomplete="off" name="apellido" class="input" placeholder="Apellido" pattern="" [(ngModel)]="user.apellido" required>
+              @if (!apellido.valid && apellido.touched) {
+                <small class="invalid-feedback d-block">Formato invalido</small>
+              }
+
+              <input id="telefono" type="text" #telefono="ngModel" autocomplete="off" name="telefono" class="input" placeholder="Telefono" pattern="" [(ngModel)]="user.telefono" required>
+              @if (!telefono.valid && telefono.touched) {
+                <small class="invalid-feedback d-block">Formato invalido</small>
+              }
+              </div>
+              <div class="mb-3">
+
+                <input id="usuario" type="text" #usuario="ngModel" autocomplete="off" name="usuario" class="input" placeholder="Usuario" pattern="" [(ngModel)]="user.usuario" required>
+                @if (!usuario.valid && usuario.touched) {
+                  <small class="invalid-feedback d-block">Formato invalido</small>
+                }
+  
+                <input id="correo" type="email" #correo="ngModel" autocomplete="off" name="correo"  class="form-control input" placeholder="Correo" pattern="[a-z0-9]+[_a-z0-9\.-]*[a-z0-9]+@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})" [(ngModel)]="user.correo " required>
+                @if (!correo.valid && correo.touched) {
+                  <small class="invalid-feedback d-block">Formato invalido</small>
+                }
+  
+                <input id="password" type="password" #password="ngModel" autocomplete="off" name="password" class="form-control input" placeholder="Contraseña" pattern="" [(ngModel)]="user.password" required>
+                @if (!password.valid && password.touched) {
+                  <small class="invalid-feedback d-block">Formato invalido</small>
+                }
+  
+  
+                <input id="imagen" type="file" #imagen="ngModel" autocomplete="off" name="imagen" class="input" placeholder="Foto" pattern="" [(ngModel)]="user.imagen" required>
+                @if (!imagen.valid && imagen.touched) {
+                  <small class="invalid-feedback d-block">Formato invalido</small>
+                }
+  
+              </div>
+            </form>
+
+          </div>
+
+
+          <div class="modal-footer">
+            <button type="button" class="button" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="button">Crear</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- Dialogo Actualizar-->
+
+    <div class="modal fade" id="Actualizar" tabindex="-1" aria-labelledby="Actualizar" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="heading" id="Actualizar">Actualizar Usuario</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+
+          <div class="modal-body">
+
+            <form>
+              <div class="mb-3">
+                <input id="cedula" type="number" #cedula="ngModel" name="cedula" autocomplete="off" name="cedula" class="input" placeholder="Cedula" pattern="" [(ngModel)]="user.cedula" required>
+              @if (!cedula.valid && cedula.touched) {
+                <small class="invalid-feedback d-block">Formato invalido</small>
+              }
+
+              <input id="nombre" type="text" #nombre="ngModel" autocomplete="off" name="nombre" class="input" placeholder="Nombre" pattern="" [(ngModel)]="user.nombre" required>
+              @if (!nombre.valid && nombre.touched) {
+                <small class="invalid-feedback d-block">Formato invalido</small>
+              }
+
+              <input id="apellido" type="text" #apellido="ngModel" autocomplete="off" name="apellido" class="input" placeholder="Apellido" pattern="" [(ngModel)]="user.apellido" required>
+              @if (!apellido.valid && apellido.touched) {
+                <small class="invalid-feedback d-block">Formato invalido</small>
+              }
+
+              <input id="telefono" type="text" #telefono="ngModel" autocomplete="off" name="telefono" class="input" placeholder="Telefono" pattern="" [(ngModel)]="user.telefono" required>
+              @if (!telefono.valid && telefono.touched) {
+                <small class="invalid-feedback d-block">Formato invalido</small>
+              }
+              </div>
+              <div class="mb-3">
+
+                <input id="usuario" type="text" #usuario="ngModel" autocomplete="off" name="usuario" class="input" placeholder="Usuario" pattern="" [(ngModel)]="user.usuario" required>
+                @if (!usuario.valid && usuario.touched) {
+                  <small class="invalid-feedback d-block">Formato invalido</small>
+                }
+  
+                <input id="correo" type="email" #correo="ngModel" autocomplete="off" name="correo"  class="form-control input" placeholder="Correo" pattern="[a-z0-9]+[_a-z0-9\.-]*[a-z0-9]+@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})" [(ngModel)]="user.correo " required>
+                @if (!correo.valid && correo.touched) {
+                  <small class="invalid-feedback d-block">Formato invalido</small>
+                }
+  
+                <input id="password" type="password" #password="ngModel" autocomplete="off" name="password" class="form-control input" placeholder="Contraseña" pattern="" [(ngModel)]="user.password" required>
+                @if (!password.valid && password.touched) {
+                  <small class="invalid-feedback d-block">Formato invalido</small>
+                }
+  
+  
+                <input id="imagen" type="file" #imagen="ngModel" autocomplete="off" name="imagen" class="input" placeholder="Foto" pattern="" [(ngModel)]="user.imagen" required>
+                @if (!imagen.valid && imagen.touched) {
+                  <small class="invalid-feedback d-block">Formato invalido</small>
+                }
+  
+              </div>
+            </form>
+
+          </div>
+
+
+          <div class="modal-footer">
+            <button type="button" class="button" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="button">Actualizar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+    <table mat-table [dataSource]="dataSource" matSort class="tabla">
 
       <!-- Checkbox Column -->
       <ng-container matColumnDef="select">
@@ -123,3 +282,5 @@
 
 
 </div>
+
+</body>

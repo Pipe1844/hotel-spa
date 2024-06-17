@@ -11,7 +11,10 @@ import { ExtraAdminComponent } from './components/extra-admin/extra-admin.compon
 import { ExtraResAdminComponent } from './components/extra-res-admin/extra-res-admin.component';
 import { FoodResAdminComponent } from './components/food-res-admin/food-res-admin.component';
 import { RoomResAdminComponent } from './components/room-res-admin/room-res-admin.component';
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1137d3865b2616b4514bb3777e34822565e6c27b
 
 export const routes: Routes = [
     {path:'',component:HomeComponent},
