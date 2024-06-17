@@ -11,7 +11,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { SelectionModel } from '@angular/cdk/collections';
-import { server } from '../../services/global ';
 import { RoomTypeService } from '../../services/RoomType.service';
 import { User } from '../../models/User';
 import { UserService } from '../../services/User.services';
@@ -158,7 +157,6 @@ export class RoomTypeAdminComponent implements AfterViewInit {
         }
       })
     });
-
   }
   /****************************************************************Demás métodos******************************************************************************************************/
 }

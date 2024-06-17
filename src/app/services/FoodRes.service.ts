@@ -16,7 +16,14 @@ export class FoodResService {
     }
 
     index(): Observable<any> {
-        let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+        let headers;
+        let bearerToken = sessionStorage.getItem('token');
+        if (bearerToken) {
+            headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+                .set('bearertoken', bearerToken);
+        } else {
+            headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+        }
         let options = {
             headers
         }

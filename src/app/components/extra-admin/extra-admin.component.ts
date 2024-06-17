@@ -14,46 +14,45 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { server } from '../../services/global ';
 import { User } from '../../models/User';
 import { UserService } from '../../services/User.services';
-import { RoomService } from '../../services/Room.service';
-import { Room } from '../../models/Room';
-import { RoomTypeService } from '../../services/RoomType.service';
+import { ExtraService } from '../../services/Extra.service';
+import { Extra } from '../../models/Extra';
 
 @Component({
-  selector: 'app-room-admin',
+  selector: 'app-extra-admin',
   standalone: true,
   imports: [MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatFormFieldModule,
-    MatInputModule, MatTableModule, MatSlideToggleModule, FormsModule, MatIconModule,
-    MatButtonModule, ReactiveFormsModule, MatTableModule, MatCheckboxModule, MatDividerModule,
-  ],
-  templateUrl: './room-admin.component.html',
-  styleUrl: './room-admin.component.css',
-  providers: [UserService, RoomService, RoomTypeService]
+            MatInputModule, MatTableModule, MatSlideToggleModule, FormsModule, MatIconModule,
+            MatButtonModule, ReactiveFormsModule, MatTableModule, MatCheckboxModule, MatDividerModule,
+          ],
+  templateUrl: './extra-admin.component.html',
+  styleUrl: './extra-admin.component.css',
+  providers: [UserService, ExtraService]
 })
-export class RoomAdminComponent {
+export class ExtraAdminComponent {
   private checkAutorization;
   public user: User;
   public identity: any;
-  public room: Room;
+  public extra: Extra;
   public urlGetImageApi: string = server.url + "room/getimage/";
   public selectedFile: File | null = null;
 
   /******************************************Variables para la tabla**************************************************************************/
 
-  displayedColumns: string[] = ['select', 'id', 'idTipoHabitacion', 'ubicacion', 'imagen'];
-  dataSource = new MatTableDataSource<Room>([]);
-  selection = new SelectionModel<Room>(true, []);
+  displayedColumns: string[] = ['select', 'id', 'nombre', 'ubicacion', 'precio', 'capacidad', 'imagen'];
+  dataSource = new MatTableDataSource<Extra>([]);
+  selection = new SelectionModel<Extra>(true, []);
 
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private userService: UserService, private roomService: RoomService, private roomTypeService: RoomTypeService) {
+  constructor(private userService: UserService, private extraService: ExtraService) {
     this.user = new User(1, 1, "", "", "", "", "", "", "", "");
     this.identity = this.userService.getIdentityFromStorage();
     this.checkAutorization = setInterval(() => {
       this.identity = this.userService.getIdentityFromStorage();
     }, 1000)
-    this.room = new Room(1, 1, "", "");
+    this.extra = new Extra(1, "", "", 0, 0, "");
     this.index();
   }
 
@@ -88,7 +87,7 @@ export class RoomAdminComponent {
   }
 
   /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: Room): string {
+  checkboxLabel(row?: Extra): string {
     if (!row) {
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
     }
@@ -98,7 +97,7 @@ export class RoomAdminComponent {
   /**************************************************************Métodos del Service**********************************************************************************/
 
   index() {
-    this.roomService.index().subscribe({
+    this.extraService.index().subscribe({
       next: (response: any) => {
         this.dataSource.data = response['data'];
         console.log(this.dataSource.data);
@@ -117,8 +116,8 @@ export class RoomAdminComponent {
     } else {
       filename = this.uploadImage();
     }
-    this.room = new Room(1, 1, "Pasillo principal", filename);
-    this.roomService.create(this.room).subscribe({
+    this.extra = new Extra(1, "Teatro", "Costado este", 300000, 120, filename);
+    this.extraService.create(this.extra).subscribe({
       next: (response: any) => {
         console.log(response);
       },
@@ -137,9 +136,9 @@ export class RoomAdminComponent {
   update() {
     let filename: any;
 
-    if (this.room.imagen != "") {
+    if (this.extra.imagen != "") {
       if (this.selectedFile != null) {
-        filename = this.updateImage(this.room.imagen);
+        filename = this.updateImage(this.extra.imagen);
       }
     } else {
       if (this.selectedFile == null) {
@@ -149,8 +148,8 @@ export class RoomAdminComponent {
       }
     }
 
-    this.room = new Room(3, 2, "Lado derecho de recepción", filename);
-    this.roomService.update(this.room).subscribe({
+    this.extra = new Extra(4, "Teatro", "Costado este", 200000, 120, filename);
+    this.extraService.update(this.extra).subscribe({
       next: (response: any) => {
         console.log(response);
       },
@@ -169,7 +168,7 @@ export class RoomAdminComponent {
   deleteSelected() {
     this.selection.selected.forEach(room => {
 
-      this.roomService.delete(room.id).subscribe({
+      this.extraService.delete(room.id).subscribe({
         next: (response: any) => {
           console.log('Eliminado: ' + room.id);
         },
@@ -186,25 +185,10 @@ export class RoomAdminComponent {
     this.selection.clear();
   }
 
-  /*******************************************************************Métodos RoomTypeService**********************************************************************************************/
-
-  showRoomType(id: number): any {
-    this.roomTypeService.show(id).subscribe({
-      next: (response: any) => {
-        console.log(response['data'].nombre);
-        return response['data'].nombre;
-      },
-      error: (err: Error) => {
-        console.log(err);
-        return null;
-      }
-    })
-  }
-
   /*******************************************************************Métodos imagen**********************************************************************************************/
 
   uploadImage(): any {
-    this.roomService.uploadImage(this.selectedFile!).subscribe({
+    this.extraService.uploadImage(this.selectedFile!).subscribe({
       next: (response: any) => {
         console.log(response);
         return response['filename'];
@@ -217,7 +201,7 @@ export class RoomAdminComponent {
   }
 
   updateImage(filename: string) {
-    this.roomService.updateImage(this.selectedFile!, filename).subscribe({
+    this.extraService.updateImage(this.selectedFile!, filename).subscribe({
       next: (response: any) => {
         console.log(response);
         return response['filename'];

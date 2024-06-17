@@ -5,7 +5,15 @@ import { LoginComponent } from './components/login/login.component';
 import { UserAdminComponent } from './components/user-admin/user-admin.component';
 import { RoomTypeAdminComponent } from './components/room-type-admin/room-type-admin.component';
 import { RoomAdminComponent } from './components/room-admin/room-admin.component';
+<<<<<<< HEAD
 import { SignupComponent } from './components/signup/signup.component';
+=======
+import { FoodAdminComponent } from './components/food-admin/food-admin.component';
+import { ExtraAdminComponent } from './components/extra-admin/extra-admin.component';
+import { ExtraResAdminComponent } from './components/extra-res-admin/extra-res-admin.component';
+import { FoodResAdminComponent } from './components/food-res-admin/food-res-admin.component';
+import { RoomResAdminComponent } from './components/room-res-admin/room-res-admin.component';
+>>>>>>> 57fe7e5a18b04bd50cbb26e3edc1220aaa64d843
 
 export const routes: Routes = [
     {path:'',component:HomeComponent},
@@ -15,5 +23,10 @@ export const routes: Routes = [
     {path:'userAdmin',component:UserAdminComponent},
     {path:'roomTypeAdmin',component:RoomTypeAdminComponent},
     {path:'roomAdmin',component:RoomAdminComponent},
+    {path:'foodAdmin',component:FoodAdminComponent},
+    {path:'extraAdmin',component:ExtraAdminComponent},
+    {path:'extraResAdmin',component:ExtraResAdminComponent},
+    {path:'foodResAdmin',component:FoodResAdminComponent},
+    {path:'roomResAdmin',component:RoomResAdminComponent},
     {path:'**',component:ErrorComponent},
 ];

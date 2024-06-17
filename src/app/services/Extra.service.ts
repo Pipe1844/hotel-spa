@@ -85,7 +85,7 @@ export class ExtraService{
 
     /*******************************************************************Métodos imagen**********************************************************************************************/
 
-    upLoadImage(image: File): Observable<any> {
+    uploadImage(image: File): Observable<any> {
         const formData: FormData = new FormData();
         formData.append('file', image, image.name);
         const bearerToken = sessionStorage.getItem('token');

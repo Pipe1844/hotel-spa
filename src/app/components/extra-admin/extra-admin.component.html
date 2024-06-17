@@ -36,31 +36,43 @@
         <!-- Id Column -->
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-          <td mat-cell *matCellDef="let room"> {{room.id}} </td>
+          <td mat-cell *matCellDef="let extra"> {{extra.id}} </td>
         </ng-container>
   
-        <!-- TipoHabitacion Column -->
-        <ng-container matColumnDef="idTipoHabitacion">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo Habitación </th>
-          <td mat-cell *matCellDef="let room"> {{room.idTipoHabitacion}} </td>
+        <!-- Nombre Column -->
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+          <td mat-cell *matCellDef="let extra"> {{extra.nombre}} </td>
         </ng-container>
   
-        <!-- ubicacion Column -->
+        <!-- Ubicacion Column -->
         <ng-container matColumnDef="ubicacion">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Ubicacion </th>
-          <td mat-cell *matCellDef="let room"> {{room.ubicacion}} </td>
+          <td mat-cell *matCellDef="let extra"> {{extra.ubicacion}} </td>
         </ng-container>
+
+        <!-- Precio Column -->
+        <ng-container matColumnDef="precio">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio </th>
+            <td mat-cell *matCellDef="let extra"> {{extra.precio}} </td>
+          </ng-container>
+
+        <!-- Capacidad Column -->
+        <ng-container matColumnDef="capacidad">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Capacidad </th>
+            <td mat-cell *matCellDef="let extra"> {{extra.capacidad}} </td>
+          </ng-container>
   
-        <!-- Image Column -->
+        <!-- Imagen Column -->
         <ng-container matColumnDef="imagen">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Imagen </th>
-          <td mat-cell *matCellDef="let room">
-            <img src="{{urlGetImageApi}}{{room.imagen}}" alt="" style="width: 100px;">
+          <td mat-cell *matCellDef="let extra">
+            <img src="{{urlGetImageApi}}{{extra.imagen}}" alt="" style="width: 100px;">
           </td>
         </ng-container>
   
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let room; columns: displayedColumns;" (click)="selection.toggle(room)">
+        <tr mat-row *matRowDef="let extra; columns: displayedColumns;" (click)="selection.toggle(extra)">
   
           <!-- Row shown when there is no matching data. -->
         <tr class="mat-row" *matNoDataRow>

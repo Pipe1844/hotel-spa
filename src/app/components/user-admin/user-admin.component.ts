@@ -195,6 +195,10 @@ export class UserAdminComponent implements AfterViewInit {
           },
           error: (err: Error) => {
             console.log(err);
+          },
+          complete: () => {
+            this.index();
+            this.selection.clear();
           }
         })
       } else {
