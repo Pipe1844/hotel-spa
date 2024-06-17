@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { User } from '../../models/User';
+import { User } from '../../models/user';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { RouterOutlet } from '@angular/router';
-import { UserService } from '../../services/User.services';
+import { UserService } from '../../services/user.services';
 
 
 @Component({

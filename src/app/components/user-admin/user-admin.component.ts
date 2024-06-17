@@ -12,8 +12,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { SelectionModel } from '@angular/cdk/collections';
 import { server } from '../../services/global ';
-import { User } from '../../models/User';
-import { UserService } from '../../services/User.services';
+import { User } from '../../models/user';
+import { UserService } from '../../services/user.services';
 
 @Component({
   selector: 'app-user-admin',

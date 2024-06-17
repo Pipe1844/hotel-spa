@@ -12,8 +12,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { SelectionModel } from '@angular/cdk/collections';
 import { RoomTypeService } from '../../services/RoomType.service';
-import { User } from '../../models/User';
-import { UserService } from '../../services/User.services';
+import { User } from '../../models/user';
+import { UserService } from '../../services/user.services';
 import { RoomType } from '../../models/RoomType';
 
 @Component({

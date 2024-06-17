@@ -12,9 +12,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { SelectionModel } from '@angular/cdk/collections';
 import { FoodService } from '../../services/Food.service';
-import { UserService } from '../../services/User.services';
+import { UserService } from '../../services/user.services';
 import { FoodResService } from '../../services/FoodRes.service';
-import { User } from '../../models/User';
+import { User } from '../../models/user';
 import { FoodRes } from '../../models/FoodRes';
 
 @Component({

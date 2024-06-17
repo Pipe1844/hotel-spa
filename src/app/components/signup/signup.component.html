@@ -11,6 +11,9 @@
             @case (2) {
                 <p>Error de servidor!</p>
             }
+            @default {
+
+            }
         }
     </span>
 
@@ -80,10 +83,7 @@
               }
 
 
-              <input id="imagen" type="file" #imagen="ngModel" autocomplete="off" name="imagen" class="input" placeholder="Foto" pattern="" [(ngModel)]="user.imagen" required>
-              @if (!imagen.valid && imagen.touched) {
-                <small class="invalid-feedback d-block">Formato invalido</small>
-              }
+              <input id="imagen" type="file" autocomplete="off" name="imagen" class="input" placeholder="Foto" (change)="onImageFileChange($event)">
 
 
               </div>

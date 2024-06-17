@@ -11,9 +11,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { SelectionModel } from '@angular/cdk/collections';
-import { UserService } from '../../services/User.services';
+import { UserService } from '../../services/user.services';
 import { RoomResService } from '../../services/RoomRes.service';
-import { User } from '../../models/User';
+import { User } from '../../models/user';
 import { RoomRes } from '../../models/RoomRes';
 
 @Component({
