@@ -16,11 +16,18 @@ export class ExtraResService{
     }
     
     index(): Observable<any> {
-        let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+        let headers;
+        let bearerToken = sessionStorage.getItem('token');
+        if (bearerToken) {
+            headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+                .set('bearertoken', bearerToken);
+        } else {
+            headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+        }
         let options = {
             headers
         }
-        return this._hhttp.get(this.urlAPI + 'foodres', options);
+        return this._hhttp.get(this.urlAPI + 'extrares', options);
     }
 
     show(id:number): Observable<any> {
@@ -28,7 +35,7 @@ export class ExtraResService{
         let options = {
             headers
         }
-        return this._hhttp.get(this.urlAPI + 'foodres/' + id, options);
+        return this._hhttp.get(this.urlAPI + 'extrares/' + id, options);
     }
 
     create(extraRes:ExtraRes):Observable<any>{
@@ -47,7 +54,7 @@ export class ExtraResService{
             headers
         }
 
-        return this._hhttp.post(this.urlAPI + 'foodres/store', params, options)
+        return this._hhttp.post(this.urlAPI + 'extrares/store', params, options)
     }
 
     update(extraRes:ExtraRes):Observable<any>{
@@ -66,7 +73,7 @@ export class ExtraResService{
             headers
         }
 
-        return this._hhttp.put(this.urlAPI + 'foodres/update', params, options)
+        return this._hhttp.put(this.urlAPI + 'extrares/update', params, options)
     }
 
     delete(id:number):Observable<any> {
@@ -80,6 +87,6 @@ export class ExtraResService{
         let options = {
             headers
         };
-        return this._hhttp.delete(this.urlAPI + 'foodres/' + id, options);
+        return this._hhttp.delete(this.urlAPI + 'extrares/' + id, options);
     }
 }

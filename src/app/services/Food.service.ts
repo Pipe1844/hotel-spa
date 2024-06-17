@@ -16,11 +16,18 @@ export class FoodService{
     }
 
     index(): Observable<any> {
-        let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+        let headers;
+        let bearerToken = sessionStorage.getItem('token');
+        if (bearerToken) {
+            headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+                .set('bearertoken', bearerToken);
+        } else {
+            headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+        }
         let options = {
             headers
         }
-        return this._hhttp.get(this.urlAPI + 'room', options);
+        return this._hhttp.get(this.urlAPI + 'food', options);
     }
 
     show(id:number): Observable<any> {
@@ -28,7 +35,7 @@ export class FoodService{
         let options = {
             headers
         }
-        return this._hhttp.get(this.urlAPI + 'room/' + id, options);
+        return this._hhttp.get(this.urlAPI + 'food/' + id, options);
     }
 
     create(Food:Food):Observable<any>{
@@ -47,7 +54,7 @@ export class FoodService{
             headers
         }
 
-        return this._hhttp.post(this.urlAPI + 'room/store', params, options)
+        return this._hhttp.post(this.urlAPI + 'food/store', params, options)
     }
 
     update(food:Food):Observable<any>{
@@ -66,7 +73,7 @@ export class FoodService{
             headers
         }
 
-        return this._hhttp.put(this.urlAPI + 'room/update', params, options)
+        return this._hhttp.put(this.urlAPI + 'food/update', params, options)
     }
 
     delete(id:number):Observable<any> {
@@ -80,6 +87,6 @@ export class FoodService{
         let options = {
             headers
         };
-        return this._hhttp.delete(this.urlAPI + 'room/' + id, options);
+        return this._hhttp.delete(this.urlAPI + 'food/' + id, options);
     }
 }

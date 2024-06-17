@@ -16,8 +16,14 @@ export class RoomResService{
     }
 
     index(): Observable<any> {
-        let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-        let options = {
+        let headers;
+        let bearerToken = sessionStorage.getItem('token');
+        if (bearerToken) {
+            headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+                .set('bearertoken', bearerToken);
+        } else {
+            headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+        }        let options = {
             headers
         }
         return this._hhttp.get(this.urlAPI + 'roomres', options);
