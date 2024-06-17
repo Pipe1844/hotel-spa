@@ -14,6 +14,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { server } from '../../services/global ';
 import { User } from '../../models/User';
 import { UserService } from '../../services/User.services';
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-user-admin',
@@ -34,6 +35,10 @@ export class UserAdminComponent implements AfterViewInit {
   public urlGetImageApi: string = server.url + "user/getimage/";
   public selectedFile: File | null = null;
 
+
+
+
+
   /******************************************Variables para la tabla**************************************************************************/
 
   displayedColumns: string[] = ['select', 'id', 'cedula', 'nombre', 'apellido', 'correo', 'usuario', 'telefono', 'rol', 'imagen'];
@@ -45,7 +50,7 @@ export class UserAdminComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private userService: UserService) {
-    this.user = new User(1, 1, "", "", "", "", "", "", "", "");
+    this.user = new User(1, null, "", "", "", "", "", "", "", "");
     this.identity = this.userService.getIdentityFromStorage();
     this.checkAutorization = setInterval(() => {
       this.identity = this.userService.getIdentityFromStorage();
@@ -243,3 +248,6 @@ export class UserAdminComponent implements AfterViewInit {
     this.selectedFile = event.target.files[0];
   }
 }
+
+
+/****************************************************************Dialog******************************************************************************************************/
