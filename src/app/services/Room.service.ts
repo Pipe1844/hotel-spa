@@ -104,7 +104,7 @@ export class RoomService{
         if (bearerToken) {
             headers = headers.set('bearertoken', `${bearerToken}`);
         }
-        return this._hhttp.put(this.urlAPI + 'room/updateimage/' + filename, formData, { headers });
+        return this._hhttp.post(this.urlAPI + 'room/updateimage/' + filename, formData, { headers });
     }
 
     getImage(filename: string): Observable<any> {
