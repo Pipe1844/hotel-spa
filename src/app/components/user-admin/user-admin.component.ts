@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild, ElementRef } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -14,16 +14,16 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { server } from '../../services/global ';
 import { User } from '../../models/user';
 import { UserService } from '../../services/user.services';
-import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 
 @Component({
   selector: 'app-user-admin',
   standalone: true,
   imports: [MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatFormFieldModule,
-    MatInputModule, MatTableModule, MatSlideToggleModule, FormsModule, MatIconModule,
-    MatButtonModule, ReactiveFormsModule, MatTableModule, MatCheckboxModule, MatDividerModule,
-  ],
+            MatInputModule, MatTableModule, MatSlideToggleModule, FormsModule, MatIconModule,
+            MatButtonModule, ReactiveFormsModule, MatTableModule, MatCheckboxModule, MatDividerModule,
+          ],
   templateUrl: './user-admin.component.html',
   styleUrl: './user-admin.component.css',
   providers: [UserService]
@@ -35,10 +35,6 @@ export class UserAdminComponent implements AfterViewInit {
   public identity: any;
   public urlGetImageApi: string = server.url + "user/getimage/";
   public selectedFile: File | null = null;
-
-
-
-
 
   /******************************************Variables para la tabla**************************************************************************/
 
@@ -111,61 +107,82 @@ export class UserAdminComponent implements AfterViewInit {
     });
   }
 
-  create(/*form: any*/) {
-    //if (form.valid) {
-    let filename: any;
+  createRow() {
+    this.user.rol = 'cliente';
     if (this.selectedFile == null) {
-      filename = "";
+      this.create("");
     } else {
-      filename = this.uploadImage();
+      this.userService.uploadImage(this.selectedFile!).subscribe({
+        next: (response: any) => {
+          console.log(response['filename']);
+          this.create(response['filename']);
+        },
+        error: (err: Error) => {
+          console.log(err);
+        }
+      });
     }
-    this.user = new User(1, 504510344, "Nathaly", "nath@gmail.com", "1234", "nath", "Ramírez", "70054237", "cliente", filename);
+  }
+
+  create(filename: string) {
+    this.user.imagen = filename;
     this.userService.create(this.user).subscribe({
       next: (response: any) => {
         console.log(response);
       },
-      error: (err: Error) => {
-        console.log(err);
+      error: (error: Error) => {
+        console.log(error);
       },
-      complete:()=>{
+      complete: () => {
         this.index();
         this.selection.clear();
       }
-    })
-    this.index();
-    //}
+    });
   }
 
-  update() {
-    let filename: any;
-
-    if (this.user.imagen != "") {
-      if (this.selectedFile != null) {
-        filename = this.updateImage(this.user.imagen);
-      }
+  updateRow(){
+    if (this.selectedFile == null) {
+      this.update(this.user.imagen);
     } else {
-      if (this.selectedFile == null) {
-        filename = "";
+      if (this.user.imagen == null){
+        this.userService.uploadImage(this.selectedFile!).subscribe({
+          next: (response: any) => {
+            console.log(response['filename']);
+            this.update(response['filename']);
+          },
+          error: (err: Error) => {
+            console.log(err);
+          }
+        });
       } else {
-        filename = this.uploadImage();
+        this.userService.updateImage(this.selectedFile!, this.user.imagen).subscribe({
+          next: (response: any) => {
+            console.log(response['filename']);
+            this.update(response['filename']);
+          },
+          error: (err: Error) => {
+            console.log(err);
+          }
+        });
       }
     }
+  }
 
-    let user = new User(3, 504510344, "Nathaly", "nath@gmail.com", "1234", "Nath", "Ramírez", "70054237", "cliente", filename);
-    this.userService.update(user).subscribe({
+  update(filename:string) {
+    this.user.imagen = filename;
+    console.log(this.user.imagen)
+    this.userService.update(this.user).subscribe({
       next: (response: any) => {
         console.log(response);
       },
       error: (err: Error) => {
         console.log(err);
       },
-      complete:()=>{
+      complete: () => {
         this.index();
         this.selection.clear();
       }
     });
-    this.index();
-    this.selection.clear();
   }
 
   changeRole(id: number, status: boolean) {
@@ -185,7 +202,7 @@ export class UserAdminComponent implements AfterViewInit {
       error: (err: Error) => {
         console.log(err);
       },
-      complete:()=>{
+      complete: () => {
         this.index();
         this.selection.clear();
       }
@@ -234,11 +251,9 @@ export class UserAdminComponent implements AfterViewInit {
     this.userService.updateImage(this.selectedFile!, filename).subscribe({
       next: (response: any) => {
         console.log(response);
-        return response['filename'];
       },
       error: (err: Error) => {
         console.log(err);
-        return "";
       }
     })
   }
@@ -248,7 +263,20 @@ export class UserAdminComponent implements AfterViewInit {
   onImageFileChange(event: any): void {
     this.selectedFile = event.target.files[0];
   }
+
+  resetObject() {
+    this.user = new User(1, null, "", "", "", "", "", "", "", "");
+  }
+
+  /****************************************************************Métodos Dialog******************************************************************************************************/
+
+  setValueOfObject() {
+    this.user = this.selection.selected[0];
+  }
+
+  resetTable(){
+    this.index();
+    this.selection.clear();
+  }
 }
 
-
-/****************************************************************Dialog******************************************************************************************************/

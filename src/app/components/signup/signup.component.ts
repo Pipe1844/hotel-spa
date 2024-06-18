@@ -20,7 +20,7 @@ export class SignupComponent {
   public status: number;
   public user: User;
   public selectedFile: File | null = null;
-  public filename!: string;
+  
   constructor(
     private _userService: UserService,
     private router: Router
@@ -42,7 +42,6 @@ export class SignupComponent {
         },
         error: (err: Error) => {
           console.log(err);
-          this.filename = "";
         }
       });
     }

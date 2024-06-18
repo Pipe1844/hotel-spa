@@ -168,7 +168,7 @@ export class UserService {
         if (bearerToken) {
             headers = headers.set('bearertoken', `${bearerToken}`);
         }
-        return this._hhttp.put(this.urlAPI + 'user/updateimage/' + filename, formData, { headers });
+        return this._hhttp.post(this.urlAPI + 'user/updateimage/' + filename, formData, { headers });
     }
 
     getImage(filename: string): Observable<any> {
