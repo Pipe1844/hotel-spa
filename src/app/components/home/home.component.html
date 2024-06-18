@@ -118,7 +118,7 @@
 
     <div class="right">
 
-      <iframe src='https://my.spline.design/untitled-cf2656c90a05eb2a46fa733202c596bf/' frameborder='0' width='150%'
+      <iframe src='https://my.spline.design/miniroomcopy-c4c6acee557350946eb7217984bb90dc/' frameborder='0' width='150%'
         height='150%'></iframe>
 
     </div>
@@ -131,18 +131,23 @@
       <div class="row row-cols-1 row-cols-md-3 g-4 py-5">
 
           <div class="col">
+
+
+            @for (room of rooms; track $index) {
               <div class="card">
-                  <img src="https://media.istockphoto.com/id/1467126728/es/foto/dise%C3%B1o-interior-de-dormitorio-moderno-escandinavo-y-japon%C3%A9sdi-con-cama-color-blanco-mesa-y.jpg?s=612x612&w=0&k=20&c=-B23X_0Qnt8RnFvsGJa7PFKuDL0cskPhNBPdSIGuoYg=" class="card-img-top" alt="...">
+                  <img src="{{urlGetImageApi}}{{room.imagen}}" class="card-img-top" alt="...">
                   <div class="card-body">
-                      <h5 class="card-title">Habitacion</h5>
-                      <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam
-                          dignissimos accusantium amet similique velit iste.</p>
+                      <h5 class="card-title">Habitacion Numero {{room.id}}</h5>
+                      <p class="card-text"> {{room.ubicacion}}</p>
                   </div>
                   <div class="mb-5 d-flex justify-content-around">
-                      <h3>190 $</h3>
+                      <h3>Precio</h3>
                       <button class="btn btn-primary">Reservar</button>
                   </div>
               </div>
+
+            }
+
           </div>
 
         </div>
@@ -157,10 +162,3 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
 
-<script>
-  const nav = document.querySelector('nav')
-
-  window.addEventListener('scroll', function () {
-    nav.classList.toggle('active', window.scrollY > 0)
-  })
-</script>
