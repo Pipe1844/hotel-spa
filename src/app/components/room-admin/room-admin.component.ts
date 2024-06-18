@@ -170,7 +170,7 @@ export class RoomAdminComponent {
     if (this.selectedFile == null) {
       this.update(this.room.imagen);
     } else {
-      if (this.room.imagen == null){
+      if (this.room.imagen == null || this.room.imagen == "" ){
         this.roomService.uploadImage(this.selectedFile!).subscribe({
           next: (response: any) => {
             console.log(response['filename']);
