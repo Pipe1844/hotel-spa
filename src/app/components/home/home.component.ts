@@ -41,6 +41,10 @@ export class HomeComponent {
     });
   }
 
+  logOut(){
+    sessionStorage.clear();
+  }
+
 }
 
 

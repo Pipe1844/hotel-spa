@@ -28,10 +28,8 @@ export class AdminComponent {
   getAuth() {
     this.userService.getAuthTokenFromAPI().subscribe({
       next: (response: any) => {
-        console.log(response);
         if (response) {
           this.identity = this.userService.getIdentityFromStorage();
-          console.log(this.identity);
         } else {
           sessionStorage.clear();
           console.log("Sesión borrada");
