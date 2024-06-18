@@ -11,11 +11,14 @@ import { ExtraAdminComponent } from './components/extra-admin/extra-admin.compon
 import { ExtraResAdminComponent } from './components/extra-res-admin/extra-res-admin.component';
 import { FoodResAdminComponent } from './components/food-res-admin/food-res-admin.component';
 import { RoomResAdminComponent } from './components/room-res-admin/room-res-admin.component';
+import { AdminComponent } from './components/admin/admin.component';
+
 export const routes: Routes = [
     {path:'',component:HomeComponent},
     {path:'home',component:HomeComponent},
     {path:'login',component:LoginComponent},
     {path:'signup',component:SignupComponent},
+    {path:'admin',component:AdminComponent},
     {path:'userAdmin',component:UserAdminComponent},
     {path:'roomTypeAdmin',component:RoomTypeAdminComponent},
     {path:'roomAdmin',component:RoomAdminComponent},
