@@ -11,6 +11,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { SelectionModel } from '@angular/cdk/collections';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { server } from '../../services/global ';
 import { User } from '../../models/user';
 import { UserService } from '../../services/user.services';
@@ -23,6 +24,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
   imports: [MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatFormFieldModule,
             MatInputModule, MatTableModule, MatSlideToggleModule, FormsModule, MatIconModule,
             MatButtonModule, ReactiveFormsModule, MatTableModule, MatCheckboxModule, MatDividerModule,
+            RouterOutlet, RouterLink
           ],
   templateUrl: './user-admin.component.html',
   styleUrl: './user-admin.component.css',

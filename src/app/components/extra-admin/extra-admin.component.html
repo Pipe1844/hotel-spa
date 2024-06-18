@@ -6,6 +6,10 @@
       <div style="display: flex; width: 90rem;">
         <div style="width: 15%; display: flex; justify-content: space-evenly;">
 
+          <button mat-fab aria-label="Eliminar" [routerLink]="['../admin']" class="btn">
+            <mat-icon>update</mat-icon>
+          </button>
+
           <button mat-fab aria-label="crear" class="btn" data-bs-toggle="modal" data-bs-target="#Crear"
             data-bs-whatever="@mdo" (click)="resetObject()">
             <mat-icon>add</mat-icon>
@@ -43,9 +47,8 @@
 
               <form>
                 <div class="mb-3">
-                  <input id="nombre" type="text" #nombre="ngModel" name="nombre"
-                    autocomplete="off" name="nombre" class="input" placeholder="Nombre" pattern=""
-                    [(ngModel)]="extra.nombre" required>
+                  <input id="nombre" type="text" #nombre="ngModel" name="nombre" autocomplete="off" name="nombre"
+                    class="input" placeholder="Nombre" pattern="" [(ngModel)]="extra.nombre" required>
                   @if (!nombre.valid && nombre.touched) {
                   <small class="invalid-feedback d-block">Formato invalido</small>
                   }
@@ -56,16 +59,15 @@
                   <small class="invalid-feedback d-block">Formato invalido</small>
                   }
 
-                  <input id="precio" type="number" #precio="ngModel" name="precio"
-                    autocomplete="off" name="precio" class="input" placeholder="Precio" pattern=""
-                    [(ngModel)]="extra.precio" required>
+                  <input id="precio" type="number" #precio="ngModel" name="precio" autocomplete="off" name="precio"
+                    class="input" placeholder="Precio" pattern="" [(ngModel)]="extra.precio" required>
                   @if (!precio.valid && precio.touched) {
                   <small class="invalid-feedback d-block">Formato invalido</small>
                   }
 
-                  <input id="capacidad" type="number" #capacidad="ngModel" name="capacidad"
-                    autocomplete="off" name="capacidad" class="input" placeholder="Capacidad" pattern=""
-                    [(ngModel)]="extra.capacidad" required>
+                  <input id="capacidad" type="number" #capacidad="ngModel" name="capacidad" autocomplete="off"
+                    name="capacidad" class="input" placeholder="Capacidad" pattern="" [(ngModel)]="extra.capacidad"
+                    required>
                   @if (!capacidad.valid && capacidad.touched) {
                   <small class="invalid-feedback d-block">Formato invalido</small>
                   }
@@ -101,9 +103,8 @@
 
               <form>
                 <div class="mb-3">
-                  <input id="nombre" type="text" #nombre="ngModel" name="nombre"
-                    autocomplete="off" name="nombre" class="input" placeholder="Nombre" pattern=""
-                    [(ngModel)]="extra.nombre" required>
+                  <input id="nombre" type="text" #nombre="ngModel" name="nombre" autocomplete="off" name="nombre"
+                    class="input" placeholder="Nombre" pattern="" [(ngModel)]="extra.nombre" required>
                   @if (!nombre.valid && nombre.touched) {
                   <small class="invalid-feedback d-block">Formato invalido</small>
                   }
@@ -114,16 +115,15 @@
                   <small class="invalid-feedback d-block">Formato invalido</small>
                   }
 
-                  <input id="precio" type="number" #precio="ngModel" name="precio"
-                    autocomplete="off" name="precio" class="input" placeholder="Precio" pattern=""
-                    [(ngModel)]="extra.precio" required>
+                  <input id="precio" type="number" #precio="ngModel" name="precio" autocomplete="off" name="precio"
+                    class="input" placeholder="Precio" pattern="" [(ngModel)]="extra.precio" required>
                   @if (!precio.valid && precio.touched) {
                   <small class="invalid-feedback d-block">Formato invalido</small>
                   }
 
-                  <input id="capacidad" type="number" #capacidad="ngModel" name="capacidad"
-                    autocomplete="off" name="capacidad" class="input" placeholder="Capacidad" pattern=""
-                    [(ngModel)]="extra.capacidad" required>
+                  <input id="capacidad" type="number" #capacidad="ngModel" name="capacidad" autocomplete="off"
+                    name="capacidad" class="input" placeholder="Capacidad" pattern="" [(ngModel)]="extra.capacidad"
+                    required>
                   @if (!capacidad.valid && capacidad.touched) {
                   <small class="invalid-feedback d-block">Formato invalido</small>
                   }

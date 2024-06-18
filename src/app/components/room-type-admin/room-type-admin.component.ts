@@ -11,6 +11,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { SelectionModel } from '@angular/cdk/collections';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { RoomTypeService } from '../../services/RoomType.service';
 import { User } from '../../models/user';
 import { UserService } from '../../services/user.services';
@@ -20,9 +21,10 @@ import { RoomType } from '../../models/RoomType';
   selector: 'app-room-type-admin',
   standalone: true,
   imports: [MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatFormFieldModule,
-    MatInputModule, MatTableModule, MatSlideToggleModule, FormsModule, MatIconModule,
-    MatButtonModule, ReactiveFormsModule, MatTableModule, MatCheckboxModule, MatDividerModule
-  ],
+            MatInputModule, MatTableModule, MatSlideToggleModule, FormsModule, MatIconModule,
+            MatButtonModule, ReactiveFormsModule, MatTableModule, MatCheckboxModule, MatDividerModule,
+            RouterOutlet, RouterLink
+          ],
   templateUrl: './room-type-admin.component.html',
   styleUrl: './room-type-admin.component.css',
   providers: [RoomTypeService, UserService]
