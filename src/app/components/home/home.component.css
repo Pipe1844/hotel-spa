@@ -1,10 +1,6 @@
 body{
     background: #F0F0F0;
-    background-blend-mode: multiply;
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    min-height: 100vh;
+    height: auto;
     min-width: 100%;
 }
 
@@ -44,6 +40,7 @@ nav.active{
     min-height: 100vh;
     display: flex;
     flex-wrap: wrap;
+    background: #F0F0F0;
 }
 
 .left{
@@ -139,3 +136,18 @@ nav.active{
 }
 
 
+.contentCards{
+
+    background: #F0F0F0;
+    width: 80%;
+    height: 50rem;
+    box-shadow: rgba(170, 170, 170, 0.8784313725) 0px 30px 30px -5px;
+
+    margin: auto;
+
+    margin-top: 50px;
+    margin-bottom: 100px;
+
+    border-radius: 60px;
+    
+}
