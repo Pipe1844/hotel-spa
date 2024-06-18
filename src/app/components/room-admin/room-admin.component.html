@@ -1,76 +1,192 @@
-<div>
-    <div style="display: flex; width: 90rem;">
-      <div style="width: 15%; display: flex; justify-content: space-evenly;">
-        <button mat-fab aria-label="Agregar" (click)="create()">
-          <mat-icon>add</mat-icon>
-        </button>
-        <button mat-fab aria-label="Actualizar" [disabled]="selection.selected.length != 1" (click)="update()">
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-fab aria-label="Eliminar" [disabled]="selection.selected.length == 0" (click)="deleteSelected()">
-          <mat-icon>delete</mat-icon>
-        </button>
+<body>
+
+  <div>
+
+    <div class="content">
+      <div style="display: flex; width: 90rem;">
+        <div style="width: 15%; display: flex; justify-content: space-evenly;">
+
+          <button mat-fab aria-label="crear" class="btn" data-bs-toggle="modal" data-bs-target="#Crear"
+            data-bs-whatever="@mdo" (click)="resetObject()">
+            <mat-icon>add</mat-icon>
+          </button>
+
+          <button mat-fab aria-label="Actualizar" [disabled]="selection.selected.length != 1"
+            (click)="setValueOfObject()" class="btn" data-bs-toggle="modal" data-bs-target="#Actualizar"
+            data-bs-whatever="@mdo">
+            <mat-icon>edit</mat-icon>
+          </button>
+
+          <button mat-fab aria-label="Eliminar" [disabled]="selection.selected.length == 0" class="btn"
+            data-bs-toggle="modal" data-bs-target="#Eliminar" data-bs-whatever="@mdo">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+        <mat-form-field style="width: 20%;">
+          <mat-label>Buscar</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Ej. Costado este" #filter>
+        </mat-form-field>
       </div>
-      <mat-form-field style="width: 20%;">
-        <mat-label>Buscar</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Ej. Costado este" #filter>
-      </mat-form-field>
+
+      <!-- Dialogo crear-->
+
+      <div class="modal fade" id="Crear" tabindex="-1" aria-labelledby="Crear" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="heading" id="Crear">Crear habitación</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+
+            <div class="modal-body">
+
+              <form>
+                <div class="mb-3">
+                  <input id="tipoHabitacion" type="number" #tipoHabitacion="ngModel" name="tipoHabitacion"
+                    autocomplete="off" name="tipoHabitacion" class="input" placeholder="Tipo Habitacion" pattern=""
+                    [(ngModel)]="room.idTipoHabitacion" required>
+                  @if (!tipoHabitacion.valid && tipoHabitacion.touched) {
+                  <small class="invalid-feedback d-block">Formato invalido</small>
+                  }
+
+                  <input id="ubicacion" type="text" #ubicacion="ngModel" autocomplete="off" name="ubicacion"
+                    class="input" placeholder="Ubicacion" pattern="" [(ngModel)]="room.ubicacion" required>
+                  @if (!ubicacion.valid && ubicacion.touched) {
+                  <small class="invalid-feedback d-block">Formato invalido</small>
+                  }
+
+                  <input id="imagen" type="file" autocomplete="off" name="imagen" class="input" placeholder="Foto"
+                    (change)="onImageFileChange($event)">
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="button" data-bs-dismiss="modal">Cancelar</button>
+              <button type="button" class="button" data-bs-dismiss="modal" (click)="createRow()">Crear</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <!-- Dialogo Actualizar-->
+
+      <div class="modal fade" id="Actualizar" tabindex="-1" aria-labelledby="Actualizar" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="heading" id="Actualizar">Actualizar habitación</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                (click)="resetTable()"></button>
+            </div>
+
+
+            <div class="modal-body">
+
+              <form>
+                <div class="mb-3">
+                  <input id="tipoHabitacion" type="number" #tipoHabitacion="ngModel" name="tipoHabitacion"
+                    autocomplete="off" name="tipoHabitacion" class="input" placeholder="Tipo Habitacion" pattern=""
+                    [(ngModel)]="room.idTipoHabitacion" required>
+                  @if (!tipoHabitacion.valid && tipoHabitacion.touched) {
+                  <small class="invalid-feedback d-block">Formato invalido</small>
+                  }
+
+                  <input id="ubicacion" type="text" #ubicacion="ngModel" autocomplete="off" name="ubicacion"
+                    class="input" placeholder="Ubicacion" pattern="" [(ngModel)]="room.ubicacion" required>
+                  @if (!ubicacion.valid && ubicacion.touched) {
+                  <small class="invalid-feedback d-block">Formato invalido</small>
+                  }
+
+                  <input id="imagen" type="file" autocomplete="off" name="imagen" class="input" placeholder="Foto"
+                    (change)="onImageFileChange($event)">
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="button" data-bs-dismiss="modal" (click)="resetTable()">Cancelar</button>
+              <button type="button" class="button" data-bs-dismiss="modal" (click)="updateRow()">Actualizar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--Dialogo Eliminar-->
+
+      <div class="modal fade" id="Eliminar" tabindex="-1" aria-labelledby="Eliminar" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="heading" id="Eliminar">¡Seguro que desea eliminar las habitaciones!</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="button" data-bs-dismiss="modal">Cancelar</button>
+              <button type="button" class="button" data-bs-dismiss="modal" (click)="deleteSelected()">Eliminar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+
+          <!-- Checkbox Column -->
+          <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef>
+              <mat-checkbox (change)="$event ? toggleAllRows() : null"
+                [checked]="selection.hasValue() && isAllSelected()"
+                [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+              </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+              </mat-checkbox>
+            </td>
+          </ng-container>
+
+          <!-- Id Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+            <td mat-cell *matCellDef="let room"> {{room.id}} </td>
+          </ng-container>
+
+          <!-- TipoHabitacion Column -->
+          <ng-container matColumnDef="idTipoHabitacion">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo Habitación </th>
+            <td mat-cell *matCellDef="let room"> {{room.idTipoHabitacion}} </td>
+          </ng-container>
+
+          <!-- ubicacion Column -->
+          <ng-container matColumnDef="ubicacion">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Ubicacion </th>
+            <td mat-cell *matCellDef="let room"> {{room.ubicacion}} </td>
+          </ng-container>
+
+          <!-- Image Column -->
+          <ng-container matColumnDef="imagen">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Imagen </th>
+            <td mat-cell *matCellDef="let room">
+              <img src="{{urlGetImageApi}}{{room.imagen}}" alt="" style="width: 100px;">
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let room; columns: displayedColumns;" (click)="selection.toggle(room)">
+
+            <!-- Row shown when there is no matching data. -->
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter "{{filter.value}}"</td>
+          </tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+      </div>
+
+
     </div>
-    <div class="mat-elevation-z8">
-      <table mat-table [dataSource]="dataSource" matSort>
-  
-        <!-- Checkbox Column -->
-        <ng-container matColumnDef="select">
-          <th mat-header-cell *matHeaderCellDef>
-            <mat-checkbox (change)="$event ? toggleAllRows() : null" [checked]="selection.hasValue() && isAllSelected()"
-              [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
-            </mat-checkbox>
-          </th>
-          <td mat-cell *matCellDef="let row">
-            <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
-              [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
-            </mat-checkbox>
-          </td>
-        </ng-container>
-  
-        <!-- Id Column -->
-        <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-          <td mat-cell *matCellDef="let room"> {{room.id}} </td>
-        </ng-container>
-  
-        <!-- TipoHabitacion Column -->
-        <ng-container matColumnDef="idTipoHabitacion">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo Habitación </th>
-          <td mat-cell *matCellDef="let room"> {{room.idTipoHabitacion}} </td>
-        </ng-container>
-  
-        <!-- ubicacion Column -->
-        <ng-container matColumnDef="ubicacion">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Ubicacion </th>
-          <td mat-cell *matCellDef="let room"> {{room.ubicacion}} </td>
-        </ng-container>
-  
-        <!-- Image Column -->
-        <ng-container matColumnDef="imagen">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Imagen </th>
-          <td mat-cell *matCellDef="let room">
-            <img src="{{urlGetImageApi}}{{room.imagen}}" alt="" style="width: 100px;">
-          </td>
-        </ng-container>
-  
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let room; columns: displayedColumns;" (click)="selection.toggle(room)">
-  
-          <!-- Row shown when there is no matching data. -->
-        <tr class="mat-row" *matNoDataRow>
-          <td class="mat-cell" colspan="4">No data matching the filter "{{filter.value}}"</td>
-        </tr>
-      </table>
-  
-      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
-    </div>
-  
-  
   </div>
-  
+</body>

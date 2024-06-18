@@ -21,9 +21,9 @@ import { Extra } from '../../models/Extra';
   selector: 'app-extra-admin',
   standalone: true,
   imports: [MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatFormFieldModule,
-            MatInputModule, MatTableModule, MatSlideToggleModule, FormsModule, MatIconModule,
-            MatButtonModule, ReactiveFormsModule, MatTableModule, MatCheckboxModule, MatDividerModule,
-          ],
+    MatInputModule, MatTableModule, MatSlideToggleModule, FormsModule, MatIconModule,
+    MatButtonModule, ReactiveFormsModule, MatTableModule, MatCheckboxModule, MatDividerModule,
+  ],
   templateUrl: './extra-admin.component.html',
   styleUrl: './extra-admin.component.css',
   providers: [UserService, ExtraService]
@@ -33,7 +33,7 @@ export class ExtraAdminComponent {
   public user: User;
   public identity: any;
   public extra: Extra;
-  public urlGetImageApi: string = server.url + "room/getimage/";
+  public urlGetImageApi: string = server.url + "extra/getimage/";
   public selectedFile: File | null = null;
 
   /******************************************Variables para la tabla**************************************************************************/
@@ -108,47 +108,70 @@ export class ExtraAdminComponent {
     });
   }
 
-  create(/*form: any*/) {
-    //if (form.valid) {
-    let filename: any;
+  createRow() {
     if (this.selectedFile == null) {
-      filename = "";
+      this.create("");
     } else {
-      filename = this.uploadImage();
+      this.extraService.uploadImage(this.selectedFile!).subscribe({
+        next: (response: any) => {
+          console.log(response['filename']);
+          this.create(response['filename']);
+        },
+        error: (err: Error) => {
+          console.log(err);
+        }
+      });
     }
-    this.extra = new Extra(1, "Teatro", "Costado este", 300000, 120, filename);
+  }
+
+  create(filename: string) {
+    this.extra.imagen = filename;
     this.extraService.create(this.extra).subscribe({
       next: (response: any) => {
         console.log(response);
       },
-      error: (err: Error) => {
-        console.log(err);
+      error: (error: Error) => {
+        console.log(error);
       },
       complete: () => {
         this.index();
         this.selection.clear();
+        this.selectedFile = null;
       }
-    })
-    this.index();
-    //}
+    });
   }
 
-  update() {
-    let filename: any;
-
-    if (this.extra.imagen != "") {
-      if (this.selectedFile != null) {
-        filename = this.updateImage(this.extra.imagen);
-      }
+  updateRow() {
+    if (this.selectedFile == null) {
+      this.update(this.extra.imagen);
     } else {
-      if (this.selectedFile == null) {
-        filename = "";
+      if (this.extra.imagen == null) {
+        this.extraService.uploadImage(this.selectedFile!).subscribe({
+          next: (response: any) => {
+            console.log(response['filename']);
+            this.update(response['filename']);
+          },
+          error: (err: Error) => {
+            console.log(err);
+          }
+        });
       } else {
-        filename = this.uploadImage();
+        this.extraService.updateImage(this.selectedFile!, this.extra.imagen).subscribe({
+          next: (response: any) => {
+            console.log(response['filename']);
+            this.update(response['filename']);
+          },
+          error: (err: Error) => {
+            console.log(err);
+          }
+        });
       }
     }
+  }
 
-    this.extra = new Extra(4, "Teatro", "Costado este", 200000, 120, filename);
+  update(filename: string) {
+    this.extra.imagen = filename;
+    console.log(this.extra.imagen)
     this.extraService.update(this.extra).subscribe({
       next: (response: any) => {
         console.log(response);
@@ -159,10 +182,9 @@ export class ExtraAdminComponent {
       complete: () => {
         this.index();
         this.selection.clear();
+        this.selectedFile = null;
       }
     });
-    this.index();
-    this.selection.clear();
   }
 
   deleteSelected() {
@@ -181,8 +203,6 @@ export class ExtraAdminComponent {
         }
       })
     });
-    this.index();
-    this.selection.clear();
   }
 
   /*******************************************************************Métodos imagen**********************************************************************************************/
@@ -217,5 +237,20 @@ export class ExtraAdminComponent {
 
   onImageFileChange(event: any): void {
     this.selectedFile = event.target.files[0];
+  }
+
+  resetObject() {
+    this.extra = new Extra(1, "", "", null, null, "");
+  }
+
+  /****************************************************************Métodos Dialog******************************************************************************************************/
+
+  setValueOfObject() {
+    this.extra = this.selection.selected[0];
+  }
+
+  resetTable() {
+    this.index();
+    this.selection.clear();
   }
 }

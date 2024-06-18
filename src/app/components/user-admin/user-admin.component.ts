@@ -136,6 +136,7 @@ export class UserAdminComponent implements AfterViewInit {
       complete: () => {
         this.index();
         this.selection.clear();
+        this.selectedFile = null;
       }
     });
   }
@@ -181,6 +182,7 @@ export class UserAdminComponent implements AfterViewInit {
       complete: () => {
         this.index();
         this.selection.clear();
+        this.selectedFile = null;
       }
     });
   }

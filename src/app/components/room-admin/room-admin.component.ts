@@ -109,47 +109,70 @@ export class RoomAdminComponent {
     });
   }
 
-  create(/*form: any*/) {
-    //if (form.valid) {
-    let filename: any;
+  createRow() {
     if (this.selectedFile == null) {
-      filename = "";
+      this.create("");
     } else {
-      filename = this.uploadImage();
+      this.roomService.uploadImage(this.selectedFile!).subscribe({
+        next: (response: any) => {
+          console.log(response['filename']);
+          this.create(response['filename']);
+        },
+        error: (err: Error) => {
+          console.log(err);
+        }
+      });
     }
-    this.room = new Room(1, 1, "Pasillo principal", filename);
+  }
+
+  create(filename: string) {
+    this.room.imagen = filename;
     this.roomService.create(this.room).subscribe({
       next: (response: any) => {
         console.log(response);
       },
-      error: (err: Error) => {
-        console.log(err);
+      error: (error: Error) => {
+        console.log(error);
       },
       complete: () => {
         this.index();
         this.selection.clear();
+        this.selectedFile = null;
       }
-    })
-    this.index();
-    //}
+    });
   }
 
-  update() {
-    let filename: any;
-
-    if (this.room.imagen != "") {
-      if (this.selectedFile != null) {
-        filename = this.updateImage(this.room.imagen);
-      }
+  updateRow(){
+    if (this.selectedFile == null) {
+      this.update(this.room.imagen);
     } else {
-      if (this.selectedFile == null) {
-        filename = "";
+      if (this.room.imagen == null){
+        this.roomService.uploadImage(this.selectedFile!).subscribe({
+          next: (response: any) => {
+            console.log(response['filename']);
+            this.update(response['filename']);
+          },
+          error: (err: Error) => {
+            console.log(err);
+          }
+        });
       } else {
-        filename = this.uploadImage();
+        this.roomService.updateImage(this.selectedFile!, this.room.imagen).subscribe({
+          next: (response: any) => {
+            console.log(response['filename']);
+            this.update(response['filename']);
+          },
+          error: (err: Error) => {
+            console.log(err);
+          }
+        });
       }
     }
+  }
 
-    this.room = new Room(3, 2, "Lado derecho de recepción", filename);
+  update(filename:string) {
+    this.room.imagen = filename;
+    console.log(this.room.imagen)
     this.roomService.update(this.room).subscribe({
       next: (response: any) => {
         console.log(response);
@@ -160,10 +183,9 @@ export class RoomAdminComponent {
       complete: () => {
         this.index();
         this.selection.clear();
+        this.selectedFile = null;
       }
     });
-    this.index();
-    this.selection.clear();
   }
 
   deleteSelected() {
@@ -220,11 +242,9 @@ export class RoomAdminComponent {
     this.roomService.updateImage(this.selectedFile!, filename).subscribe({
       next: (response: any) => {
         console.log(response);
-        return response['filename'];
       },
       error: (err: Error) => {
         console.log(err);
-        return "";
       }
     })
   }
@@ -233,5 +253,20 @@ export class RoomAdminComponent {
 
   onImageFileChange(event: any): void {
     this.selectedFile = event.target.files[0];
+  }
+
+  resetObject() {
+    this.room = new Room(1, null, "", "");
+  }
+
+  /****************************************************************Métodos Dialog******************************************************************************************************/
+
+  setValueOfObject() {
+    this.room = this.selection.selected[0];
+  }
+
+  resetTable(){
+    this.index();
+    this.selection.clear();
   }
 }

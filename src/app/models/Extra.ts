@@ -3,8 +3,8 @@ export class Extra {
         public id: number,
         public nombre: string,
         public ubicacion: string,
-        public precio: number,
-        public capacidad: number,
+        public precio: number | null,
+        public capacidad: number | null,
         public imagen: string
     ) {}
 }

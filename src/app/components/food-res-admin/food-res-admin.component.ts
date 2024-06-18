@@ -107,9 +107,7 @@ export class FoodResAdminComponent {
     });
   }
 
-  create(/*form: any*/) {
-    //if (form.valid) {
-    this.foodRes = new FoodRes(1, 3, 5, 0, "2024-05-05", 2);
+  createRow() {
     this.foodResService.create(this.foodRes).subscribe({
       next: (response: any) => {
         console.log(response);
@@ -122,12 +120,9 @@ export class FoodResAdminComponent {
         this.selection.clear();
       }
     })
-
-    //}
   }
 
-  update() {
-    this.foodRes = new FoodRes(14, 3, 5, 0, "2024-05-06", 3);
+  updateRow() {
     this.foodResService.update(this.foodRes).subscribe({
       next: (response: any) => {
         console.log(response);
@@ -158,5 +153,27 @@ export class FoodResAdminComponent {
         }
       })
     });
+  }
+
+  /****************************************************************Demás métodos******************************************************************************************************/
+  public formatDate(event:Event): string {
+    const input = event.target as HTMLInputElement;
+    const fecha = new Date(input.value);
+    return `${fecha.getFullYear()}-${('0' + (fecha.getMonth() + 1)).slice(-2)}-${('0' + fecha.getDate()).slice(-2)}`;
+  }
+
+  resetObject() {
+    this.foodRes = new FoodRes(1, 1, 1, 0, "", 0);
+  }
+
+  /****************************************************************Métodos Dialog******************************************************************************************************/
+
+  setValueOfObject() {
+    this.foodRes = this.selection.selected[0];
+  }
+
+  resetTable() {
+    this.index();
+    this.selection.clear();
   }
 }

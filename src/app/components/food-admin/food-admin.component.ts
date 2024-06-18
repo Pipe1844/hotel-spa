@@ -106,9 +106,7 @@ export class FoodAdminComponent {
     });
   }
 
-  create(/*form: any*/) {
-    //if (form.valid) {
-      this.food = new Food(1, "Cena", 7000, "Cena bufete");
+  createRow() {
     this.foodService.create(this.food).subscribe({
       next: (response: any) => {
         console.log(response);
@@ -121,12 +119,9 @@ export class FoodAdminComponent {
         this.selection.clear();
       }
     })
-
-    //}
   }
 
-  update() {
-    this.food = new Food(10, "Cena", 8000, "Cena bufete");
+  updateRow() {
     this.foodService.update(this.food).subscribe({
       next: (response: any) => {
         console.log(response);
@@ -157,5 +152,22 @@ export class FoodAdminComponent {
         }
       })
     });
+  }
+
+  /****************************************************************Demás métodos******************************************************************************************************/
+
+  resetObject() {
+    this.food = new Food(1, "", 0, "");
+  }
+
+  /****************************************************************Métodos Dialog******************************************************************************************************/
+
+  setValueOfObject() {
+    this.food = this.selection.selected[0];
+  }
+
+  resetTable() {
+    this.index();
+    this.selection.clear();
   }
 }

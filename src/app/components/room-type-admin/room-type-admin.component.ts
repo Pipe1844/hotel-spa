@@ -32,7 +32,6 @@ export class RoomTypeAdminComponent implements AfterViewInit {
   public user: User;
   public identity: any;
   public roomType: RoomType;
-  public selectedFile: File | null = null;
 
   /******************************************Variables para la tabla**************************************************************************/
 
@@ -106,9 +105,7 @@ export class RoomTypeAdminComponent implements AfterViewInit {
     });
   }
 
-  create(/*form: any*/) {
-    //if (form.valid) {
-    this.roomType = new RoomType(1, "Cama King", 50000, 2);
+  createRow() {
     this.roomTypeService.create(this.roomType).subscribe({
       next: (response: any) => {
         console.log(response);
@@ -116,26 +113,23 @@ export class RoomTypeAdminComponent implements AfterViewInit {
       error: (err: Error) => {
         console.log(err);
       },
-      complete:()=>{
+      complete: () => {
         this.index();
         this.selection.clear();
       }
     })
-
-    //}
   }
 
-  update() {
-    this.roomType = new RoomType(12, "Cama King", 25000, 2);
+  updateRow() {
     this.roomTypeService.update(this.roomType).subscribe({
       next: (response: any) => {
         console.log(response);
-        
+
       },
       error: (err: Error) => {
         console.log(err);
       },
-      complete:()=>{
+      complete: () => {
         this.index();
         this.selection.clear();
       }
@@ -151,12 +145,28 @@ export class RoomTypeAdminComponent implements AfterViewInit {
         error: (err: Error) => {
           console.log(err);
         },
-        complete:()=>{
+        complete: () => {
           this.index();
           this.selection.clear();
         }
       })
     });
   }
+
   /****************************************************************Demás métodos******************************************************************************************************/
+
+  resetObject() {
+    this.roomType = new RoomType(1, "", null, null);
+  }
+
+  /****************************************************************Métodos Dialog******************************************************************************************************/
+
+  setValueOfObject() {
+    this.roomType = this.selection.selected[0];
+  }
+
+  resetTable() {
+    this.index();
+    this.selection.clear();
+  }
 }
