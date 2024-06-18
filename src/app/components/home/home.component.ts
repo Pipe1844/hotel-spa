@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet, Router } from '@angular/router';
 import { UserService } from '../../services/user.services';
 
 @Component({
@@ -13,13 +13,32 @@ import { UserService } from '../../services/user.services';
 export class HomeComponent {
   public identity: any;
   private checkAutorization;
-  constructor(private userService: UserService
-
+  constructor(private userService: UserService,
+    private router: Router
   ) {
     this.identity = this.userService.getIdentityFromStorage();
     this.checkAutorization = setInterval(() => {
-      this.identity = this.userService.getIdentityFromStorage();
+      this.getAuth();
     }, 1000)
+  }
+
+  getAuth() {
+    this.userService.getAuthTokenFromAPI().subscribe({
+      next: (response: any) => {
+        console.log(response);
+        if (response) {
+          this.identity = this.userService.getIdentityFromStorage();
+          console.log(this.identity);
+        } else {
+          sessionStorage.clear();
+          console.log("Sesión borrada");
+          this.router.navigate(['']);
+        }
+      },
+      error: (err: Error) => {
+        console.log(err);
+      }
+    });
   }
 
 }

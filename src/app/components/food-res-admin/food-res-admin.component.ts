@@ -13,7 +13,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDatepickerModule} from '@angular/material/datepicker';
 import { provideNativeDateAdapter} from '@angular/material/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet, Router } from '@angular/router';
 import { FoodService } from '../../services/Food.service';
 import { UserService } from '../../services/user.services';
 import { FoodResService } from '../../services/FoodRes.service';
@@ -51,14 +51,37 @@ export class FoodResAdminComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private userService: UserService, private foodResService: FoodResService) {
+  constructor(
+    private userService: UserService, 
+    private foodResService: FoodResService,
+    private router: Router
+  ) {
     this.user = new User(1, 1, "", "", "", "", "", "", "", "");
     this.identity = this.userService.getIdentityFromStorage();
     this.checkAutorization = setInterval(() => {
-      this.identity = this.userService.getIdentityFromStorage();
+      this.getAuth();
     }, 1000)
     this.foodRes = new FoodRes(1, 1, 1, 0, "", 0);
     this.index();
+  }
+
+  getAuth() {
+    this.userService.getAuthTokenFromAPI().subscribe({
+      next: (response: any) => {
+        console.log(response);
+        if (response) {
+          this.identity = this.userService.getIdentityFromStorage();
+          console.log(this.identity);
+        } else {
+          sessionStorage.clear();
+          console.log("Sesión borrada");
+          this.router.navigate(['']);
+        }
+      },
+      error: (err: Error) => {
+        console.log(err);
+      }
+    });
   }
 
   ngAfterViewInit() {

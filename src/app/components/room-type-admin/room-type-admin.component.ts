@@ -11,7 +11,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { SelectionModel } from '@angular/cdk/collections';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet, Router } from '@angular/router';
 import { RoomTypeService } from '../../services/RoomType.service';
 import { User } from '../../models/user';
 import { UserService } from '../../services/user.services';
@@ -45,14 +45,37 @@ export class RoomTypeAdminComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private userService: UserService, private roomTypeService: RoomTypeService) {
+  constructor(
+    private userService: UserService, 
+    private roomTypeService: RoomTypeService,
+    private router: Router
+  ) {
     this.user = new User(1, 1, "", "", "", "", "", "", "", "");
     this.identity = this.userService.getIdentityFromStorage();
     this.checkAutorization = setInterval(() => {
-      this.identity = this.userService.getIdentityFromStorage();
+      this.getAuth();
     }, 1000)
     this.roomType = new RoomType(1, "", 0, 0);
     this.index();
+  }
+
+  getAuth() {
+    this.userService.getAuthTokenFromAPI().subscribe({
+      next: (response: any) => {
+        console.log(response);
+        if (response) {
+          this.identity = this.userService.getIdentityFromStorage();
+          console.log(this.identity);
+        } else {
+          sessionStorage.clear();
+          console.log("Sesión borrada");
+          this.router.navigate(['']);
+        }
+      },
+      error: (err: Error) => {
+        console.log(err);
+      }
+    });
   }
 
   ngAfterViewInit() {
