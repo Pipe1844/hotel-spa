@@ -50,10 +50,19 @@ export class RoomResAdminComponent {
     this.user = new User(1, 1, "", "", "", "", "", "", "", "");
     this.identity = this.userService.getIdentityFromStorage();
     this.checkAutorization = setInterval(() => {
-      this.identity = this.userService.getIdentityFromStorage();
+      this.getAuth();
     }, 1000)
     this.roomRes = new RoomRes(1, 1, 1, 0, "", "");
     this.index();
+  }
+
+  getAuth(){
+    if (this.userService.getAuthTokenFromAPI()) {
+      this.identity = this.userService.getIdentityFromStorage();
+      console.log(this.identity);
+    } else {
+      sessionStorage.clear();
+    }
   }
 
   ngAfterViewInit() {
