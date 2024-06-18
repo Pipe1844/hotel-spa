@@ -138,6 +138,24 @@ export class UserService {
         return this._hhttp.get(this.urlAPI + 'user/getidentity', options);
     }
 
+    getAuthTokenFromAPI(): Observable<any> {
+        let headers;
+        let bearerToken = sessionStorage.getItem('token');
+
+        if (bearerToken) {
+            headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+                .set('bearertoken', bearerToken);
+        } else {
+            headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+        }
+
+        let options = {
+            headers
+        }
+
+        return this._hhttp.get(this.urlAPI + 'user/getauthtoken', options);
+    }
+
     getIdentityFromStorage(){
         let identity=sessionStorage.getItem('identity')
         if(identity){

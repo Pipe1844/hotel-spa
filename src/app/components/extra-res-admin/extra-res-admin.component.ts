@@ -11,6 +11,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { SelectionModel } from '@angular/cdk/collections';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { UserService } from '../../services/user.services';
 import { ExtraResService } from '../../services/ExtraRes.service';
 import { User } from '../../models/user';
@@ -20,9 +21,10 @@ import { ExtraRes } from '../../models/ExtraRes';
   selector: 'app-extra-res-admin',
   standalone: true,
   imports: [MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatFormFieldModule,
-            MatInputModule, MatTableModule, MatSlideToggleModule, FormsModule, MatIconModule,
-            MatButtonModule, ReactiveFormsModule, MatTableModule, MatCheckboxModule, MatDividerModule
-          ],
+    MatInputModule, MatTableModule, MatSlideToggleModule, FormsModule, MatIconModule,
+    MatButtonModule, ReactiveFormsModule, MatTableModule, MatCheckboxModule, MatDividerModule,
+    RouterLink, RouterOutlet
+  ],
   templateUrl: './extra-res-admin.component.html',
   styleUrl: './extra-res-admin.component.css',
   providers: [UserService, ExtraResService]
@@ -36,7 +38,7 @@ export class ExtraResAdminComponent {
 
   /******************************************Variables para la tabla**************************************************************************/
 
-  displayedColumns: string[] = ['select', 'id', 'idUser', 'idExtra','fechaServicio', 'duracion', 'total'];
+  displayedColumns: string[] = ['select', 'id', 'idUser', 'idExtra', 'fechaServicio', 'duracion', 'total'];
   dataSource = new MatTableDataSource<ExtraRes>([]);
   selection = new SelectionModel<ExtraRes>(true, []);
 
@@ -106,9 +108,7 @@ export class ExtraResAdminComponent {
     });
   }
 
-  create(/*form: any*/) {
-    //if (form.valid) {
-    this.extraRes = new ExtraRes(1, 3, 3, "2024-05-06", 120, 0);
+  createRow() {
     this.extraResService.create(this.extraRes).subscribe({
       next: (response: any) => {
         console.log(response);
@@ -121,12 +121,9 @@ export class ExtraResAdminComponent {
         this.selection.clear();
       }
     })
-
-    //}
   }
 
-  update() {
-    this.extraRes = new ExtraRes(8, 3, 3, "2024-05-05", 120, 0);
+  updateRow() {
     this.extraResService.update(this.extraRes).subscribe({
       next: (response: any) => {
         console.log(response);
@@ -134,6 +131,8 @@ export class ExtraResAdminComponent {
       },
       error: (err: Error) => {
         console.log(err);
+        this.index();
+        this.selection.clear();
       },
       complete: () => {
         this.index();
@@ -157,5 +156,27 @@ export class ExtraResAdminComponent {
         }
       })
     });
+  }
+
+  /****************************************************************Demás métodos******************************************************************************************************/
+  public formatDate(event: Event): string {
+    const input = event.target as HTMLInputElement;
+    const fecha = new Date(input.value);
+    return `${fecha.getFullYear()}-${('0' + (fecha.getMonth() + 1)).slice(-2)}-${('0' + fecha.getDate()).slice(-2)}`;
+  }
+
+  resetObject() {
+    this.extraRes = new ExtraRes(1, null!, null!, "", null!, null!);
+  }
+
+  /****************************************************************Métodos Dialog******************************************************************************************************/
+
+  setValueOfObject() {
+    this.extraRes = this.selection.selected[0];
+  }
+
+  resetTable() {
+    this.index();
+    this.selection.clear();
   }
 }

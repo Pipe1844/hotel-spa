@@ -11,6 +11,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { SelectionModel } from '@angular/cdk/collections';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { UserService } from '../../services/user.services';
 import { RoomResService } from '../../services/RoomRes.service';
 import { User } from '../../models/user';
@@ -20,9 +21,10 @@ import { RoomRes } from '../../models/RoomRes';
   selector: 'app-room-res-admin',
   standalone: true,
   imports: [MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatFormFieldModule,
-            MatInputModule, MatTableModule, MatSlideToggleModule, FormsModule, MatIconModule,
-            MatButtonModule, ReactiveFormsModule, MatTableModule, MatCheckboxModule, MatDividerModule
-          ],
+    MatInputModule, MatTableModule, MatSlideToggleModule, FormsModule, MatIconModule,
+    MatButtonModule, ReactiveFormsModule, MatTableModule, MatCheckboxModule, MatDividerModule,
+    RouterLink, RouterOutlet
+  ],
   templateUrl: './room-res-admin.component.html',
   styleUrl: './room-res-admin.component.css',
   providers: [UserService, RoomResService]
@@ -48,10 +50,19 @@ export class RoomResAdminComponent {
     this.user = new User(1, 1, "", "", "", "", "", "", "", "");
     this.identity = this.userService.getIdentityFromStorage();
     this.checkAutorization = setInterval(() => {
-      this.identity = this.userService.getIdentityFromStorage();
+      this.getAuth();
     }, 1000)
     this.roomRes = new RoomRes(1, 1, 1, 0, "", "");
     this.index();
+  }
+
+  getAuth(){
+    if (this.userService.getAuthTokenFromAPI()) {
+      this.identity = this.userService.getIdentityFromStorage();
+      console.log(this.identity);
+    } else {
+      sessionStorage.clear();
+    }
   }
 
   ngAfterViewInit() {
@@ -106,39 +117,50 @@ export class RoomResAdminComponent {
     });
   }
 
-  create(/*form: any*/) {
-    //if (form.valid) {
-    this.roomRes = new RoomRes(1, 1, 3, 0, "2024-05-05", "2024-05-07");
-    this.roomResService.create(this.roomRes).subscribe({
-      next: (response: any) => {
-        console.log(response);
-      },
-      error: (err: Error) => {
-        console.log(err);
-      },
-      complete: () => {
-        this.index();
-        this.selection.clear();
-      }
-    })
-    //}
+  createRow() {
+    if (this.roomRes.fechaEntrada == this.roomRes.fechaSalida) {
+      console.log("La fecha de entrada y de salida no pueden ser las mismas");
+      this.index();
+      this.selection.clear();
+    } else {
+      this.roomResService.create(this.roomRes).subscribe({
+        next: (response: any) => {
+          console.log(response);
+        },
+        error: (err: Error) => {
+          console.log(err);
+          this.index();
+          this.selection.clear();
+        },
+        complete: () => {
+          this.index();
+          this.selection.clear();
+        }
+      });
+    }
   }
 
-  update() {
-    this.roomRes = new RoomRes(6, 1, 3, 0, "2024-05-05", "2024-05-08");
-    this.roomResService.update(this.roomRes).subscribe({
-      next: (response: any) => {
-        console.log(response);
-
-      },
-      error: (err: Error) => {
-        console.log(err);
-      },
-      complete: () => {
-        this.index();
-        this.selection.clear();
-      }
-    });
+  updateRow() {
+    if (this.roomRes.fechaEntrada == this.roomRes.fechaSalida) {
+      console.log("La fecha de entrada y de salida no pueden ser las mismas");
+      this.index();
+      this.selection.clear();
+    } else {
+      this.roomResService.update(this.roomRes).subscribe({
+        next: (response: any) => {
+          console.log(response);
+        },
+        error: (err: Error) => {
+          console.log(err);
+          this.index();
+          this.selection.clear();
+        },
+        complete: () => {
+          this.index();
+          this.selection.clear();
+        }
+      });
+    }
   }
 
   deleteSelected() {
@@ -156,5 +178,27 @@ export class RoomResAdminComponent {
         }
       })
     });
+  }
+
+  /****************************************************************Demás métodos******************************************************************************************************/
+  public formatDate(event: Event): string {
+    const input = event.target as HTMLInputElement;
+    const fecha = new Date(input.value);
+    return `${fecha.getFullYear()}-${('0' + (fecha.getMonth() + 1)).slice(-2)}-${('0' + fecha.getDate()).slice(-2)}`;
+  }
+
+  resetObject() {
+    this.roomRes = new RoomRes(1, null!, null!, null!, "", "");
+  }
+
+  /****************************************************************Métodos Dialog******************************************************************************************************/
+
+  setValueOfObject() {
+    this.roomRes = this.selection.selected[0];
+  }
+
+  resetTable() {
+    this.index();
+    this.selection.clear();
   }
 }

@@ -67,7 +67,7 @@
                       background-color: rgba(255, 0, 197, 1);
                   ">{{identity.correo}}</a>
             @if (identity.rol == 'admin') {
-            <a href="">Admin</a>
+            <a [routerLink]="['admin']">Admin</a>
             }
             }
           </div>

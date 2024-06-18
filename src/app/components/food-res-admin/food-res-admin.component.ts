@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -11,6 +11,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { SelectionModel } from '@angular/cdk/collections';
+import { MatDatepickerModule} from '@angular/material/datepicker';
+import { provideNativeDateAdapter} from '@angular/material/core';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { FoodService } from '../../services/Food.service';
 import { UserService } from '../../services/user.services';
 import { FoodResService } from '../../services/FoodRes.service';
@@ -22,11 +25,13 @@ import { FoodRes } from '../../models/FoodRes';
   standalone: true,
   imports: [MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatFormFieldModule,
             MatInputModule, MatTableModule, MatSlideToggleModule, FormsModule, MatIconModule,
-            MatButtonModule, ReactiveFormsModule, MatTableModule, MatCheckboxModule, MatDividerModule
+            MatButtonModule, ReactiveFormsModule, MatTableModule, MatCheckboxModule, MatDividerModule,
+            MatDatepickerModule, RouterOutlet, RouterLink
           ],
   templateUrl: './food-res-admin.component.html',
   styleUrl: './food-res-admin.component.css',
-  providers: [UserService, FoodResService]
+  providers: [UserService, FoodResService, provideNativeDateAdapter()],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FoodResAdminComponent {
   private checkAutorization;
@@ -34,6 +39,7 @@ export class FoodResAdminComponent {
   public identity: any;
   public foodRes: FoodRes;
   public selectedFile: File | null = null;
+  readonly startDate = new Date(1990, 0, 1);
 
   /******************************************Variables para la tabla**************************************************************************/
 
@@ -163,7 +169,7 @@ export class FoodResAdminComponent {
   }
 
   resetObject() {
-    this.foodRes = new FoodRes(1, 1, 1, 0, "", 0);
+    this.foodRes = new FoodRes(1, null!, null!, null!, "", null!);
   }
 
   /****************************************************************Métodos Dialog******************************************************************************************************/

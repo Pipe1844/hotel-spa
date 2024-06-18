@@ -11,6 +11,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { SelectionModel } from '@angular/cdk/collections';
+import { RouterLink, RouterOutlet } from '@angular/router';
+
 import { server } from '../../services/global ';
 import { User } from '../../models/user';
 import { UserService } from '../../services/user.services';
@@ -21,9 +23,10 @@ import { Extra } from '../../models/Extra';
   selector: 'app-extra-admin',
   standalone: true,
   imports: [MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatFormFieldModule,
-    MatInputModule, MatTableModule, MatSlideToggleModule, FormsModule, MatIconModule,
-    MatButtonModule, ReactiveFormsModule, MatTableModule, MatCheckboxModule, MatDividerModule,
-  ],
+            MatInputModule, MatTableModule, MatSlideToggleModule, FormsModule, MatIconModule,
+            MatButtonModule, ReactiveFormsModule, MatTableModule, MatCheckboxModule, MatDividerModule,
+            RouterLink, RouterOutlet
+          ],
   templateUrl: './extra-admin.component.html',
   styleUrl: './extra-admin.component.css',
   providers: [UserService, ExtraService]
