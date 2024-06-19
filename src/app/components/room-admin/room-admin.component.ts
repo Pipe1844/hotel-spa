@@ -167,6 +167,7 @@ export class RoomAdminComponent {
   }
 
   updateRow(){
+    console.log(this.selectedFile)
     if (this.selectedFile == null) {
       this.update(this.room.imagen);
     } else {
@@ -281,12 +282,14 @@ export class RoomAdminComponent {
 
   resetObject() {
     this.room = new Room(1, null, "", "");
+    this.selectedFile = null;
   }
 
   /****************************************************************Métodos Dialog******************************************************************************************************/
 
   setValueOfObject() {
     this.room = this.selection.selected[0];
+    this.selectedFile = null;
   }
 
   resetTable(){

@@ -118,7 +118,7 @@
 
     <div class="right">
 
-      <iframe src='https://my.spline.design/miniroomcopy-c4c6acee557350946eb7217984bb90dc/' frameborder='0' width='150%'
+      <iframe src='https://my.spline.design/miniroomartcopy-991d8bb8bc9cffd77f8acbe9d9129432/' frameborder='0' width='150%'
         height='150%'></iframe>
 
     </div>
@@ -130,12 +130,11 @@
       <h1 class="T">Habitaciones</h1>
       <div class="row row-cols-1 row-cols-md-3 g-4 py-5">
 
+        @for (room of rooms; track $index) {
+
           <div class="col">
-
-
-            @for (room of rooms; track $index) {
               <div class="card">
-                  <img src="{{urlGetImageApi}}{{room.imagen}}" class="card-img-top" alt="...">
+                  <img src="{{urlGetImageApi}}{{room.imagen}}" class="card-img-top img-fixed" alt="...">
                   <div class="card-body">
                       <h5 class="card-title">Habitacion Numero {{room.id}}</h5>
                       <p class="card-text"> {{room.ubicacion}}</p>
@@ -146,10 +145,10 @@
                   </div>
               </div>
 
-            }
+            
 
           </div>
-
+        }
         </div>
       </div>
 
