@@ -148,14 +148,13 @@
               @for (roomType of roomTypes; track $index) {
               @if (room.idTipoHabitacion == roomType.id) {
               <div>
-                <h4>Precio: ₡{{roomType.precio}}</h4>
-                <h4>Capacidad: {{roomType.capacidad}} personas</h4>
+                <h6>Precio: ₡{{roomType.precio}}</h6>
+                <h6>Capacidad: {{roomType.capacidad}} personas</h6>
               </div>
               }
               }
               <button mat-fab aria-label="crear" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Crear"
-                data-bs-whatever="@mdo" (click)="setObject(room)" [disabled]="identity == null"
-                style="max-height: 50px;">Reservar
+                data-bs-whatever="@mdo" (click)="setObject(room)" [disabled]="identity == null">Reservar
               </button>
             </div>
           </div>
@@ -200,27 +199,27 @@
             <div>
               <label for="numTarjeta">Número de tarjeta</label>
               <input id="numTarjeta" type="number" name="numTarjeta" autocomplete="off" name="cedula" class="input"
-                placeholder="1234 5678 9101 1121">
+                placeholder="1234 5678 9101 1121" required>
               <label for="nameTarjeta">Nombre del titular de la Tarjeta</label>
               <input id="nameTarjeta" type="text" name="nameTarjeta" autocomplete="off" name="cedula" class="input"
-                placeholder="Juancho Rodriguez">
+                placeholder="Juancho Rodriguez" required>
             </div>
             <div class="" style="display: flex;">
               <div style="width: 50%; padding: 0 10px 0 0;">
                 <label for="caducidad">Fecha Caducidad</label>
                 <div id="caducidad" style="display: flex; align-items: center">
                   <input id="MM" class="form-control" name="month" type="text" class="input" placeholder="MM"
-                    style="width: 40%;">
+                    style="width: 40%;" required>
                   <h5 style="padding: 0 5px 0 5px;">/</h5>
                   <input id="YY" class="form-control" name="year" type="text" class="input" placeholder="YY"
-                    style="width: 40%;">
+                    style="width: 40%;" required>
                 </div>
               </div>
               <div style="width: 50%; padding: 0 0 0 10px;">
                 <label for="CVC">Código de seguridad</label>
                 <div style="display: flex; align-items: center">
                   <input id="CVC" class="form-control" name="CVC" type="password" class="input" placeholder="111"
-                    style="width: 45%;">
+                    style="width: 45%;" required>
                   <mat-icon style="margin-bottom: 10px; margin-left: 15px;">info</mat-icon>
                 </div>
               </div>
@@ -228,7 +227,7 @@
             <div>
               <label for="direccion">Dirección de facturación</label>
               <input id="direccion" type="text" name="direccion" autocomplete="off" name="direccion" class="input"
-                placeholder="Costa Rica, Guanacaste...">
+                placeholder="Costa Rica, Guanacaste..." required>
             </div>
           </form>
         </div>
