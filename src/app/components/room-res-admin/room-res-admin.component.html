@@ -89,11 +89,6 @@
 
               <form>
                 <div class="mb-3">
-                  <input id="idUser" type="text" #idUser="ngModel" name="idUser" autocomplete="off" name="idUser"
-                    class="input" placeholder="Id de usuario" pattern="" [(ngModel)]="roomRes.idUser" required>
-                  @if (!idUser.valid && idUser.touched) {
-                  <small class="invalid-feedback d-block">Formato invalido</small>
-                  }
 
                   <input id="idHabitacion" type="text" #idHabitacion="ngModel" name="idHabitacion" autocomplete="off" name="idHabitacion"
                     class="input" placeholder="Id de habitación" pattern="" [(ngModel)]="roomRes.idHabitacion" required>

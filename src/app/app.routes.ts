@@ -14,28 +14,21 @@ import { RoomResAdminComponent } from './components/room-res-admin/room-res-admi
 import { AdminComponent } from './components/admin/admin.component';
 import { ReservaComponent } from './components/reserva/reserva.component';
 
-export const routes: Routes = [
-
-    {path:'admin',component: AdminComponent, children:[
-
-    {path:'userAdmin',component:UserAdminComponent},
-    {path:'roomTypeAdmin',component:RoomTypeAdminComponent},
-    {path:'roomAdmin',component:RoomAdminComponent},
-    {path:'foodAdmin',component:FoodAdminComponent},
-    {path:'extraAdmin',component:ExtraAdminComponent},
-    {path:'extraResAdmin',component:ExtraResAdminComponent},
-    {path:'foodResAdmin',component:FoodResAdminComponent},
-    {path:'roomResAdmin',component:RoomResAdminComponent},
-
-    ]
-    },
-
-
-
-    {path:'',component:HomeComponent},
-    {path:'home',component:HomeComponent},
-    {path:'login',component:LoginComponent},
-    {path:'signup',component:SignupComponent},
-    {path:'reservar',component:ReservaComponent},
-    {path:'**',component:ErrorComponent},
+export const routes: Routes = [{
+    path: 'admin', component: AdminComponent, children: [
+        { path: 'userAdmin', component: UserAdminComponent },
+        { path: 'roomTypeAdmin', component: RoomTypeAdminComponent },
+        { path: 'roomAdmin', component: RoomAdminComponent },
+        { path: 'foodAdmin', component: FoodAdminComponent },
+        { path: 'extraAdmin', component: ExtraAdminComponent },
+        { path: 'extraResAdmin', component: ExtraResAdminComponent },
+        { path: 'foodResAdmin', component: FoodResAdminComponent },
+        { path: 'roomResAdmin', component: RoomResAdminComponent }]
+},
+{ path: '', component: HomeComponent },
+{ path: 'home', component: HomeComponent },
+{ path: 'login', component: LoginComponent },
+{ path: 'signup', component: SignupComponent },
+{ path: 'reservar', component: ReservaComponent },
+{ path: '**', component: ErrorComponent },
 ];
