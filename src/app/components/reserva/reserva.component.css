@@ -1,0 +1,29 @@
+.btn-primary{
+    border: none;
+    border-radius: 50px;
+    width: 120px;
+    background:
+        radial-gradient(circle at 50% 0,
+            rgba(255, 0, 197, 1),
+            rgba(255, 0, 0, 0) 70.71%),
+        radial-gradient(circle at 6.7% 75%,
+            rgb(230, 0, 255),
+            rgba(0, 0, 255, 0) 70.71%),
+        radial-gradient(circle at 93.3% 75%,
+            rgb(223, 73, 156),
+            rgba(0, 255, 0, 0) 70.71%) beige;
+    color: #fff;
+    transition: transform 0.4s ease;
+}
+
+.input {
+    width: 100%;
+    border: none;
+    outline: none;
+    border-radius: 15px;
+    padding: 1em;
+    background-color: #e8e8e8;
+    box-shadow: inset 2px 5px 10px rgba(0, 0, 0, 0.3);
+    transition: 300ms ease-in-out;
+    margin-bottom: 10px;
+}

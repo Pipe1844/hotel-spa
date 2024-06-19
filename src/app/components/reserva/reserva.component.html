@@ -1,1 +1,205 @@
+<!--Dialogo RoomRes-->
+<div class="modal fade" id="CrearRoomRes" tabindex="-1" aria-labelledby="CrearRoomRes" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="heading" id="Crear">Reservar habitación</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3" style="display: flex;">
+                        <div style="width: 50%; padding: 0 10px 0 0;">
+                            <label for="fechaEntrada">Fecha entrada</label>
+                            <input id="fechaEntrada" class="form-control" name="fechaEntrada" type="date"
+                                (change)="formatDate($event)" #fechaEntrada="ngModel" [(ngModel)]="roomRes.fechaEntrada"
+                                required class="input">
+                        </div>
+                        <div style="width: 50%; padding: 0 0 0 10px;">
+                            <label for="fechaEntrada">Fecha salida</label>
+                            <input id="fechaSalida" class="form-control" name="fechaSalida" type="date"
+                                (change)="formatDate($event)" #fechaSalida="ngModel" [(ngModel)]="roomRes.fechaSalida"
+                                required class="input">
+                        </div>
+                    </div>
+                    <hr>
+                    <div>
+                        <label for="numTarjeta">Número de tarjeta</label>
+                        <input id="numTarjeta" type="number" name="numTarjeta" autocomplete="off" name="cedula"
+                            class="input" placeholder="1234 5678 9101 1121" required>
+                        <label for="nameTarjeta">Nombre del titular de la Tarjeta</label>
+                        <input id="nameTarjeta" type="text" name="nameTarjeta" autocomplete="off" name="cedula"
+                            class="input" placeholder="Juancho Rodriguez" required>
+                    </div>
+                    <div class="" style="display: flex;">
+                        <div style="width: 50%; padding: 0 10px 0 0;">
+                            <label for="caducidad">Fecha Caducidad</label>
+                            <div id="caducidad" style="display: flex; align-items: center">
+                                <input id="MM" class="form-control" name="month" type="text" class="input"
+                                    placeholder="MM" style="width: 40%;" required>
+                                <h5 style="padding: 0 5px 0 5px;">/</h5>
+                                <input id="YY" class="form-control" name="year" type="text" class="input"
+                                    placeholder="YY" style="width: 40%;" required>
+                            </div>
+                        </div>
+                        <div style="width: 50%; padding: 0 0 0 10px;">
+                            <label for="CVC">Código de seguridad</label>
+                            <div style="display: flex; align-items: center">
+                                <input id="CVC" class="form-control" name="CVC" type="password" class="input"
+                                    placeholder="111" style="width: 45%;" required>
+                                <mat-icon style="margin-bottom: 10px; margin-left: 15px;">info</mat-icon>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="direccion">Dirección de facturación</label>
+                        <input id="direccion" type="text" name="direccion" autocomplete="off" name="direccion"
+                            class="input" placeholder="Costa Rica, Guanacaste..." required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                    (click)="createRoomRes()">Pagar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Dialogo RoomRes-->
 
+<!--Dialogo ExtraRes-->
+<div class="modal fade" id="CrearExtraRes" tabindex="-1" aria-labelledby="CrearExtraRes" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="heading" id="Crear">Reservar Extra</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3" style="display: flex;">
+                        <div style="padding: 0 10px 0 0;">
+                            <label for="fechaServicio">Fecha de servicio</label>
+                            <input id="fechaServicio" class="form-control" name="fechaServicio" type="date"
+                                (change)="formatDate($event)" #fechaServicio="ngModel"
+                                [(ngModel)]="extraRes.fechaServicio" required class="input">
+                        </div>
+                    </div>
+                    <hr>
+                    <div>
+                        <label for="numTarjeta">Número de tarjeta</label>
+                        <input id="numTarjeta" type="number" name="numTarjeta" autocomplete="off" name="cedula"
+                            class="input" placeholder="1234 5678 9101 1121" required>
+                        <label for="nameTarjeta">Nombre del titular de la Tarjeta</label>
+                        <input id="nameTarjeta" type="text" name="nameTarjeta" autocomplete="off" name="cedula"
+                            class="input" placeholder="Juancho Rodriguez" required>
+                    </div>
+                    <div class="" style="display: flex;">
+                        <div style="width: 50%; padding: 0 10px 0 0;">
+                            <label for="caducidad">Fecha Caducidad</label>
+                            <div id="caducidad" style="display: flex; align-items: center">
+                                <input id="MM" class="form-control" name="month" type="text" class="input"
+                                    placeholder="MM" style="width: 40%;" required>
+                                <h5 style="padding: 0 5px 0 5px;">/</h5>
+                                <input id="YY" class="form-control" name="year" type="text" class="input"
+                                    placeholder="YY" style="width: 40%;" required>
+                            </div>
+                        </div>
+                        <div style="width: 50%; padding: 0 0 0 10px;">
+                            <label for="CVC">Código de seguridad</label>
+                            <div style="display: flex; align-items: center">
+                                <input id="CVC" class="form-control" name="CVC" type="password" class="input"
+                                    placeholder="111" style="width: 45%;" required>
+                                <mat-icon style="margin-bottom: 10px; margin-left: 15px;">info</mat-icon>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="direccion">Dirección de facturación</label>
+                        <input id="direccion" type="text" name="direccion" autocomplete="off" name="direccion"
+                            class="input" placeholder="Costa Rica, Guanacaste..." required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                    (click)="createExtraRes()">Pagar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Dialogo ExtraRes-->
+
+<!--Dialogo FoodRes-->
+<div class="modal fade" id="CrearFoodRes" tabindex="-1" aria-labelledby="CrearFoodRes" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="heading" id="Crear">Reservar Alimentación</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3" style="display: flex;">
+                        <div style="padding: 0 10px 0 0;">
+                            <label for="fechaServicio">Fecha de servicio</label>
+                            <input id="fechaServicio" class="form-control" name="fechaServicio" type="date"
+                                (change)="formatDate($event)" #fechaServicio="ngModel"
+                                [(ngModel)]="foodRes.fechaServicio" required class="input">
+                        </div>
+                        <div style="width: 50%; padding: 0 0 0 10px;">
+                            <label for="cantidad">Cantidad de personas</label>
+                            <input id="cantidad" class="form-control" name="cantidad" type="number" #cantidad="ngModel"
+                                [(ngModel)]="foodRes.cantidad" required class="input" placeholder="Ej. 3">
+                            @if (!cantidad.valid && cantidad.touched) {
+                            <small class="invalid-feedback d-block">Formato invalido</small>
+                            }
+                        </div>
+                    </div>
+                    <hr>
+                    <div>
+                        <label for="numTarjeta">Número de tarjeta</label>
+                        <input id="numTarjeta" type="number" name="numTarjeta" autocomplete="off" name="cedula"
+                            class="input" placeholder="1234 5678 9101 1121" required>
+                        <label for="nameTarjeta">Nombre del titular de la Tarjeta</label>
+                        <input id="nameTarjeta" type="text" name="nameTarjeta" autocomplete="off" name="cedula"
+                            class="input" placeholder="Juancho Rodriguez" required>
+                    </div>
+                    <div class="" style="display: flex;">
+                        <div style="width: 50%; padding: 0 10px 0 0;">
+                            <label for="caducidad">Fecha Caducidad</label>
+                            <div id="caducidad" style="display: flex; align-items: center">
+                                <input id="MM" class="form-control" name="month" type="text" class="input"
+                                    placeholder="MM" style="width: 40%;" required>
+                                <h5 style="padding: 0 5px 0 5px;">/</h5>
+                                <input id="YY" class="form-control" name="year" type="text" class="input"
+                                    placeholder="YY" style="width: 40%;" required>
+                            </div>
+                        </div>
+                        <div style="width: 50%; padding: 0 0 0 10px;">
+                            <label for="CVC">Código de seguridad</label>
+                            <div style="display: flex; align-items: center">
+                                <input id="CVC" class="form-control" name="CVC" type="password" class="input"
+                                    placeholder="111" style="width: 45%;" required>
+                                <mat-icon style="margin-bottom: 10px; margin-left: 15px;">info</mat-icon>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="direccion">Dirección de facturación</label>
+                        <input id="direccion" type="text" name="direccion" autocomplete="off" name="direccion"
+                            class="input" placeholder="Costa Rica, Guanacaste..." required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                    (click)="createFoodRes()">Pagar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Dialogo FoodRes-->

@@ -93,7 +93,7 @@ export class HomeComponent {
     });
   }
 
-  createRow() {
+  createRes() {
     if (this.roomRes.fechaEntrada == this.roomRes.fechaSalida) {
       console.log("La fecha de entrada y de salida no pueden ser las mismas");
     } else {

@@ -6,11 +6,7 @@
 
       <div class="btnContent" style="display: flex; width: 90rem;">
         <div style="width: 15%; display: flex; justify-content: space-evenly;">
-
-          <button mat-fab aria-label="Eliminar" [routerLink]="['../admin']" class="btn">
-            <mat-icon>update</mat-icon>
-        </button>
-
+          
           <button mat-fab aria-label="crear" class="btn" data-bs-toggle="modal" data-bs-target="#Crear"
             data-bs-whatever="@mdo" (click)="resetObject()">
             <mat-icon>add</mat-icon>
@@ -133,12 +129,6 @@
 
               <form>
                 <div class="mb-3">
-                  <input id="cedula" type="number" #cedula="ngModel" name="cedula" autocomplete="off" name="cedula"
-                    class="input" placeholder="Cedula" pattern="" [(ngModel)]="user.cedula" required>
-                  @if (!cedula.valid && cedula.touched) {
-                  <small class="invalid-feedback d-block">Formato invalido</small>
-                  }
-
                   <input id="nombre" type="text" #nombre="ngModel" autocomplete="off" name="nombre" class="input"
                     placeholder="Nombre" pattern="" [(ngModel)]="user.nombre" required>
                   @if (!nombre.valid && nombre.touched) {
@@ -164,15 +154,7 @@
                   @if (!usuario.valid && usuario.touched) {
                   <small class="invalid-feedback d-block">Formato invalido</small>
                   }
-
-                  <input id="correo" type="email" #correo="ngModel" autocomplete="off" name="correo"
-                    class="form-control input" placeholder="Correo"
-                    pattern="[a-z0-9]+[_a-z0-9\.-]*[a-z0-9]+@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})"
-                    [(ngModel)]="user.correo " required>
-                  @if (!correo.valid && correo.touched) {
-                  <small class="invalid-feedback d-block">Formato invalido</small>
-                  }
-
+                  
                   <input id="imagen" type="file" autocomplete="off" name="imagen" class="input" placeholder="Foto"
                     (change)="onImageFileChange($event)">
 
