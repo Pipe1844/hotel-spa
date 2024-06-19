@@ -27,3 +27,60 @@
     transition: 300ms ease-in-out;
     margin-bottom: 10px;
 }
+.containerH {
+    display: flex;
+    flex-direction: column;
+    border-radius: 30px;
+    box-shadow: 7px 13px 37px rgba(0, 0, 0, 0.27);
+    margin: 30px auto;
+    padding :6rem;
+    width: 90%;
+}
+
+.section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 100px;
+    margin-top: 60px;
+
+}
+
+
+
+.textSection {
+    flex: 1;
+    text-align: center;
+    margin-right: 20px; 
+}
+
+.text{
+    text-align:justify;
+}
+
+.imageSection {
+    flex: 1;
+
+}
+
+.image {
+    max-width: 300px;
+    height: auto;
+    display: block;
+    margin: auto;
+    border-radius: 3rem;
+}
+
+
+
+
+@media (max-width: 960px) {
+    .section {
+        flex-direction: column-reverse;
+    }
+
+    .textSection,
+    .imageSection {
+        margin-right: 0; 
+    }
+}
