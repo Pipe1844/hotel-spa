@@ -1,135 +1,142 @@
 <body>
 
 
+    <nav class="navbar navbar-expand-lg"> <!--navbar-->
+        <div class="container-fluid">
+    
+    
+          <a class="navbar-brand logo" href="#">Hades Ressorts</a> <!--logo-->
+    
+    
+          <button class="navbar-toggler shadow-none border-0 text-dark" type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+    
+            <span class="navbar-toggler-icon dark"></span>
+    
+          </button> <!--toggle Btn-->
+    
+    
+    
+          <div class="sidebar offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar"
+            aria-labelledby="offcanvasNavbarLabel"> <!--sidebar-->
+            <div class="offcanvas-header text-white border-bottom"> <!--sidebar header-->
+              <h5 class="offcanvas-title logo" id="offcanvasNavbarLabel">Hades Ressorts</h5>
+              <button type="button" class="btn-close btn-close-dark shadow-none" data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
+            </div>
+    
+    
+    
+            <div class="offcanvas-body d-flex flex-column p-4 flex-lg-row"> <!--sidebar Body-->
+              <ul class="navbar-nav justify-content-center align-items-center fs-6 flex-grow-1 pe-3">
+            
+    
+                <li class="nav-item mx-2">
+                    <a class="nav-link active text-dark fw-bold" [routerLink]="['userAdmin']">
+                        <div class="option">
+        
+                            <p class="texto">Usuarios</p>
+                        </div>
+                    </a>
+                </li>
+    
+                <li class="nav-item mx-2">
+                    <a class="nav-link active text-dark fw-bold" [routerLink]="['foodAdmin']">
+                        <div class="option">
+        
+                            <p class="texto">Comida</p>
+                        </div>
+                    </a>
+                </li>
+    
+                <li class="nav-item mx-2">
+                    <a class="nav-link active text-dark fw-bold" [routerLink]="['foodResAdmin']">
+                        <div class="option">
+        
+                            <p class="texto">Reserva Comida</p>
+                        </div>
+                    </a>
+                </li>
+
+                <li class="nav-item mx-2">
+                    <a class="nav-link active text-dark fw-bold" [routerLink]="['roomAdmin']">
+                        <div class="option">
+        
+                            <p class="texto">Habitacion</p>
+                        </div>
+                    </a>
+                </li>
+
+                <li class="nav-item mx-2">
+                    <a class="nav-link active text-dark fw-bold" [routerLink]="['roomTypeAdmin']">
+                        <div class="option">
+        
+                            <p class="texto">Tipo Habitacion</p>
+                        </div>
+                    </a>
+                </li>
+
+                <li class="nav-item mx-2">
+                    <a class="nav-link active text-dark fw-bold" [routerLink]="['roomResAdmin']">
+                        <div class="option">
+        
+                            <p class="texto">Reserva Habitacion</p>
+                        </div>
+                    </a>
+                </li>
+
+                <li class="nav-item mx-2">
+                    <a class="nav-link active text-dark fw-bold" [routerLink]="['extraAdmin']">
+                        <div class="option">
+        
+                            <p class="texto">Extras</p>
+                        </div>
+                    </a>
+                </li>
+
+                <li class="nav-item mx-2">
+                    <a class="nav-link active text-dark fw-bold" [routerLink]="['extraResAdmin']">
+                        <div class="option">
+        
+                            <p class="texto">Reservas Extra</p>
+                        </div>
+                    </a>
+                </li>
+    
+              </ul>
+
+              <div class="d-flex flex-column align-items-center gap-3 flex-lg-row"> <!--SingIn & LogIn-->
+
+                <a  [routerLink]="['']" class="text-white text-decoration-none px-3 py-1 rounded-4 fw-bold" style="
+                background-color: rgba(255, 0, 197, 1);
+                      font-weight: 600;
+                      color: #fff;">
 
 
-    <div class="menu__side" id="menu_side">
+                    Inicio</a>
 
 
-        <div class="name__page">
-            <h4>Admin</h4>
+              </div>
+    
+    
+            </div>
+          </div>
+    
+    
+    
         </div>
+      </nav>
+    
 
-        <div class="options__menu">
+   
 
-
-
-            <a class="selected" [routerLink]="['']">
-                <div class="option">
-
-                    <p class="texto">Inicio</p>
-                </div>
-            </a>
-
-            <a class="selected" [routerLink]="['userAdmin']">
-                <div class="option">
-
-                    <p class="texto">Usuarios</p>
-                </div>
-            </a>
-
-
-            <a class="selected" [routerLink]="['foodAdmin']">
-                <div class="option">
-
-                    <p class="texto">Comida</p>
-                </div>
-            </a>
-
-            <a class="selected" [routerLink]="['foodResAdmin']">
-                <div class="option">
-
-                    <p class="texto">Reserva Comida</p>
-                </div>
-            </a>
-
-            <a class="selected" [routerLink]="['roomAdmin']">
-                <div class="option">
-
-                    <p class="texto">Habitacion</p>
-                </div>
-            </a>
-
-            <a class="selected" [routerLink]="['roomTypeAdmin']">
-                <div class="option">
-
-                    <p class="texto">Tipo Habitacion</p>
-                </div>
-            </a>
-
-            <a class="selected" [routerLink]="['roomResAdmin']">
-                <div class="option">
-
-                    <p class="texto">Reserva Habitacion</p>
-                </div>
-            </a>
-
-            <a class="selected" [routerLink]="['extraAdmin']">
-                <div class="option">
-
-                    <p class="texto">Extras</p>
-                </div>
-            </a>
-
-            <a class="selected" [routerLink]="['extraResAdmin']">
-                <div class="option">
-
-                    <p class="texto">Reservas Extra</p>
-                </div>
-            </a>
-
-        </div>
-
-    </div>
-
-
-    <script>//Ejecutar función en el evento click
-        document.getElementById("btn_open").addEventListener("click", open_close_menu);
-
-        //Declaramos variables
-        var side_menu = document.getElementById("menu_side");
-        var btn_open = document.getElementById("btn_open");
-        var body = document.getElementById("body");
-
-        //Evento para mostrar y ocultar menú
-        function open_close_menu() {
-            body.classList.toggle("body_move");
-            side_menu.classList.toggle("menu__side_move");
-        }
-
-        //Si el ancho de la página es menor a 760px, ocultará el menú al recargar la página
-
-        if (window.innerWidth < 760) {
-
-            body.classList.add("body_move");
-            side_menu.classList.add("menu__side_move");
-        }
-
-        //Haciendo el menú responsive(adaptable)
-
-        window.addEventListener("resize", function () {
-
-            if (window.innerWidth > 760) {
-
-                body.classList.remove("body_move");
-                side_menu.classList.remove("menu__side_move");
-            }
-
-            if (window.innerWidth < 760) {
-
-                body.classList.add("body_move");
-                side_menu.classList.add("menu__side_move");
-            }
-
-        });</script>
-
-
-        <div style="float: right;">
+        <div style="height: 80%; width: 100%;" >
     <router-outlet>
 
         
 
     </router-outlet>
         </div>
+
 
 </body>

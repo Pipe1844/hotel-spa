@@ -3,30 +3,89 @@ body{
     min-height: 100vh;
 }
 
-.content{
-    width: 80%;
-    margin: auto;
-    margin-top: 8rem;
-    min-height: 30rem;
-    padding: 20px;
-    border-radius: 30px;
-    box-shadow: rgba(170, 170, 170, 0.8784313725) 0px 30px 30px -5px;
-    background: #F8F9FD;
+.content {
+  width: 80%;
+  margin: auto;
+  margin-top: 8rem;
+  min-height: 30rem;
+  padding: 20px;
+  border-radius: 30px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  background: #F8F9FD;
+  overflow-x: auto;
 }
 
-.tabla{
-    border-radius: 30px;
+.btnContent {
+  display: flex;
+ 
+  align-items: center;
+  margin-bottom: 15px; /* Espacio entre los botones y el campo de búsqueda */
+}
+
+.btnGroup {
+  display: flex;
+  gap: 10px; /* Espacio entre los botones */
+}
+
+
+
+.inputBuscar {
+  width: 100%;
+  border: none;
+  outline: none;
+  border-radius: 15px;
+  padding: 1em;
+  background-color: #e8e8e8;
+  box-shadow: inset 2px 5px 10px rgba(0,0,0,0.3);
+  transition: 300ms ease-in-out;
+  margin-top: 3px; 
+  width: 300px;
+  overflow: hidden; /* Oculta el desbordamiento */
+}
+
+.mat-table {
+  width: 100%;
+  overflow: auto;
+}
+
+.mat-header-row,
+.mat-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.mat-header-cell,
+.mat-cell {
+  flex-basis: calc(100% / 7);
+  padding: 10px;
+  box-sizing: border-box;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .btn{
     background: rgb(244, 155, 223);
 }
 
-.find{
-   background-color: rgb(244, 155, 223) ;
+@media (max-width: 768px) { /* Ajusta este valor según tus necesidades */
+  .btnContent {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btnGroup {
+    width: 100%;
+  }
+
+  .inputBuscar {
+    margin-top: 15px; /* Espacio entre los botones y el campo de búsqueda en móvil */
+
+    width: 210px;
+  }
 }
-
-
 .input {
     width: 100%;
     border: none;
