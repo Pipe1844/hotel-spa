@@ -167,7 +167,7 @@ export class UserAdminComponent implements AfterViewInit {
     if (this.selectedFile == null) {
       this.update(this.user.imagen);
     } else {
-      if (this.user.imagen == null){
+      if (this.user.imagen == null || this.user.imagen == ""){
         this.userService.uploadImage(this.selectedFile!).subscribe({
           next: (response: any) => {
             console.log(response['filename']);

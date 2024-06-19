@@ -74,6 +74,11 @@
                       font-weight: 600;
                   "><i class="fa-solid fa-right-from-bracket"></i></a>
 
+            <a href="" (click)="logOut()" class="text-dark text-decoration-none px-3 py-1 rounded-4 fw-bold" style="
+                      color: #000;
+                      font-weight: 600;
+                      "><mat-icon>manage accounts</mat-icon></a>
+
             @if (identity.rol == 'admin') {
             <a [routerLink]="['admin']" style="
             color: #000;
@@ -239,6 +244,64 @@
     </div>
   </div>
   <!--Dialogo-->
+
+  <!-- Dialogo Actualizar-->
+
+  <div class="modal fade" id="Actualizar" tabindex="-1" aria-labelledby="Actualizar" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="heading" id="Actualizar">Actualizar Usuario</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+
+        <div class="modal-body">
+
+          <form>
+            <div class="mb-3">
+              <input id="nombre" type="text" #nombre="ngModel" autocomplete="off" name="nombre" class="input"
+                placeholder="Nombre" pattern="" [(ngModel)]="user.nombre" required>
+              @if (!nombre.valid && nombre.touched) {
+              <small class="invalid-feedback d-block">Formato invalido</small>
+              }
+
+              <input id="apellido" type="text" #apellido="ngModel" autocomplete="off" name="apellido" class="input"
+                placeholder="Apellido" pattern="" [(ngModel)]="user.apellido" required>
+              @if (!apellido.valid && apellido.touched) {
+              <small class="invalid-feedback d-block">Formato invalido</small>
+              }
+
+              <input id="telefono" type="text" #telefono="ngModel" autocomplete="off" name="telefono" class="input"
+                placeholder="Telefono" pattern="" [(ngModel)]="user.telefono" required>
+              @if (!telefono.valid && telefono.touched) {
+              <small class="invalid-feedback d-block">Formato invalido</small>
+              }
+            </div>
+            <div class="mb-3">
+
+              <input id="usuario" type="text" #usuario="ngModel" autocomplete="off" name="usuario" class="input"
+                placeholder="Usuario" pattern="" [(ngModel)]="user.usuario" required>
+              @if (!usuario.valid && usuario.touched) {
+              <small class="invalid-feedback d-block">Formato invalido</small>
+              }
+
+              <input id="imagen" type="file" autocomplete="off" name="imagen" class="input" placeholder="Foto"
+                (change)="onImageFileChange($event)">
+
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="button" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="button" data-bs-dismiss="modal" (click)="updateUser()">Actualizar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dialogo Actualizar-->
+
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
