@@ -14,56 +14,64 @@
 
 
 
-            <a class="selected" [routerLink]="['../']">
+            <a class="selected" [routerLink]="['']">
                 <div class="option">
 
                     <p class="texto">Inicio</p>
                 </div>
             </a>
 
-            <a class="selected" [routerLink]="['../foodAdmin']">
+            <a class="selected" [routerLink]="['userAdmin']">
+                <div class="option">
+
+                    <p class="texto">Usuarios</p>
+                </div>
+            </a>
+
+
+            <a class="selected" [routerLink]="['foodAdmin']">
                 <div class="option">
 
                     <p class="texto">Comida</p>
                 </div>
             </a>
 
-            <a class="selected" [routerLink]="['../foodResAdmin']">
+            <a class="selected" [routerLink]="['foodResAdmin']">
                 <div class="option">
 
                     <p class="texto">Reserva Comida</p>
                 </div>
             </a>
 
-            <a class="selected" [routerLink]="['../roomAdmin']">
+            <a class="selected" [routerLink]="['roomAdmin']">
                 <div class="option">
 
                     <p class="texto">Habitacion</p>
                 </div>
             </a>
 
-            <a class="selected" [routerLink]="['../roomTypeAdmin']">
+            <a class="selected" [routerLink]="['roomTypeAdmin']">
                 <div class="option">
 
                     <p class="texto">Tipo Habitacion</p>
                 </div>
             </a>
 
-            <a class="selected" [routerLink]="['../roomResAdmin']">
+            <a class="selected" [routerLink]="['roomResAdmin']">
                 <div class="option">
 
                     <p class="texto">Reserva Habitacion</p>
                 </div>
             </a>
 
-            <a class="selected" [routerLink]="['../extraAdmin']">
+            <a class="selected" [routerLink]="['extraAdmin']">
                 <div class="option">
 
                     <p class="texto">Extras</p>
                 </div>
             </a>
 
-            <a class="selected" [routerLink]="['../extraResAdmin']">
+            <a class="selected" [routerLink]="['extraResAdmin']">
                 <div class="option">
 
                     <p class="texto">Reservas Extra</p>
@@ -115,6 +123,13 @@
 
         });</script>
 
-    <router-outlet></router-outlet>
+
+        <div style="float: right;">
+    <router-outlet>
+
+        
+
+    </router-outlet>
+        </div>
 
 </body>
