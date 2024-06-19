@@ -1,15 +1,15 @@
-body{
+body {
     background: #F0F0F0;
     height: auto;
     min-width: 100%;
 }
 
 @media (max-width: 991px) {
-    .sidebar{
+    .sidebar {
         background-color: rgba(255, 255, 255, 0.648);
         backdrop-filter: blur(10px);
     }
-    
+
 }
 
 #root {
@@ -18,24 +18,25 @@ body{
 }
 
 
-nav.active{
+nav.active {
 
-	background: rgba(255,255,255,0.1);
- backdrop-filter: blur(5px);
-	padding: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    padding: 15px;
 }
 
-.logo{
+.logo {
     font-family: "Monsieur La Doulaise", cursive;
     font-weight: 700;
     font-style: normal;
     color: rgba(255, 0, 197, 1);
-    font-size: 2rem;;
+    font-size: 2rem;
+    ;
 
 }
 
 
-.content{
+.content {
     width: 100%;
     min-height: 100vh;
     display: flex;
@@ -43,7 +44,7 @@ nav.active{
     background: #F0F0F0;
 }
 
-.left{
+.left {
     flex: 1;
     padding: 20px;
     margin: 20px;
@@ -52,17 +53,17 @@ nav.active{
 }
 
 
-.TP{
+.TP {
     font-family: "Monsieur La Doulaise", cursive;
     font-weight: 700;
     font-style: normal;
     color: rgba(255, 0, 197, 1);
     font-size: 2rem;
     text-align: center;
-    
+
 }
 
-.TG{
+.TG {
     color: #000;
     font-size: 10rem;
     font-family: "Six Caps", sans-serif;
@@ -71,7 +72,7 @@ nav.active{
     text-align: center;
 }
 
-.T{
+.T {
     color: #a5a5a5;
     font-size: 6rem;
     font-family: "Six Caps", sans-serif;
@@ -80,23 +81,23 @@ nav.active{
     text-align: center;
 }
 
-.right{
+.right {
     flex: 2;
 }
 
-  iframe {
+iframe {
     width: 100%;
     height: 100%;
     border: none;
-  }
+}
 
 
 
 
 
-  @media (max-width: 985px) {
+@media (max-width: 985px) {
 
-    .logo{
+    .logo {
         font-size: 1rem;
     }
 
@@ -104,25 +105,25 @@ nav.active{
         flex-direction: column;
     }
 
-    .left{
+    .left {
         margin-left: 20px;
         margin-bottom: 10rem;
-        
+
     }
 
-    
 
-    .TG{
+
+    .TG {
         font-size: 9rem;
     }
-    
-    .title1{
+
+    .title1 {
         font-size: 3rem;
         padding: 4px;
     }
-    
-    .title2{
-        font-size: 4rem;    
+
+    .title2 {
+        font-size: 4rem;
         padding: 4 px;
     }
 
@@ -130,8 +131,8 @@ nav.active{
         flex-direction: column-reverse;
     }
 
-    .right{
-        
+    .right {
+
         height: 500px;
     }
 
@@ -144,7 +145,7 @@ nav.active{
 }
 
 
-.contentCards{
+.contentCards {
 
     background: #F0F0F0;
     width: 95%;
@@ -157,47 +158,45 @@ nav.active{
     margin-bottom: 100px;
 
     border-radius: 60px;
-    
+
 }
 
 
-.card-img-top{
+.card-img-top {
     border-radius: 50px;
     padding: 20px;
 }
-.card{
+
+.card {
     border-radius: 45px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     transition: transform 0.4s ease;
 }
-.card-body{
+
+.card-body {
     padding: 25px;
     margin-top: -15px;
 }
-.btn-primary{
+
+.btn-primary {
     border: none;
     border-radius: 50px;
     width: 120px;
     background:
-    radial-gradient(
-      circle at 50% 0,
-      rgba(255, 0, 197, 1),
-      rgba(255, 0, 0, 0) 70.71%
-    ),
-    radial-gradient(
-      circle at 6.7% 75%,
-      rgb(230, 0, 255),
-      rgba(0, 0, 255, 0) 70.71%
-    ),
-    radial-gradient(
-        circle at 93.3% 75%,
-        rgb(223, 73, 156),
-        rgba(0, 255, 0, 0) 70.71%
-      ) beige;
+        radial-gradient(circle at 50% 0,
+            rgba(255, 0, 197, 1),
+            rgba(255, 0, 0, 0) 70.71%),
+        radial-gradient(circle at 6.7% 75%,
+            rgb(230, 0, 255),
+            rgba(0, 0, 255, 0) 70.71%),
+        radial-gradient(circle at 93.3% 75%,
+            rgb(223, 73, 156),
+            rgba(0, 255, 0, 0) 70.71%) beige;
     color: #fff;
     transition: transform 0.4s ease;
 }
-.btn-primary:hover{
+
+.btn-primary:hover {
     background: black;
     border: none;
 }
@@ -206,16 +205,55 @@ nav.active{
 .card:hover {
 
     transform: scale(0.97);
-  }
-  
-  .card:hover .card-content {
+}
+
+.card:hover .card-content {
     transform: scale(0.96);
-  }
-  
-  .card:hover .card-image svg {
+}
+
+.card:hover .card-image svg {
     transform: scale(1.05);
-  }
-  
-  .card:active {
+}
+
+.card:active {
     transform: scale(0.9);
-  }
+}
+
+.button {
+    padding: 15px 25px;
+    border: unset;
+    border-radius: 15px;
+    color: #e8e8e8;
+    z-index: 1;
+    background:
+        radial-gradient(circle at 50% 0,
+            rgba(255, 0, 197, 1),
+            rgba(255, 0, 0, 0) 70.71%),
+        radial-gradient(circle at 6.7% 75%,
+            rgb(230, 0, 255),
+            rgba(0, 0, 255, 0) 70.71%),
+        radial-gradient(circle at 93.3% 75%,
+            rgb(223, 73, 156),
+            rgba(0, 255, 0, 0) 70.71%) beige;
+    position: relative;
+    font-weight: 600;
+    font-size: 17px;
+    box-shadow: 13px 13px 100px #969696,
+        -13px -13px 100px #ffffff;
+    transition: all 250ms;
+    overflow: hidden;
+
+    width: 100%;
+}
+
+.input {
+    width: 100%;
+    border: none;
+    outline: none;
+    border-radius: 15px;
+    padding: 1em;
+    background-color: #e8e8e8;
+    box-shadow: inset 2px 5px 10px rgba(0, 0, 0, 0.3);
+    transition: 300ms ease-in-out;
+    margin-bottom: 10px;
+}

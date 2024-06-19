@@ -34,7 +34,7 @@ import { FoodRes } from '../../models/FoodRes';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FoodResAdminComponent {
-  private checkAutorization;
+  // private checkAutorization;
   public user: User;
   public identity: any;
   public foodRes: FoodRes;
@@ -58,9 +58,9 @@ export class FoodResAdminComponent {
   ) {
     this.user = new User(1, 1, "", "", "", "", "", "", "", "");
     this.identity = this.userService.getIdentityFromStorage();
-    this.checkAutorization = setInterval(() => {
-      this.getAuth();
-    }, 1000)
+    // this.checkAutorization = setInterval(() => {
+    //   this.getAuth();
+    // }, 5000)
     this.foodRes = new FoodRes(1, 1, 1, 0, "", 0);
     this.index();
   }

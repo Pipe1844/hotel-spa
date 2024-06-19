@@ -32,7 +32,7 @@ import { RoomTypeService } from '../../services/RoomType.service';
   providers: [UserService, RoomService, RoomTypeService]
 })
 export class RoomAdminComponent {
-  private checkAutorization;
+  // private checkAutorization;
   public user: User;
   public identity: any;
   public room: Room;
@@ -57,9 +57,9 @@ export class RoomAdminComponent {
   ) {
     this.user = new User(1, 1, "", "", "", "", "", "", "", "");
     this.identity = this.userService.getIdentityFromStorage();
-    this.checkAutorization = setInterval(() => {
-      this.getAuth();
-    }, 1000)
+    // this.checkAutorization = setInterval(() => {
+    //   this.getAuth();
+    // }, 5000)
     this.room = new Room(1, 1, "", "");
     this.index();
   }
@@ -280,13 +280,15 @@ export class RoomAdminComponent {
   }
 
   resetObject() {
-    this.room = new Room(1, null, "", "");
+    this.room = new Room(1, null!, "", "");
+    this.selectedFile = null;
   }
 
   /****************************************************************Métodos Dialog******************************************************************************************************/
 
   setValueOfObject() {
     this.room = this.selection.selected[0];
+    this.selectedFile = null;
   }
 
   resetTable(){

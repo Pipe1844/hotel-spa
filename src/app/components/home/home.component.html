@@ -92,14 +92,14 @@
     </div>
   </nav>
 
- 
 
 
 
-  
 
-  
-  
+
+
+
+
 
 
 
@@ -130,35 +130,113 @@
       <h1 class="T">Habitaciones</h1>
       <div class="row row-cols-1 row-cols-md-3 g-4 py-5">
 
-          <div class="col">
+        <div class="col">
 
 
-            @for (room of rooms; track $index) {
-              <div class="card">
-                  <img src="{{urlGetImageApi}}{{room.imagen}}" class="card-img-top" alt="...">
-                  <div class="card-body">
-                      <h5 class="card-title">Habitacion Numero {{room.id}}</h5>
-                      <p class="card-text"> {{room.ubicacion}}</p>
-                  </div>
-                  <div class="mb-5 d-flex justify-content-around">
-                      <h3>Precio</h3>
-                      <button class="btn btn-primary">Reservar</button>
-                  </div>
+          @for (room of rooms; track $index) {
+          <div class="card">
+            <img src="{{urlGetImageApi}}{{room.imagen}}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Habitacion Numero {{room.id}}</h5>
+              <p class="card-text"> {{room.ubicacion}}</p>
+            </div>
+            <div class="mb-5 d-flex justify-content-around">
+
+              @for (roomType of roomTypes; track $index) {
+              @if (room.idTipoHabitacion == roomType.id) {
+              <div>
+                <h4>Precio: ₡{{roomType.precio}}</h4>
+                <h4>Capacidad: {{roomType.capacidad}} personas</h4>
               </div>
-
-            }
-
+              }
+              }
+              <button mat-fab aria-label="crear" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Crear"
+                data-bs-whatever="@mdo" (click)="setObject(room)" [disabled]="identity == null"
+                style="max-height: 50px;">Reservar
+              </button>
+            </div>
           </div>
-
+          }
         </div>
+
       </div>
+    </div>
 
   </div>
 
 
+  <!--Dialogo-->
+  <div class="modal fade" id="Crear" tabindex="-1" aria-labelledby="Crear" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="heading" id="Crear">Reservar habitación</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+
+          <form>
+            <div class="mb-3" style="display: flex;">
+
+              <div style="width: 50%; padding: 0 10px 0 0;">
+                <label for="fechaEntrada">Fecha entrada</label>
+                <input id="fechaEntrada" class="form-control" name="fechaEntrada" type="date"
+                  (change)="formatDate($event)" #fechaEntrada="ngModel" [(ngModel)]="roomRes.fechaEntrada" required
+                  class="input">
+              </div>
+              <div style="width: 50%; padding: 0 0 0 10px;">
+                <label for="fechaEntrada">Fecha salida</label>
+                <input id="fechaSalida" class="form-control" name="fechaSalida" type="date"
+                  (change)="formatDate($event)" #fechaSalida="ngModel" [(ngModel)]="roomRes.fechaSalida" required
+                  class="input">
+              </div>
+            </div>
+            <hr>
+            <div>
+              <label for="numTarjeta">Número de tarjeta</label>
+              <input id="numTarjeta" type="number" name="numTarjeta" autocomplete="off" name="cedula" class="input"
+                placeholder="1234 5678 9101 1121">
+              <label for="nameTarjeta">Nombre del titular de la Tarjeta</label>
+              <input id="nameTarjeta" type="text" name="nameTarjeta" autocomplete="off" name="cedula" class="input"
+                placeholder="Juancho Rodriguez">
+            </div>
+            <div class="" style="display: flex;">
+              <div style="width: 50%; padding: 0 10px 0 0;">
+                <label for="caducidad">Fecha Caducidad</label>
+                <div id="caducidad" style="display: flex; align-items: center">
+                  <input id="MM" class="form-control" name="month" type="text" class="input" placeholder="MM"
+                    style="width: 40%;">
+                  <h5 style="padding: 0 5px 0 5px;">/</h5>
+                  <input id="YY" class="form-control" name="year" type="text" class="input" placeholder="YY"
+                    style="width: 40%;">
+                </div>
+              </div>
+              <div style="width: 50%; padding: 0 0 0 10px;">
+                <label for="CVC">Código de seguridad</label>
+                <div style="display: flex; align-items: center">
+                  <input id="CVC" class="form-control" name="CVC" type="password" class="input" placeholder="111"
+                    style="width: 45%;">
+                  <mat-icon style="margin-bottom: 10px; margin-left: 15px;">info</mat-icon>
+                </div>
+              </div>
+            </div>
+            <div>
+              <label for="direccion">Dirección de facturación</label>
+              <input id="direccion" type="text" name="direccion" autocomplete="off" name="direccion" class="input"
+                placeholder="Costa Rica, Guanacaste...">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="createRow()">Pagar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Dialogo-->
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
-
+  integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

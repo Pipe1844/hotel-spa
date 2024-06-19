@@ -32,7 +32,7 @@ import { Extra } from '../../models/Extra';
   providers: [UserService, ExtraService]
 })
 export class ExtraAdminComponent {
-  private checkAutorization;
+  // private checkAutorization;
   public user: User;
   public identity: any;
   public extra: Extra;
@@ -56,9 +56,9 @@ export class ExtraAdminComponent {
   ) {
     this.user = new User(1, 1, "", "", "", "", "", "", "", "");
     this.identity = this.userService.getIdentityFromStorage();
-    this.checkAutorization = setInterval(() => {
-      this.getAuth();
-    }, 1000)
+    // this.checkAutorization = setInterval(() => {
+    //   this.getAuth();
+    // }, 5000)
     this.extra = new Extra(1, "", "", 0, 0, "");
     this.index();
   }

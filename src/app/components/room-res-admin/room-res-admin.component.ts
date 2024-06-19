@@ -30,7 +30,7 @@ import { RoomRes } from '../../models/RoomRes';
   providers: [UserService, RoomResService]
 })
 export class RoomResAdminComponent {
-  private checkAutorization;
+  // private checkAutorization;
   public user: User;
   public identity: any;
   public roomRes: RoomRes;
@@ -52,9 +52,9 @@ export class RoomResAdminComponent {
     {
     this.user = new User(1, 1, "", "", "", "", "", "", "", "");
     this.identity = this.userService.getIdentityFromStorage();
-    this.checkAutorization = setInterval(() => {
-      this.getAuth();
-    }, 2000)
+    // this.checkAutorization = setInterval(() => {
+    //   this.getAuth();
+    // }, 5000)
     this.roomRes = new RoomRes(1, 1, 1, 0, "", "");
     this.index();
   }

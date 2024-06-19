@@ -32,7 +32,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 })
 export class UserAdminComponent implements AfterViewInit {
 
-  private checkAutorization;
+  // private checkAutorization;
   public user: User;
   public identity: any;
   public urlGetImageApi: string = server.url + "user/getimage/";
@@ -54,9 +54,9 @@ export class UserAdminComponent implements AfterViewInit {
     ) {
     this.user = new User(1, null, "", "", "", "", "", "", "", "");
     this.identity = this.userService.getIdentityFromStorage();
-    this.checkAutorization = setInterval(() => {
-      this.getAuth();
-    }, 1000)
+    // this.checkAutorization = setInterval(() => {
+    //   this.getAuth();
+    // }, 5000)
     this.index();
   }
 

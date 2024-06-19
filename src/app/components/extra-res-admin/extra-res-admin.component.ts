@@ -30,7 +30,7 @@ import { ExtraRes } from '../../models/ExtraRes';
   providers: [UserService, ExtraResService]
 })
 export class ExtraResAdminComponent {
-  private checkAutorization;
+  // private checkAutorization;
   public user: User;
   public identity: any;
   public extraRes: ExtraRes;
@@ -54,9 +54,9 @@ export class ExtraResAdminComponent {
   ) {
     this.user = new User(1, 1, "", "", "", "", "", "", "", "");
     this.identity = this.userService.getIdentityFromStorage();
-    this.checkAutorization = setInterval(() => {
-      this.getAuth();
-    }, 1000)
+    // this.checkAutorization = setInterval(() => {
+    //   this.getAuth();
+    // }, 5000)
     this.extraRes = new ExtraRes(1, 1, 1, "", 0, 0);
     this.index();
   }
