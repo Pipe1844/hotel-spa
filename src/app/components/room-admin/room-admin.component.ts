@@ -167,6 +167,7 @@ export class RoomAdminComponent {
   }
 
   updateRow(){
+    console.log(this.selectedFile)
     if (this.selectedFile == null) {
       this.update(this.room.imagen);
     } else {
