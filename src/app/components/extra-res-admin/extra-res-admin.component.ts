@@ -16,6 +16,7 @@ import { UserService } from '../../services/user.services';
 import { ExtraResService } from '../../services/ExtraRes.service';
 import { User } from '../../models/user';
 import { ExtraRes } from '../../models/ExtraRes';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-extra-res-admin',
@@ -122,10 +123,9 @@ export class ExtraResAdminComponent {
     this.extraResService.index().subscribe({
       next: (response: any) => {
         this.dataSource.data = response['data'];
-        console.log(this.dataSource.data);
       },
       error: (err: Error) => {
-        console.log(err);
+        this.msgAlert("Error", "Error al cargar las reservas", "error");
       }
     });
   }
@@ -133,10 +133,10 @@ export class ExtraResAdminComponent {
   createRow() {
     this.extraResService.create(this.extraRes).subscribe({
       next: (response: any) => {
-        console.log(response);
+        this.msgAlert("Agregada", "Reserva agregada correctamente", "success");
       },
       error: (err: Error) => {
-        console.log(err);
+        this.msgAlert("Error", "Error al crear la reserva", "error");
       },
       complete: () => {
         this.index();
@@ -148,11 +148,10 @@ export class ExtraResAdminComponent {
   updateRow() {
     this.extraResService.update(this.extraRes).subscribe({
       next: (response: any) => {
-        console.log(response);
-
+        this.msgAlert("Actualizada", "Reserva actualizada correctamente", "success");
       },
       error: (err: Error) => {
-        console.log(err);
+        this.msgAlert("Error", "Error al actualizar la reserva", "error");
         this.index();
         this.selection.clear();
       },
@@ -167,10 +166,10 @@ export class ExtraResAdminComponent {
     this.selection.selected.forEach(extraRes => {
       this.extraResService.delete(extraRes.id).subscribe({
         next: (response: any) => {
-          console.log('Eliminado: ' + extraRes.id);
+          this.msgAlert("Eliminadas", "Reservas eliminadas correctamente", "success");
         },
         error: (err: Error) => {
-          console.log(err);
+          this.msgAlert("Error", "Error al eliminar las reservas", "error");
         },
         complete: () => {
           this.index();
@@ -189,6 +188,14 @@ export class ExtraResAdminComponent {
 
   resetObject() {
     this.extraRes = new ExtraRes(1, null!, null!, "", null!, null!);
+  }
+
+  msgAlert = (title: any, text: any, icon: any) => {
+    Swal.fire({
+      title,
+      text,
+      icon,
+    })
   }
 
   /****************************************************************Métodos Dialog******************************************************************************************************/

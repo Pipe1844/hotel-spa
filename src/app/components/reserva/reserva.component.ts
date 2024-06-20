@@ -56,6 +56,10 @@ export class ReservaComponent {
     private router: Router,
   ) {
     this.identity = this.userService.getIdentityFromStorage();
+    this.extraIndex();
+    this.foodIndex();
+    this.roomIndex();
+    this.roomTypeIndex();
   }
 
   /***************************************************************Métodos index**********************************************************************************************/

@@ -16,6 +16,8 @@ import { UserService } from '../../services/user.services';
 import { RoomResService } from '../../services/RoomRes.service';
 import { User } from '../../models/user';
 import { RoomRes } from '../../models/RoomRes';
+import Swal from 'sweetalert2'
+
 
 @Component({
   selector: 'app-room-res-admin',
@@ -120,26 +122,25 @@ export class RoomResAdminComponent {
     this.roomResService.index().subscribe({
       next: (response: any) => {
         this.dataSource.data = response['data'];
-        console.log(this.dataSource.data);
       },
       error: (err: Error) => {
-        console.log(err);
+        this.msgAlert("Error", "Error al cargar las reservas", "error");
       }
     });
   }
 
   createRow() {
     if (this.roomRes.fechaEntrada == this.roomRes.fechaSalida) {
-      console.log("La fecha de entrada y de salida no pueden ser las mismas");
+      this.msgAlert("Error", "La fecha de entrada y de salida no pueden ser las mismas", "error");
       this.index();
       this.selection.clear();
     } else {
       this.roomResService.create(this.roomRes).subscribe({
         next: (response: any) => {
-          console.log(response);
+          this.msgAlert("Agregada", "Se ha reservado correctamente", "success");
         },
         error: (err: Error) => {
-          console.log(err);
+          this.msgAlert("Error", "Error al agregar la reserva", "error");
           this.index();
           this.selection.clear();
         },
@@ -153,16 +154,16 @@ export class RoomResAdminComponent {
 
   updateRow() {
     if (this.roomRes.fechaEntrada == this.roomRes.fechaSalida) {
-      console.log("La fecha de entrada y de salida no pueden ser las mismas");
+      this.msgAlert("Error", "La fecha de entrada y de salida no pueden ser las mismas", "error");
       this.index();
       this.selection.clear();
     } else {
       this.roomResService.update(this.roomRes).subscribe({
         next: (response: any) => {
-          console.log(response);
+          this.msgAlert("Actualizado", "Reserva modificada exitosamente", "success");
         },
         error: (err: Error) => {
-          console.log(err);
+          this.msgAlert("Error", "Error al actualizar la reserva", "error");
           this.index();
           this.selection.clear();
         },
@@ -178,10 +179,10 @@ export class RoomResAdminComponent {
     this.selection.selected.forEach(foodRes => {
       this.roomResService.delete(foodRes.id).subscribe({
         next: (response: any) => {
-          console.log('Eliminado: ' + foodRes.id);
+          this.msgAlert("Eliminado", "Reservas eliminadas correctamente", "success");
         },
         error: (err: Error) => {
-          console.log(err);
+          this.msgAlert("Error", "Error al eliminar las reservas", "error");
         },
         complete: () => {
           this.index();
@@ -200,6 +201,14 @@ export class RoomResAdminComponent {
 
   resetObject() {
     this.roomRes = new RoomRes(1, null!, null!, null!, "", "");
+  }
+
+  msgAlert = (title: any, text: any, icon: any) => {
+    Swal.fire({
+      title,
+      text,
+      icon,
+    })
   }
 
   /****************************************************************Métodos Dialog******************************************************************************************************/

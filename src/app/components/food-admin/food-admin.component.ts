@@ -16,6 +16,7 @@ import { FoodService } from '../../services/Food.service';
 import { Food } from '../../models/Food';
 import { User } from '../../models/user';
 import { UserService } from '../../services/user.services';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-food-admin',
@@ -121,10 +122,9 @@ export class FoodAdminComponent {
     this.foodService.index().subscribe({
       next: (response: any) => {
         this.dataSource.data = response['alimentos'];
-        console.log(this.dataSource.data);
       },
       error: (err: Error) => {
-        console.log(err);
+        this.msgAlert("Error", "Error al cargar las comidas", "error");
       }
     });
   }
@@ -132,10 +132,10 @@ export class FoodAdminComponent {
   createRow() {
     this.foodService.create(this.food).subscribe({
       next: (response: any) => {
-        console.log(response);
+        this.msgAlert("Agregado", "Comida agregada correctamente", "success");
       },
       error: (err: Error) => {
-        console.log(err);
+        this.msgAlert("Error", "Error al crear la comida", "error");
       },
       complete: () => {
         this.index();
@@ -147,11 +147,10 @@ export class FoodAdminComponent {
   updateRow() {
     this.foodService.update(this.food).subscribe({
       next: (response: any) => {
-        console.log(response);
-
+        this.msgAlert("Actualizado", "Comida agregada correctamente", "success");
       },
       error: (err: Error) => {
-        console.log(err);
+        this.msgAlert("Error", "Error al actualizar la comida", "error");
       },
       complete: () => {
         this.index();
@@ -164,10 +163,10 @@ export class FoodAdminComponent {
     this.selection.selected.forEach(food => {
       this.foodService.delete(food.id).subscribe({
         next: (response: any) => {
-          console.log('Eliminado: ' + food.descripcion);
+          this.msgAlert("Eliminado", "Comidas eliminadas correctamente", "success");
         },
         error: (err: Error) => {
-          console.log(err);
+          this.msgAlert("Error", "Error al eliminar las comidas", "error");
         },
         complete: () => {
           this.index();
@@ -181,6 +180,14 @@ export class FoodAdminComponent {
 
   resetObject() {
     this.food = new Food(1, "", 0, "");
+  }
+
+  msgAlert = (title: any, text: any, icon: any) => {
+    Swal.fire({
+      title,
+      text,
+      icon,
+    })
   }
 
   /****************************************************************Métodos Dialog******************************************************************************************************/
