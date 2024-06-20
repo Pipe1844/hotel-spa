@@ -219,6 +219,14 @@ export class RoomAdminComponent {
       this.roomService.delete(room.id).subscribe({
         next: (response: any) => {
           console.log('Eliminado: ' + room.id);
+          this.roomService.destroyImage(room.imagen).subscribe({
+            next:(response:any)=>{
+              console.log(response);
+            },
+            error:(err:Error)=>{
+              console.log(err);
+            }
+          });
         },
         error: (err: Error) => {
           console.log(err);

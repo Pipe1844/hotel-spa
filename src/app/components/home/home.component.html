@@ -63,21 +63,16 @@
           }@else{
           <div class="d-flex flex-column align-items-center gap-3 flex-lg-row"> <!--SingIn & LogIn-->
             @if(identity.correo){
-            <a href="#perfil" class="text-dark text-decoration-none px-3 py-1 rounded-4 fw-bold" style="
+            <a href="" class="text-dark text-decoration-none px-3 py-1 rounded-4 fw-bold" style="
                       background-color: rgba(255, 0, 197, 1);
                       color: #fff;
-                      font-weight: 600;
-                  ">{{identity.correo}}</a>
+                      font-weight: 600;" mat-fab aria-label="Actualizar" data-bs-toggle="modal"
+              data-bs-target="#Actualizar" data-bs-whatever="@mdo" (click)="setUserObject()">{{identity.correo}}</a>
 
             <a href="" (click)="logOut()" class="text-dark text-decoration-none px-3 py-1 rounded-4 fw-bold" style="
                       color: #000;
                       font-weight: 600;
                   "><i class="fa-solid fa-right-from-bracket"></i></a>
-
-            <a href="" (click)="logOut()" class="text-dark text-decoration-none px-3 py-1 rounded-4 fw-bold" style="
-                      color: #000;
-                      font-weight: 600;
-                      "><mat-icon>manage accounts</mat-icon></a>
 
             @if (identity.rol == 'admin') {
             <a [routerLink]="['admin']" style="
@@ -132,36 +127,36 @@
 
 
   <div class="contentCards">
-  <div class="container py-5">
-    <h1 class="T">Habitaciones</h1>
-    <div class="row g-4 py-5">
-      @for (room of rooms; track $index) {
-      <div class="col-12 col-md-6 col-lg-4">
-        <div class="card">
-          <img src="{{urlGetImageApi}}{{room.imagen}}" class="card-img-top img-fixed" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Habitacion Numero {{room.id}}</h5>
-            <p class="card-text">{{room.ubicacion}}</p>
-          </div>
-          <div class="mb-5 d-flex justify-content-around">
-            @for (roomType of roomTypes; track $index) {
-            @if (room.idTipoHabitacion == roomType.id) {
-            <div>
-              <h6>Precio: ₡{{roomType.precio}}</h6>
-              <h6>Capacidad: {{roomType.capacidad}} personas</h6>
+    <div class="container py-5">
+      <h1 class="T">Habitaciones</h1>
+      <div class="row g-4 py-5">
+        @for (room of rooms; track $index) {
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="card">
+            <img src="{{urlGetImageApi}}{{room.imagen}}" class="card-img-top img-fixed" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Habitacion Numero {{room.id}}</h5>
+              <p class="card-text">{{room.ubicacion}}</p>
             </div>
-            }
-            }
-            <button mat-fab aria-label="crear" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Crear"
-              data-bs-whatever="@mdo" (click)="setObject(room)" [disabled]="identity == null">Reservar
-            </button>
+            <div class="mb-5 d-flex justify-content-around">
+              @for (roomType of roomTypes; track $index) {
+              @if (room.idTipoHabitacion == roomType.id) {
+              <div>
+                <h6>Precio: ₡{{roomType.precio}}</h6>
+                <h6>Capacidad: {{roomType.capacidad}} personas</h6>
+              </div>
+              }
+              }
+              <button mat-fab aria-label="crear" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Crear"
+                data-bs-whatever="@mdo" (click)="setObject(room)" [disabled]="identity == null">Reservar
+              </button>
+            </div>
           </div>
         </div>
+        }
       </div>
-      }
     </div>
   </div>
-</div>
 
 
 

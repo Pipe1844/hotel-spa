@@ -46,12 +46,7 @@ export class HomeComponent {
       this.getAuth();
     }, 5000)
     this.roomRes = new RoomRes(1, 1, 1, 0, "", "");
-    if (this.identity){
-      this.user = this.identity;
-    } else {
-      this.user = new User(1, null!, "", "", "", "", "", "", "", "");
-    }
-    
+    this.user = new User(1, null!, "", "", "", "", "", "", "", "");
     this.index();
     this.indexRoomTypes();
   }
@@ -127,7 +122,7 @@ export class HomeComponent {
     } else {
       if (this.user.imagen == null || this.user.imagen == ""){
         this.userService.uploadImage(this.selectedFile!).subscribe({
-          next: (response: any) => {
+          next: (response: any) => {  
             console.log(response['filename']);
             this.update(response['filename']);
           },
@@ -157,7 +152,16 @@ export class HomeComponent {
     console.log(this.user.imagen)
     this.userService.update(this.user).subscribe({
       next: (response: any) => {
-        console.log(response);
+        sessionStorage.setItem('token', response['token'])
+        this.userService.getIdentityFromAPI().subscribe({
+          next:(resp:any)=>{
+            sessionStorage.setItem('identity', JSON.stringify(resp));
+            this.router.navigate(['']);
+          },
+          error:(error:Error)=>{
+          console.log(error);
+          }
+        })
       },
       error: (err: Error) => {
         console.log(err);
@@ -180,8 +184,10 @@ export class HomeComponent {
     this.roomRes = new RoomRes(1, this.identity.iss, room.id, null!, "", "");
   }
 
-  setUserObject(room: Room) {
-    this.roomRes = this.identity;
+  setUserObject() {
+    this.user = this.identity;
+    this.user.id = this.identity.iss;
+    this.user.imagen = this.identity.imagen;
   }
 
   onImageFileChange(event: any): void {

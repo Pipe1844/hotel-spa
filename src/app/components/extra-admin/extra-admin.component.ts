@@ -212,11 +212,19 @@ export class ExtraAdminComponent {
   }
 
   deleteSelected() {
-    this.selection.selected.forEach(room => {
+    this.selection.selected.forEach(extra => {
 
-      this.extraService.delete(room.id).subscribe({
+      this.extraService.delete(extra.id).subscribe({
         next: (response: any) => {
-          console.log('Eliminado: ' + room.id);
+          console.log('Eliminado: ' + extra.id);
+          this.extraService.destroyImage(extra.imagen).subscribe({
+            next:(response:any)=>{
+              console.log(response);
+            },
+            error:(err:Error)=>{
+              console.log(err);
+            }
+          });
         },
         error: (err: Error) => {
           console.log(err);

@@ -239,6 +239,14 @@ export class UserAdminComponent implements AfterViewInit {
         this.userService.delete(user.id).subscribe({
           next: (response: any) => {
             console.log('Eliminado: ' + user.nombre);
+            this.userService.destroyImage(user.imagen).subscribe({
+              next:(response:any)=>{
+                console.log(response);
+              },
+              error:(err:Error)=>{
+                console.log(err);
+              }
+            });
           },
           error: (err: Error) => {
             console.log(err);
