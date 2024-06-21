@@ -96,28 +96,30 @@
 
 
         </div>
-      </nav>
+    </nav>
 
 
 
-      
-      <div class="right">
-        <iframe src='https://my.spline.design/untitled-d2c7baebbc7d0653f1a3f1b26512df8b/' frameborder='0' width='150%' height='150%'></iframe>
-      </div>
+
+    <div class="right">
+        <iframe src='https://my.spline.design/untitled-d2c7baebbc7d0653f1a3f1b26512df8b/' frameborder='0' width='150%'
+            height='150%'></iframe>
+    </div>
 
 
 
-      <div class="contentCards">
+    <div class="contentCards">
 
         <div class="container py-5">
             <h1 class="T">Habitaciones</h1>
 
             <div class="ContentIB">
-                <input class="inputBuscar"  placeholder="buscar" #filter>
+                <input class="inputBuscar" name="fillRoom" class="input" placeholder="Buscar por nombre"
+                    #fillRoom="ngModel" [(ngModel)]="filterRoom" (input)="setAuxArrays(1)">
             </div>
 
             <div class="row g-4 py-5">
-                @for (room of rooms; track $index) {
+                @for (room of auxRooms; track $index) {
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="card">
                         <img src="{{urlGetRoomImage}}{{room.imagen}}" class="card-img-top img-fixed" alt="...">
@@ -130,6 +132,7 @@
                             @if (room.idTipoHabitacion == roomType.id) {
                             <div>
                                 <h6>Precio: ₡{{roomType.precio}}</h6>
+                                <h6>Tipo habitación: {{roomType.nombre}}</h6>
                                 <h6>Capacidad: {{roomType.capacidad}} personas</h6>
                             </div>
                             }
@@ -148,33 +151,34 @@
 
         <div class="container py-5">
 
-            
+
 
 
             <h1 class="T">Extras</h1>
 
             <div class="ContentIB">
-            <input class="inputBuscar"  placeholder="buscar" #filter>
-        </div>
+                <input class="inputBuscar" name="fillExtra" class="input" placeholder="Buscar por nombre"
+                    #fillExtra="ngModel" [(ngModel)]="filterExtra" (input)="setAuxArrays(2)">
+            </div>
 
             <div class="row g-4 py-5">
-              @for (extra of extras; track $index) {
-              <div class="col-12 col-md-6 col-lg-4">
-                <div class="card">
-                  <img src="{{urlGetExtraImage}}{{extra.imagen}}" class="card-img-top img-fixed" alt="...">
-                  <div class="card-body">
-                    <h5 class="card-title">{{extra.nombre}}</h5>
-                    <p class="card-text">{{extra.ubicacion}}</p>
-                  </div>
-                  <div class="mb-5 d-flex justify-content-around">
-                    
-                    <div>
-                        <h6>Ubicacion: {{extra.ubicacion}}</h6>
-                      <h6>Precio: ₡{{extra.precio}}</h6>
-                      <h6>Capacidad: {{extra.capacidad}} personas</h6>
+                @for (extra of auxExtras; track $index) {
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card">
+                        <img src="{{urlGetExtraImage}}{{extra.imagen}}" class="card-img-top img-fixed" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{extra.nombre}}</h5>
+                            <p class="card-text">{{extra.ubicacion}}</p>
+                        </div>
+                        <div class="mb-5 d-flex justify-content-around">
+
+                            <div>
+                                <h6>Ubicacion: {{extra.ubicacion}}</h6>
+                                <h6>Precio: ₡{{extra.precio}}</h6>
+                                <h6>Capacidad: {{extra.capacidad}} personas</h6>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                </div>
                 </div>
                 }
             </div>
@@ -182,43 +186,45 @@
 
 
 
-          <div class="container py-5">
+        <div class="container py-5">
             <h1 class="T">Comida</h1>
 
             <div class="ContentIB">
-            <input class="inputBuscar"  placeholder="buscar" #filter>
-        </div>
+                <input class="inputBuscar" name="fillFood" class="input" placeholder="Buscar por descripción"
+                    #fillFood="ngModel" [(ngModel)]="filterFood" (input)="setAuxArrays(3)">
+            </div>
 
             <div class="row g-4 py-5">
-              @for (food of foods; track $index) {
-              <div class="col-12 col-md-6 col-lg-4" >
-                <div class="card-comida">
-                  
-                  <div class="card-body" style="margin-top: 20px;" >
-                    <h5 class="card-title">{{food.horario}}</h5>
-                    <p class="card-text" style="margin-top: 20px;">Descipcion:{{food.descripcion}} </p>
-                  </div>
-                  <div class="mb-5 d-flex justify-content-around">
-                    
-                    <div>
-                         
-                      <h6>Precio: ₡{{food.precio}}</h6>
-                     
-                    </div>
-                    
-                
-                    <button mat-fab aria-label="crear" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Crear"
-                      data-bs-whatever="@mdo" (click)="setFoodResObject(food)" [disabled]="identity == null">Reservar
-                    </button>
-                  </div>
-                </div>
-              </div>
-              }
-            </div>
-          </div>
+                @for (food of auxFoods; track $index) {
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card-comida">
 
-      </div>
-      
+                        <div class="card-body" style="margin-top: 20px;">
+                            <h5 class="card-title">{{food.horario}}</h5>
+                            <p class="card-text">Descipcion:{{food.descripcion}}</p>
+                        </div>
+                        <div class="mb-5 d-flex justify-content-around">
+
+                            <div>
+
+                                <h6>Precio: ₡{{food.precio}}</h6>
+
+                            </div>
+
+
+                            <button mat-fab aria-label="crear" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#Crear" data-bs-whatever="@mdo" (click)="setFoodResObject(food)"
+                                [disabled]="identity == null">Reservar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+
+    </div>
+
 
 
 
