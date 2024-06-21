@@ -177,6 +177,10 @@
                                 <h6>Precio: ₡{{extra.precio}}</h6>
                                 <h6>Capacidad: {{extra.capacidad}} personas</h6>
                             </div>
+                            <button mat-fab aria-label="CrearExtraRes" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#CrearExtraRes" data-bs-whatever="@mdo"
+                                (click)="setExtraResObject(extra)" [disabled]="identity == null">Reservar
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -212,8 +216,8 @@
                             </div>
 
 
-                            <button mat-fab aria-label="crear" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#Crear" data-bs-whatever="@mdo" (click)="setFoodResObject(food)"
+                            <button mat-fab aria-label="CrearFoodRes" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#CrearFoodRes" data-bs-whatever="@mdo" (click)="setFoodResObject(food)"
                                 [disabled]="identity == null">Reservar
                             </button>
                         </div>
@@ -309,11 +313,19 @@
                 <div class="modal-body">
                     <form>
                         <div class="mb-3" style="display: flex;">
-                            <div style="padding: 0 10px 0 0;">
-                                <label for="fechaServicio">Fecha de servicio</label>
-                                <input id="fechaServicio" class="form-control" name="fechaServicio" type="date"
-                                    (change)="formatDate($event)" #fechaServicio="ngModel"
-                                    [(ngModel)]="extraRes.fechaServicio" required class="input">
+                            <div style="padding: 0 10px 0 0; display: flex;">
+                                <div style="width: 40%;">
+                                    <label for="fechaServicio">Fecha de servicio</label>
+                                    <input id="fechaServicio" class="form-control" name="fechaServicio" type="date"
+                                        (change)="formatDate($event)" #fechaServicio="ngModel"
+                                        [(ngModel)]="extraRes.fechaServicio" required class="input">
+                                </div>
+                                <div style="width: 50%; margin-left: 20px;">
+                                <label for="duracion">Duración en minutos</label>
+                                <input id="duracion" class="form-control" name="duracion" type="number"
+                                    #duracion="ngModel" [(ngModel)]="extraRes.duracion" required class="input"
+                                    placeholder="Ej. 90">
+                                </div>
                             </div>
                         </div>
                         <hr>
