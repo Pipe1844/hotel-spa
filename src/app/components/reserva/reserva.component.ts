@@ -18,6 +18,7 @@ import { Food } from '../../models/Food';
 import { RoomRes } from '../../models/RoomRes';
 import { ExtraRes } from '../../models/ExtraRes';
 import { FoodRes } from '../../models/FoodRes';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-reserva',
@@ -32,15 +33,21 @@ export class ReservaComponent {
   public identity: any;
   public extra!: Extra;
   public extras: Extra[] = [];
+  public auxExtras: Extra[] = [];
   public room!: Room;
   public rooms: Room[] = [];
+  public auxRooms: Room[] = [];
   public roomType!: RoomType;
   public roomTypes: RoomType[] = [];
   public food!: Food;
   public foods: Food[] = [];
+  public auxFoods: Food[] = [];
   public roomRes!: RoomRes;
   public extraRes!: ExtraRes;
   public foodRes!: FoodRes;
+  public filterRoom: string = "";
+  public filterExtra: string = "";
+  public filterFood: string = "";
   public urlGetRoomImage: string = server.url + "room/getimage/";
   public urlGetExtraImage: string = server.url + "extra/getimage/";
 
@@ -119,7 +126,8 @@ export class ReservaComponent {
 
   createRoomRes() {
     if (this.roomRes.fechaEntrada == this.roomRes.fechaSalida) {
-      console.log("La fecha de entrada y de salida no pueden ser las mismas");
+      this.msgAlert("Error", "La fecha de entrada y de salida no pueden ser las mismas", "error");
+
     } else {
       this.roomResService.create(this.roomRes).subscribe({
         next: (response: any) => {
@@ -168,6 +176,28 @@ export class ReservaComponent {
     this.foodRes = new FoodRes(1, this.identity.iss, food.id, null!, "", null!);
   }
 
+  fillRooms(){
+    this.auxRooms = this.rooms.filter(o => this.roomTypes.find(e => e.id = o.idTipoHabitacion)?.nombre.includes(this.filterRoom));
+  }
+
+  fillExtras(){
+    this.auxExtras = this.extras.filter(o => o.nombre.includes(this.filterExtra));
+  }
+
+  fillFoods(){
+    this.auxFoods = this.foods.filter(o => o.descripcion.includes(this.filterFood));
+  }
+
+  setAuxArrays(aux:number){
+    if (aux == 1) {
+      this.fillRooms();
+    } else if (aux == 2) {
+      this.fillExtras();
+    } else {
+      this.fillFoods();
+    }
+  }
+
   /****************************************************************Demás métodos******************************************************************************************************/
 
   public formatDate(event: Event): string {
@@ -178,6 +208,14 @@ export class ReservaComponent {
 
   logOut() {
     sessionStorage.clear();
+  }
+
+  msgAlert = (title: any, text: any, icon: any) => {
+    Swal.fire({
+      title,
+      text,
+      icon,
+    })
   }
 }
 

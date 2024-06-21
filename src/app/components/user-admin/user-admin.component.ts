@@ -254,7 +254,7 @@ export class UserAdminComponent implements AfterViewInit {
           }
         })
       } else {
-        console.log('No te puedes eliminar a ti');
+        this.msgAlert("Error", "No te puedes eliminar a ti mismo", "error");
       }
     });
     this.index();
