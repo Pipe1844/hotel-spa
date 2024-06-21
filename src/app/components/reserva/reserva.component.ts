@@ -56,6 +56,17 @@ export class ReservaComponent {
     private router: Router,
   ) {
     this.identity = this.userService.getIdentityFromStorage();
+    this.extra = new Extra(1, "", "", null!, null!, "");
+    this.room = new Room(1, 1, "", "");
+    this.roomType = new RoomType(1, "", null!, null!);
+    this.food = new Food(1, "", 1, "");
+    this.roomRes = new RoomRes(1, 1, 1, null!, "", "");
+    this.extraRes = new ExtraRes(1, 1, 1, "", null!, null!);
+    this.foodRes = new FoodRes(1, 1, 1, null!, "", null!);
+    this.extraIndex();
+    this.foodIndex();
+    this.roomIndex();
+    this.roomTypeIndex();
   }
 
   /***************************************************************Métodos index**********************************************************************************************/
@@ -164,4 +175,9 @@ export class ReservaComponent {
     const fecha = new Date(input.value);
     return `${fecha.getFullYear()}-${('0' + (fecha.getMonth() + 1)).slice(-2)}-${('0' + fecha.getDate()).slice(-2)}`;
   }
+
+  logOut() {
+    sessionStorage.clear();
+  }
 }
+
