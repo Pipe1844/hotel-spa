@@ -177,7 +177,7 @@ export class ReservaComponent {
   }
 
   fillRooms(){
-    this.auxRooms = this.rooms.filter(o => this.roomTypes.find(e => e.id = o.idTipoHabitacion)?.nombre.toLowerCase().includes(this.filterRoom.toLowerCase()));
+    this.auxRooms = this.rooms.filter(o => this.roomTypes.find(e => e.id == o.idTipoHabitacion)?.nombre.toLowerCase().includes(this.filterRoom.toLowerCase()));
   }
 
   fillExtras(){

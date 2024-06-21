@@ -65,7 +65,7 @@ export class SignupComponent {
         } else {
           this.changeStatus(1);
         }
-        this.msgAlert("Registrado", "Se ha registrado correctamente, proceda a iniciar sesión", "succes");
+        this.msgAlert("Registrado", "Se ha registrado correctamente, proceda a iniciar sesión", "success");
         this.router.navigate(['login'])
       }),
       error: (error: Error) => {
