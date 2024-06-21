@@ -18,6 +18,7 @@ import { UserService } from '../../services/user.services';
 import { RoomService } from '../../services/Room.service';
 import { Room } from '../../models/Room';
 import { RoomTypeService } from '../../services/RoomType.service';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-room-admin',
@@ -125,10 +126,9 @@ export class RoomAdminComponent {
     this.roomService.index().subscribe({
       next: (response: any) => {
         this.dataSource.data = response['data'];
-        console.log(this.dataSource.data);
       },
       error: (err: Error) => {
-        console.log(err);
+        this.msgAlert("Error", "Error al cargar las habitaciones", "error");
       }
     });
   }
@@ -139,11 +139,10 @@ export class RoomAdminComponent {
     } else {
       this.roomService.uploadImage(this.selectedFile!).subscribe({
         next: (response: any) => {
-          console.log(response['filename']);
           this.create(response['filename']);
         },
         error: (err: Error) => {
-          console.log(err);
+          this.msgAlert("Error", "Error al agregar la habitación", "error");
         }
       });
     }
@@ -153,10 +152,10 @@ export class RoomAdminComponent {
     this.room.imagen = filename;
     this.roomService.create(this.room).subscribe({
       next: (response: any) => {
-        console.log(response);
+        this.msgAlert("Agregado", "Habitación agregada correctamente", "success");
       },
       error: (error: Error) => {
-        console.log(error);
+        this.msgAlert("Error", "Error al crear la habitación", "error");
       },
       complete: () => {
         this.index();
@@ -174,21 +173,19 @@ export class RoomAdminComponent {
       if (this.room.imagen == null || this.room.imagen == "" ){
         this.roomService.uploadImage(this.selectedFile!).subscribe({
           next: (response: any) => {
-            console.log(response['filename']);
             this.update(response['filename']);
           },
           error: (err: Error) => {
-            console.log(err);
+            this.msgAlert("Error", "Error al subir la imagen", "error");
           }
         });
       } else {
         this.roomService.updateImage(this.selectedFile!, this.room.imagen).subscribe({
           next: (response: any) => {
-            console.log(response['filename']);
             this.update(response['filename']);
           },
           error: (err: Error) => {
-            console.log(err);
+            this.msgAlert("Error", "Error al actualizar la imagen", "error");
           }
         });
       }
@@ -200,10 +197,10 @@ export class RoomAdminComponent {
     console.log(this.room.imagen)
     this.roomService.update(this.room).subscribe({
       next: (response: any) => {
-        console.log(response);
+        this.msgAlert("Actualizado", "Habitación actualizada correctamente", "success");
       },
       error: (err: Error) => {
-        console.log(err);
+        this.msgAlert("Error", "Error al actualizar la habitación", "error");
       },
       complete: () => {
         this.index();
@@ -215,63 +212,27 @@ export class RoomAdminComponent {
 
   deleteSelected() {
     this.selection.selected.forEach(room => {
-
       this.roomService.delete(room.id).subscribe({
         next: (response: any) => {
-          console.log('Eliminado: ' + room.id);
+          this.msgAlert("Eliminado", "Habitación eliminada correctamente", "success");
+          this.roomService.destroyImage(room.imagen).subscribe({
+            next:(response:any)=>{
+            },
+            error:(err:Error)=>{
+            }
+          });
         },
         error: (err: Error) => {
-          console.log(err);
+          this.msgAlert("Error", "Error al eliminar las habitaciones", "error");
         },
         complete: () => {
           this.index();
           this.selection.clear();
         }
-      })
+      });
     });
     this.index();
     this.selection.clear();
-  }
-
-  /*******************************************************************Métodos RoomTypeService**********************************************************************************************/
-
-  showRoomType(id: number): any {
-    this.roomTypeService.show(id).subscribe({
-      next: (response: any) => {
-        console.log(response['data'].nombre);
-        return response['data'].nombre;
-      },
-      error: (err: Error) => {
-        console.log(err);
-        return null;
-      }
-    })
-  }
-
-  /*******************************************************************Métodos imagen**********************************************************************************************/
-
-  uploadImage(): any {
-    this.roomService.uploadImage(this.selectedFile!).subscribe({
-      next: (response: any) => {
-        console.log(response);
-        return response['filename'];
-      },
-      error: (err: Error) => {
-        console.log(err);
-        return "";
-      }
-    })
-  }
-
-  updateImage(filename: string) {
-    this.roomService.updateImage(this.selectedFile!, filename).subscribe({
-      next: (response: any) => {
-        console.log(response);
-      },
-      error: (err: Error) => {
-        console.log(err);
-      }
-    })
   }
 
   /****************************************************************Demás métodos******************************************************************************************************/
@@ -283,6 +244,14 @@ export class RoomAdminComponent {
   resetObject() {
     this.room = new Room(1, null!, "", "");
     this.selectedFile = null;
+  }
+
+  msgAlert = (title: any, text: any, icon: any) => {
+    Swal.fire({
+      title,
+      text,
+      icon,
+    })
   }
 
   /****************************************************************Métodos Dialog******************************************************************************************************/

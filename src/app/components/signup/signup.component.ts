@@ -5,6 +5,7 @@ import { RouterOutlet } from '@angular/router';
 import { User } from '../../models/user';
 import { timer } from 'rxjs';
 import { UserService } from '../../services/user.services';
+import Swal from 'sweetalert2'
 
 
 @Component({
@@ -26,7 +27,7 @@ export class SignupComponent {
     private router: Router
   ) {
     this.status = -1;
-    this.user = new User(1, null, "", "", "", "", "", "", "", "");
+    this.user = new User(1, null!, "", "", "", "", "", "", "", "");
   }
 
   onSubmit(form: any) {
@@ -41,7 +42,7 @@ export class SignupComponent {
           this.create(response['filename']);
         },
         error: (err: Error) => {
-          console.log(err);
+          this.msgAlert("Error", "Error al subir la imagen", "error");
         }
       });
     }
@@ -64,16 +65,25 @@ export class SignupComponent {
         } else {
           this.changeStatus(1);
         }
+        this.msgAlert("Registrado", "Se ha registrado correctamente, proceda a iniciar sesión", "succes");
         this.router.navigate(['login'])
       }),
       error: (error: Error) => {
         this.changeStatus(2);
-        console.log(error);
+        this.msgAlert("Error", "Error al registrarse, intentelo de nuevo más tarde", "error");
       }
     });
   }
 
   onImageFileChange(event: any): void {
     this.selectedFile = event.target.files[0];
+  }
+
+  msgAlert = (title: any, text: any, icon: any) => {
+    Swal.fire({
+      title,
+      text,
+      icon,
+    })
   }
 }

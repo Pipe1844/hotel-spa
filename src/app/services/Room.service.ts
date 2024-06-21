@@ -116,7 +116,13 @@ export class RoomService{
     }
 
     destroyImage(filename: string): Observable<any> {
-        let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+        let headers;
+        let bearertoken = sessionStorage.getItem('token');
+        if (bearertoken){
+            headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('bearertoken', bearertoken);
+        } else {
+            headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+        }
         let options = {
             headers
         };

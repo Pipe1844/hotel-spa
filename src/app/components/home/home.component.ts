@@ -10,6 +10,7 @@ import { RoomTypeService } from '../../services/RoomType.service';
 import { RoomType } from '../../models/RoomType';
 import { RoomRes } from '../../models/RoomRes';
 import { RoomResService } from '../../services/RoomRes.service';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-home',
@@ -22,12 +23,15 @@ import { RoomResService } from '../../services/RoomRes.service';
 export class HomeComponent {
   public identity: any;
   private checkAutorization;
+  public user!: User;
   public rooms: Room[] = [];
   public room!: Room;
   public roomType!: RoomType;
   public roomRes: RoomRes;
   public roomTypes: RoomType[] = [];
   public urlGetImageApi: string = server.url + "room/getimage/";
+  public selectedFile: File | null = null;
+
 
   constructor(private userService: UserService,
     private router: Router,
@@ -37,10 +41,12 @@ export class HomeComponent {
 
   ) {
     this.identity = this.userService.getIdentityFromStorage();
+    
     this.checkAutorization = setInterval(() => {
       this.getAuth();
     }, 5000)
     this.roomRes = new RoomRes(1, 1, 1, 0, "", "");
+    this.user = new User(1, null!, "", "", "", "", "", "", "", "");
     this.index();
     this.indexRoomTypes();
   }
@@ -110,6 +116,62 @@ export class HomeComponent {
     }
   }
 
+  updateUser(){
+    if (this.selectedFile == null) {
+      this.update(this.user.imagen);
+    } else {
+      if (this.user.imagen == null || this.user.imagen == ""){
+        this.userService.uploadImage(this.selectedFile!).subscribe({
+          next: (response: any) => {  
+            console.log(response['filename']);
+            this.update(response['filename']);
+          },
+          error: (err: Error) => {
+            console.log(err);
+          },
+          complete: () => {
+            this.selectedFile = null;
+          }
+        });
+      } else {
+        this.userService.updateImage(this.selectedFile!, this.user.imagen).subscribe({
+          next: (response: any) => {
+            console.log(response['filename']);
+            this.update(response['filename']);
+          },
+          error: (err: Error) => {
+            console.log(err);
+          }
+        });
+      }
+    }
+  }
+
+  update(filename:string) {
+    this.user.imagen = filename;
+    console.log(this.user.imagen)
+    this.userService.update(this.user).subscribe({
+      next: (response: any) => {
+        sessionStorage.setItem('token', response['token'])
+        this.userService.getIdentityFromAPI().subscribe({
+          next:(resp:any)=>{
+            sessionStorage.setItem('identity', JSON.stringify(resp));
+            this.router.navigate(['']);
+          },
+          error:(error:Error)=>{
+          console.log(error);
+          }
+        })
+      },
+      error: (err: Error) => {
+        console.log(err);
+      },
+      complete: () => {
+        this.selectedFile = null;
+      }
+    });
+  }
+
   /****************************************************************Demás métodos******************************************************************************************************/
 
   public formatDate(event: Event): string {
@@ -120,6 +182,16 @@ export class HomeComponent {
 
   setObject(room: Room) {
     this.roomRes = new RoomRes(1, this.identity.iss, room.id, null!, "", "");
+  }
+
+  setUserObject() {
+    this.user = this.identity;
+    this.user.id = this.identity.iss;
+    this.user.imagen = this.identity.imagen;
+  }
+
+  onImageFileChange(event: any): void {
+    this.selectedFile = event.target.files[0];
   }
 }
 

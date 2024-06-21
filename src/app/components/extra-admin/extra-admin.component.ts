@@ -12,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { SelectionModel } from '@angular/cdk/collections';
 import { RouterLink, RouterOutlet, Router } from '@angular/router';
+import Swal from 'sweetalert2'
 
 import { server } from '../../services/global ';
 import { User } from '../../models/user';
@@ -124,10 +125,10 @@ export class ExtraAdminComponent {
     this.extraService.index().subscribe({
       next: (response: any) => {
         this.dataSource.data = response['data'];
-        console.log(this.dataSource.data);
       },
       error: (err: Error) => {
-        console.log(err);
+        this.msgAlert("Error", "Error al cargar los extras", "error");
+
       }
     });
   }
@@ -138,11 +139,11 @@ export class ExtraAdminComponent {
     } else {
       this.extraService.uploadImage(this.selectedFile!).subscribe({
         next: (response: any) => {
-          console.log(response['filename']);
           this.create(response['filename']);
         },
         error: (err: Error) => {
-          console.log(err);
+          this.msgAlert("Error", "Error al subir la imagen", "error");
+
         }
       });
     }
@@ -152,10 +153,11 @@ export class ExtraAdminComponent {
     this.extra.imagen = filename;
     this.extraService.create(this.extra).subscribe({
       next: (response: any) => {
-        console.log(response);
+        this.msgAlert("Agregadp", "Extra agregado correctamente", "success");
+
       },
       error: (error: Error) => {
-        console.log(error);
+        this.msgAlert("Error", "Error al agregar el extra", "error");
       },
       complete: () => {
         this.index();
@@ -172,21 +174,20 @@ export class ExtraAdminComponent {
       if (this.extra.imagen == null) {
         this.extraService.uploadImage(this.selectedFile!).subscribe({
           next: (response: any) => {
-            console.log(response['filename']);
             this.update(response['filename']);
           },
           error: (err: Error) => {
-            console.log(err);
+            this.msgAlert("Error", "Error al subir la imagen", "error");
+
           }
         });
       } else {
         this.extraService.updateImage(this.selectedFile!, this.extra.imagen).subscribe({
           next: (response: any) => {
-            console.log(response['filename']);
             this.update(response['filename']);
           },
           error: (err: Error) => {
-            console.log(err);
+            this.msgAlert("Error", "Error al actualizar la imagen", "error");
           }
         });
       }
@@ -198,10 +199,10 @@ export class ExtraAdminComponent {
     console.log(this.extra.imagen)
     this.extraService.update(this.extra).subscribe({
       next: (response: any) => {
-        console.log(response);
+        this.msgAlert("Actualizado", "Extra modificado correctamente", "success");
       },
       error: (err: Error) => {
-        console.log(err);
+        this.msgAlert("Error", "Error al actualizar el extra", "error");
       },
       complete: () => {
         this.index();
@@ -212,14 +213,20 @@ export class ExtraAdminComponent {
   }
 
   deleteSelected() {
-    this.selection.selected.forEach(room => {
+    this.selection.selected.forEach(extra => {
 
-      this.extraService.delete(room.id).subscribe({
+      this.extraService.delete(extra.id).subscribe({
         next: (response: any) => {
-          console.log('Eliminado: ' + room.id);
+          this.msgAlert("Eliminado", "Extras eliminados correctamente", "success");
+          this.extraService.destroyImage(extra.imagen).subscribe({
+            next:(response:any)=>{
+            },
+            error:(err:Error)=>{
+            }
+          });
         },
         error: (err: Error) => {
-          console.log(err);
+          this.msgAlert("Error", "Error al eliminar los extras", "error");
         },
         complete: () => {
           this.index();
@@ -229,34 +236,6 @@ export class ExtraAdminComponent {
     });
   }
 
-  /*******************************************************************Métodos imagen**********************************************************************************************/
-
-  uploadImage(): any {
-    this.extraService.uploadImage(this.selectedFile!).subscribe({
-      next: (response: any) => {
-        console.log(response);
-        return response['filename'];
-      },
-      error: (err: Error) => {
-        console.log(err);
-        return "";
-      }
-    })
-  }
-
-  updateImage(filename: string) {
-    this.extraService.updateImage(this.selectedFile!, filename).subscribe({
-      next: (response: any) => {
-        console.log(response);
-        return response['filename'];
-      },
-      error: (err: Error) => {
-        console.log(err);
-        return "";
-      }
-    })
-  }
-
   /****************************************************************Demás métodos******************************************************************************************************/
 
   onImageFileChange(event: any): void {
@@ -264,7 +243,15 @@ export class ExtraAdminComponent {
   }
 
   resetObject() {
-    this.extra = new Extra(1, "", "", null, null, "");
+    this.extra = new Extra(1, "", "", null!, null!, "");
+  }
+
+  msgAlert = (title: any, text: any, icon: any) => {
+    Swal.fire({
+      title,
+      text,
+      icon,
+    })
   }
 
   /****************************************************************Métodos Dialog******************************************************************************************************/

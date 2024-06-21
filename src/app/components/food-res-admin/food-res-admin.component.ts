@@ -19,6 +19,7 @@ import { UserService } from '../../services/user.services';
 import { FoodResService } from '../../services/FoodRes.service';
 import { User } from '../../models/user';
 import { FoodRes } from '../../models/FoodRes';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-food-res-admin',
@@ -126,10 +127,9 @@ export class FoodResAdminComponent {
     this.foodResService.index().subscribe({
       next: (response: any) => {
         this.dataSource.data = response['reservas'];
-        console.log(this.dataSource.data);
       },
       error: (err: Error) => {
-        console.log(err);
+        this.msgAlert("Error", "Error al cargar las reservas", "error");
       }
     });
   }
@@ -137,10 +137,10 @@ export class FoodResAdminComponent {
   createRow() {
     this.foodResService.create(this.foodRes).subscribe({
       next: (response: any) => {
-        console.log(response);
+        this.msgAlert("Agregado", "Se ha reservado correctamente", "success");
       },
       error: (err: Error) => {
-        console.log(err);
+        this.msgAlert("Error", "Error al crear la reserva", "error");
       },
       complete: () => {
         this.index();
@@ -152,11 +152,10 @@ export class FoodResAdminComponent {
   updateRow() {
     this.foodResService.update(this.foodRes).subscribe({
       next: (response: any) => {
-        console.log(response);
-
+        this.msgAlert("Actualizada", "Reserva actualizada correctamente", "success");
       },
       error: (err: Error) => {
-        console.log(err);
+        this.msgAlert("Error", "Error al actualizar la reserva", "error");
       },
       complete: () => {
         this.index();
@@ -169,10 +168,10 @@ export class FoodResAdminComponent {
     this.selection.selected.forEach(foodRes => {
       this.foodResService.delete(foodRes.id).subscribe({
         next: (response: any) => {
-          console.log('Eliminado: ' + foodRes.id);
+          this.msgAlert("Eliminado", "Reservas eliminadas correctamente", "success");
         },
         error: (err: Error) => {
-          console.log(err);
+          this.msgAlert("Error", "Error al eliminar las reservas", "error");
         },
         complete: () => {
           this.index();
@@ -191,6 +190,14 @@ export class FoodResAdminComponent {
 
   resetObject() {
     this.foodRes = new FoodRes(1, null!, null!, null!, "", null!);
+  }
+
+  msgAlert = (title: any, text: any, icon: any) => {
+    Swal.fire({
+      title,
+      text,
+      icon,
+    })
   }
 
   /****************************************************************Métodos Dialog******************************************************************************************************/

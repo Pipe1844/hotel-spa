@@ -16,6 +16,7 @@ import { server } from '../../services/global ';
 import { User } from '../../models/user';
 import { UserService } from '../../services/user.services';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import Swal from 'sweetalert2'
 
 
 @Component({
@@ -52,7 +53,7 @@ export class UserAdminComponent implements AfterViewInit {
     private userService: UserService,
     private router:Router
     ) {
-    this.user = new User(1, null, "", "", "", "", "", "", "", "");
+    this.user = new User(1, null!, "", "", "", "", "", "", "", "");
     this.identity = this.userService.getIdentityFromStorage();
     // this.checkAutorization = setInterval(() => {
     //   this.getAuth();
@@ -124,7 +125,7 @@ export class UserAdminComponent implements AfterViewInit {
         console.log(this.dataSource.data);
       },
       error: (err: Error) => {
-        console.log(err);
+        this.msgAlert("Error", "Error al cargar los usuarios", "error");
       }
     });
   }
@@ -136,11 +137,10 @@ export class UserAdminComponent implements AfterViewInit {
     } else {
       this.userService.uploadImage(this.selectedFile!).subscribe({
         next: (response: any) => {
-          console.log(response['filename']);
           this.create(response['filename']);
         },
         error: (err: Error) => {
-          console.log(err);
+          this.msgAlert("Error", "Error al subir la imagen", "error");
         }
       });
     }
@@ -150,10 +150,10 @@ export class UserAdminComponent implements AfterViewInit {
     this.user.imagen = filename;
     this.userService.create(this.user).subscribe({
       next: (response: any) => {
-        console.log(response);
+        this.msgAlert("Agregado", "Usuario ingresado correctamente", "success");
       },
       error: (error: Error) => {
-        console.log(error);
+        this.msgAlert("Error", "Error al crear el usuario", "error");
       },
       complete: () => {
         this.index();
@@ -167,24 +167,22 @@ export class UserAdminComponent implements AfterViewInit {
     if (this.selectedFile == null) {
       this.update(this.user.imagen);
     } else {
-      if (this.user.imagen == null){
+      if (this.user.imagen == null || this.user.imagen == ""){
         this.userService.uploadImage(this.selectedFile!).subscribe({
           next: (response: any) => {
-            console.log(response['filename']);
             this.update(response['filename']);
           },
           error: (err: Error) => {
-            console.log(err);
+            this.msgAlert("Error", "Error al subir la imagen", "error");
           }
         });
       } else {
         this.userService.updateImage(this.selectedFile!, this.user.imagen).subscribe({
           next: (response: any) => {
-            console.log(response['filename']);
             this.update(response['filename']);
           },
           error: (err: Error) => {
-            console.log(err);
+            this.msgAlert("Error", "Error al actualizar la imagen", "error");
           }
         });
       }
@@ -196,10 +194,10 @@ export class UserAdminComponent implements AfterViewInit {
     console.log(this.user.imagen)
     this.userService.update(this.user).subscribe({
       next: (response: any) => {
-        console.log(response);
+        this.msgAlert("Actualizado", "Usuario modificado exitosamente", "success");
       },
       error: (err: Error) => {
-        console.log(err);
+        this.msgAlert("Error", "Error al modificar el usuario", "error");
       },
       complete: () => {
         this.index();
@@ -219,12 +217,11 @@ export class UserAdminComponent implements AfterViewInit {
 
     this.userService.updateRole(this.user).subscribe({
       next: (response: any) => {
-        console.log(response);
         this.index();
         this.selection.clear();
       },
       error: (err: Error) => {
-        console.log(err);
+        this.msgAlert("Error", "Error al cambiar el rol del usuario", "error");
       },
       complete: () => {
         this.index();
@@ -239,6 +236,14 @@ export class UserAdminComponent implements AfterViewInit {
         this.userService.delete(user.id).subscribe({
           next: (response: any) => {
             console.log('Eliminado: ' + user.nombre);
+            this.userService.destroyImage(user.imagen).subscribe({
+              next:(response:any)=>{
+                this.msgAlert("Eliminado", "Usuarios eliminados correctamente", "success");
+              },
+              error:(err:Error)=>{
+                this.msgAlert("Error", "Error al eliminar los usuarios", "error");
+              }
+            });
           },
           error: (err: Error) => {
             console.log(err);
@@ -256,32 +261,6 @@ export class UserAdminComponent implements AfterViewInit {
     this.selection.clear();
   }
 
-  /*******************************************************************Métodos imagen**********************************************************************************************/
-
-  uploadImage(): any {
-    this.userService.uploadImage(this.selectedFile!).subscribe({
-      next: (response: any) => {
-        console.log(response);
-        return response['filename'];
-      },
-      error: (err: Error) => {
-        console.log(err);
-        return "";
-      }
-    })
-  }
-
-  updateImage(filename: string) {
-    this.userService.updateImage(this.selectedFile!, filename).subscribe({
-      next: (response: any) => {
-        console.log(response);
-      },
-      error: (err: Error) => {
-        console.log(err);
-      }
-    })
-  }
-
   /****************************************************************Demás métodos******************************************************************************************************/
 
   onImageFileChange(event: any): void {
@@ -289,7 +268,15 @@ export class UserAdminComponent implements AfterViewInit {
   }
 
   resetObject() {
-    this.user = new User(1, null, "", "", "", "", "", "", "", "");
+    this.user = new User(1, null!, "", "", "", "", "", "", "", "");
+  }
+
+  msgAlert = (title: any, text: any, icon: any) => {
+    Swal.fire({
+      title,
+      text,
+      icon,
+    })
   }
 
   /****************************************************************Métodos Dialog******************************************************************************************************/

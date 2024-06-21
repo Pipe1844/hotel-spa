@@ -16,15 +16,16 @@ import { RoomTypeService } from '../../services/RoomType.service';
 import { User } from '../../models/user';
 import { UserService } from '../../services/user.services';
 import { RoomType } from '../../models/RoomType';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-room-type-admin',
   standalone: true,
   imports: [MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatFormFieldModule,
-            MatInputModule, MatTableModule, MatSlideToggleModule, FormsModule, MatIconModule,
-            MatButtonModule, ReactiveFormsModule, MatTableModule, MatCheckboxModule, MatDividerModule,
-            RouterOutlet, RouterLink
-          ],
+    MatInputModule, MatTableModule, MatSlideToggleModule, FormsModule, MatIconModule,
+    MatButtonModule, ReactiveFormsModule, MatTableModule, MatCheckboxModule, MatDividerModule,
+    RouterOutlet, RouterLink
+  ],
   templateUrl: './room-type-admin.component.html',
   styleUrl: './room-type-admin.component.css',
   providers: [RoomTypeService, UserService]
@@ -46,7 +47,7 @@ export class RoomTypeAdminComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
-    private userService: UserService, 
+    private userService: UserService,
     private roomTypeService: RoomTypeService,
     private router: Router
   ) {
@@ -121,10 +122,9 @@ export class RoomTypeAdminComponent implements AfterViewInit {
     this.roomTypeService.index().subscribe({
       next: (response: any) => {
         this.dataSource.data = response['data'];
-        console.log(this.dataSource.data);
       },
       error: (err: Error) => {
-        console.log(err);
+        this.msgAlert("Error", "Error al cargar los tipos de habitaciones", "error");
       }
     });
   }
@@ -132,10 +132,10 @@ export class RoomTypeAdminComponent implements AfterViewInit {
   createRow() {
     this.roomTypeService.create(this.roomType).subscribe({
       next: (response: any) => {
-        console.log(response);
+        this.msgAlert("Agregada", "Tipo de habitación agregada correctamente", "success");
       },
       error: (err: Error) => {
-        console.log(err);
+        this.msgAlert("Error", "Error al agregar el tipo de habitación", "error");
       },
       complete: () => {
         this.index();
@@ -147,11 +147,10 @@ export class RoomTypeAdminComponent implements AfterViewInit {
   updateRow() {
     this.roomTypeService.update(this.roomType).subscribe({
       next: (response: any) => {
-        console.log(response);
-
+        this.msgAlert("Actualizado", "Tipo de habitación modificado correctamente", "success");
       },
       error: (err: Error) => {
-        console.log(err);
+        this.msgAlert("Error", "Error al actualizar el tipo de habitación", "error");
       },
       complete: () => {
         this.index();
@@ -164,10 +163,10 @@ export class RoomTypeAdminComponent implements AfterViewInit {
     this.selection.selected.forEach(roomType => {
       this.roomTypeService.delete(roomType.id).subscribe({
         next: (response: any) => {
-          console.log('Eliminado: ' + roomType.nombre);
+          this.msgAlert("Eliminado", "Tipo de habitación eliminados correctamente", "success");
         },
         error: (err: Error) => {
-          console.log(err);
+          this.msgAlert("Error", "Error al eliminar los tipos de habitación", "error");
         },
         complete: () => {
           this.index();
@@ -181,6 +180,14 @@ export class RoomTypeAdminComponent implements AfterViewInit {
 
   resetObject() {
     this.roomType = new RoomType(1, "", null!, null!);
+  }
+
+  msgAlert = (title: any, text: any, icon: any) => {
+    Swal.fire({
+      title,
+      text,
+      icon,
+    })
   }
 
   /****************************************************************Métodos Dialog******************************************************************************************************/

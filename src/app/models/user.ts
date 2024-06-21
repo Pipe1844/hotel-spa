@@ -1,7 +1,7 @@
 export class User{
     constructor(
         public id:number,
-        public cedula:number|null,
+        public cedula:number,
         public nombre:string,
         public correo:string,
         public password:string,

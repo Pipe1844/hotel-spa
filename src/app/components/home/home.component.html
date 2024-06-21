@@ -63,11 +63,11 @@
           }@else{
           <div class="d-flex flex-column align-items-center gap-3 flex-lg-row"> <!--SingIn & LogIn-->
             @if(identity.correo){
-            <a href="#perfil" class="text-dark text-decoration-none px-3 py-1 rounded-4 fw-bold" style="
+            <a href="" class="text-dark text-decoration-none px-3 py-1 rounded-4 fw-bold" style="
                       background-color: rgba(255, 0, 197, 1);
                       color: #fff;
-                      font-weight: 600;
-                  ">{{identity.correo}}</a>
+                      font-weight: 600;" mat-fab aria-label="Actualizar" data-bs-toggle="modal"
+              data-bs-target="#Actualizar" data-bs-whatever="@mdo" (click)="setUserObject()">{{identity.correo}}</a>
 
             <a href="" (click)="logOut()" class="text-dark text-decoration-none px-3 py-1 rounded-4 fw-bold" style="
                       color: #000;
@@ -127,36 +127,36 @@
 
 
   <div class="contentCards">
-  <div class="container py-5">
-    <h1 class="T">Habitaciones</h1>
-    <div class="row g-4 py-5">
-      @for (room of rooms; track $index) {
-      <div class="col-12 col-md-6 col-lg-4">
-        <div class="card">
-          <img src="{{urlGetImageApi}}{{room.imagen}}" class="card-img-top img-fixed" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Habitacion Numero {{room.id}}</h5>
-            <p class="card-text">{{room.ubicacion}}</p>
-          </div>
-          <div class="mb-5 d-flex justify-content-around">
-            @for (roomType of roomTypes; track $index) {
-            @if (room.idTipoHabitacion == roomType.id) {
-            <div>
-              <h6>Precio: ₡{{roomType.precio}}</h6>
-              <h6>Capacidad: {{roomType.capacidad}} personas</h6>
+    <div class="container py-5">
+      <h1 class="T">Habitaciones</h1>
+      <div class="row g-4 py-5">
+        @for (room of rooms; track $index) {
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="card">
+            <img src="{{urlGetImageApi}}{{room.imagen}}" class="card-img-top img-fixed" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Habitacion Numero {{room.id}}</h5>
+              <p class="card-text">{{room.ubicacion}}</p>
             </div>
-            }
-            }
-            <button mat-fab aria-label="crear" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Crear"
-              data-bs-whatever="@mdo" (click)="setObject(room)" [disabled]="identity == null">Reservar
-            </button>
+            <div class="mb-5 d-flex justify-content-around">
+              @for (roomType of roomTypes; track $index) {
+              @if (room.idTipoHabitacion == roomType.id) {
+              <div>
+                <h6>Precio: ₡{{roomType.precio}}</h6>
+                <h6>Capacidad: {{roomType.capacidad}} personas</h6>
+              </div>
+              }
+              }
+              <button mat-fab aria-label="crear" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Crear"
+                data-bs-whatever="@mdo" (click)="setObject(room)" [disabled]="identity == null">Reservar
+              </button>
+            </div>
           </div>
         </div>
+        }
       </div>
-      }
     </div>
   </div>
-</div>
 
 
 
@@ -233,6 +233,66 @@
   <!--Dialogo-->
 
   
+  
+
+
+
+  <!-- Dialogo Actualizar-->
+
+  <div class="modal fade" id="Actualizar" tabindex="-1" aria-labelledby="Actualizar" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="heading" id="Actualizar">Actualizar Usuario</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+
+        <div class="modal-body">
+
+          <form>
+            <div class="mb-3">
+              <input id="nombre" type="text" #nombre="ngModel" autocomplete="off" name="nombre" class="input"
+                placeholder="Nombre" pattern="" [(ngModel)]="user.nombre" required>
+              @if (!nombre.valid && nombre.touched) {
+              <small class="invalid-feedback d-block">Formato invalido</small>
+              }
+
+              <input id="apellido" type="text" #apellido="ngModel" autocomplete="off" name="apellido" class="input"
+                placeholder="Apellido" pattern="" [(ngModel)]="user.apellido" required>
+              @if (!apellido.valid && apellido.touched) {
+              <small class="invalid-feedback d-block">Formato invalido</small>
+              }
+
+              <input id="telefono" type="text" #telefono="ngModel" autocomplete="off" name="telefono" class="input"
+                placeholder="Telefono" pattern="" [(ngModel)]="user.telefono" required>
+              @if (!telefono.valid && telefono.touched) {
+              <small class="invalid-feedback d-block">Formato invalido</small>
+              }
+            </div>
+            <div class="mb-3">
+
+              <input id="usuario" type="text" #usuario="ngModel" autocomplete="off" name="usuario" class="input"
+                placeholder="Usuario" pattern="" [(ngModel)]="user.usuario" required>
+              @if (!usuario.valid && usuario.touched) {
+              <small class="invalid-feedback d-block">Formato invalido</small>
+              }
+
+              <input id="imagen" type="file" autocomplete="off" name="imagen" class="input" placeholder="Foto"
+                (change)="onImageFileChange($event)">
+
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="button" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="button" data-bs-dismiss="modal" (click)="updateUser()">Actualizar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dialogo Actualizar-->
   <section id="footer">
 		<div class="container">
 			<div class="row text-center text-xs-center text-sm-left text-md-left">
@@ -273,8 +333,6 @@
 			</div>	
 		</div>
 	</section>
-
-
 
 </body>
 
