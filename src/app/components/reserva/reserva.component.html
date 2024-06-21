@@ -186,17 +186,17 @@
             <h1 class="T">Comida</h1>
 
             <div class="ContentIB">
-                <input class="inputBuscar"  placeholder="buscar" #filter>
-            </div>
+            <input class="inputBuscar"  placeholder="buscar" #filter>
+        </div>
 
             <div class="row g-4 py-5">
               @for (food of foods; track $index) {
               <div class="col-12 col-md-6 col-lg-4" >
-                <div class="card">
+                <div class="card-comida">
                   
                   <div class="card-body" style="margin-top: 20px;" >
                     <h5 class="card-title">{{food.horario}}</h5>
-                    <p class="card-text">Descipcion:{{food.descripcion}}</p>
+                    <p class="card-text" style="margin-top: 20px;">Descipcion:{{food.descripcion}} </p>
                   </div>
                   <div class="mb-5 d-flex justify-content-around">
                     
