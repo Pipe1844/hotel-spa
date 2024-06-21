@@ -84,7 +84,7 @@ export class ReservaComponent {
         this.auxExtras = this.extras = response['data'];
       },
       error: (err: Error) => {
-        console.log(err);
+        this.msgAlert("Error", "Error al cargar los extras", "error");
       }
     });
   }
@@ -95,7 +95,7 @@ export class ReservaComponent {
         this.auxFoods = this.foods = response['alimentos'];
       },
       error: (err: Error) => {
-        console.log(err);
+        this.msgAlert("Error", "Error al cargar las comidas", "error");
       }
     });
   }
@@ -106,7 +106,7 @@ export class ReservaComponent {
         this.auxRooms = this.rooms = response['data'];
       },
       error: (err: Error) => {
-        console.log(err);
+        this.msgAlert("Error", "Error al cargar las habitaciones", "error");
       }
     });
   }
@@ -117,7 +117,7 @@ export class ReservaComponent {
         this.roomTypes = response['data'];
       },
       error: (err: Error) => {
-        console.log(err);
+
       }
     });
   }
@@ -131,10 +131,10 @@ export class ReservaComponent {
     } else {
       this.roomResService.create(this.roomRes).subscribe({
         next: (response: any) => {
-          console.log(response);
+          this.msgAlert("Reservado", "Habiación reservada correctamente", "success");
         },
         error: (err: Error) => {
-          console.log(err);
+          this.msgAlert("Error", "Error al reservar la habitación, fechas ya ocupadas", "error");
         }
       });
     }
@@ -143,10 +143,10 @@ export class ReservaComponent {
   createExtraRes() {
     this.extraResService.create(this.extraRes).subscribe({
       next: (response: any) => {
-        console.log(response);
+        this.msgAlert("Reservado", "Extra reservado correctamente", "success");
       },
       error: (err: Error) => {
-        console.log(err);
+        this.msgAlert("Error", "Error al reservar el extra, fecha ya ocupada", "error");
       }
     });
   }
@@ -154,10 +154,10 @@ export class ReservaComponent {
   createFoodRes() {
     this.foodResService.create(this.foodRes).subscribe({
       next: (response: any) => {
-        console.log(response);
+        this.msgAlert("Reservado", "Comida reservada correctamente", "success");
       },
       error: (err: Error) => {
-        console.log(err);
+        this.msgAlert("Error", "Error al reservar la habitación, intente más tarde", "error");
       }
     });
   }
@@ -177,15 +177,15 @@ export class ReservaComponent {
   }
 
   fillRooms(){
-    this.auxRooms = this.rooms.filter(o => this.roomTypes.find(e => e.id = o.idTipoHabitacion)?.nombre.includes(this.filterRoom));
+    this.auxRooms = this.rooms.filter(o => this.roomTypes.find(e => e.id = o.idTipoHabitacion)?.nombre.toLowerCase().includes(this.filterRoom.toLowerCase()));
   }
 
   fillExtras(){
-    this.auxExtras = this.extras.filter(o => o.nombre.includes(this.filterExtra));
+    this.auxExtras = this.extras.filter(o => o.nombre.toLowerCase().includes(this.filterExtra.toLowerCase()));
   }
 
   fillFoods(){
-    this.auxFoods = this.foods.filter(o => o.descripcion.includes(this.filterFood));
+    this.auxFoods = this.foods.filter(o => o.descripcion.toLowerCase().includes(this.filterFood.toLowerCase()));
   }
 
   setAuxArrays(aux:number){
