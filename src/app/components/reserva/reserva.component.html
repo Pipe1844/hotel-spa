@@ -111,6 +111,11 @@
 
         <div class="container py-5">
             <h1 class="T">Habitaciones</h1>
+
+            <div class="ContentIB">
+                <input class="inputBuscar"  placeholder="buscar" #filter>
+            </div>
+
             <div class="row g-4 py-5">
                 @for (room of auxRooms; track $index) {
                 <div class="col-12 col-md-6 col-lg-4">
@@ -142,7 +147,16 @@
 
 
         <div class="container py-5">
+
+            
+
+
             <h1 class="T">Extras</h1>
+
+            <div class="ContentIB">
+            <input class="inputBuscar"  placeholder="buscar" #filter>
+        </div>
+
             <div class="row g-4 py-5">
               @for (extra of auxExtras; track $index) {
               <div class="col-12 col-md-6 col-lg-4">
@@ -170,6 +184,11 @@
 
           <div class="container py-5">
             <h1 class="T">Comida</h1>
+
+            <div class="ContentIB">
+                <input class="inputBuscar"  placeholder="buscar" #filter>
+            </div>
+
             <div class="row g-4 py-5">
               @for (food of auxFoods; track $index) {
               <div class="col-12 col-md-6 col-lg-4" >
