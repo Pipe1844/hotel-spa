@@ -85,7 +85,7 @@ export class ReservaComponent {
   foodIndex() {
     this.foodService.index().subscribe({
       next: (response: any) => {
-        this.foods = response['data'];
+        this.foods = response['alimentos'];
       },
       error: (err: Error) => {
         console.log(err);

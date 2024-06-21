@@ -2,6 +2,8 @@
     
 
 
+
+
     <nav class="navbar navbar-expand-lg"> <!--navbar-->
         <div class="container-fluid">
     
@@ -96,11 +98,14 @@
 
 
       
-
+      <div class="right">
+        <iframe src='https://my.spline.design/untitled-d2c7baebbc7d0653f1a3f1b26512df8b/' frameborder='0' width='150%' height='150%'></iframe>
+      </div>
 
 
 
       <div class="contentCards">
+
         <div class="container py-5">
           <h1 class="T">Habitaciones</h1>
           <div class="row g-4 py-5">
@@ -138,7 +143,7 @@
               @for (extra of extras; track $index) {
               <div class="col-12 col-md-6 col-lg-4">
                 <div class="card">
-                  <img src="{{urlGetExtraImage}}{{room.imagen}}" class="card-img-top img-fixed" alt="...">
+                  <img src="{{urlGetExtraImage}}{{extra.imagen}}" class="card-img-top img-fixed" alt="...">
                   <div class="card-body">
                     <h5 class="card-title">Habitacion Numero {{extra.nombre}}</h5>
                     <p class="card-text">{{extra.ubicacion}}</p>
@@ -154,6 +159,38 @@
                 
                     <button mat-fab aria-label="crear" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Crear"
                       data-bs-whatever="@mdo" (click)="setRoomResObject(room)" [disabled]="identity == null">Reservar
+                    </button>
+                  </div>
+                </div>
+              </div>
+              }
+            </div>
+          </div>
+
+
+
+          <div class="container py-5">
+            <h1 class="T">Comida</h1>
+            <div class="row g-4 py-5">
+              @for (food of foods; track $index) {
+              <div class="col-12 col-md-6 col-lg-4" >
+                <div class="card">
+                  
+                  <div class="card-body" style="margin-top: 20px;" >
+                    <h5 class="card-title">{{food.horario}}</h5>
+                    <p class="card-text">Descipcion:{{food.descripcion}}</p>
+                  </div>
+                  <div class="mb-5 d-flex justify-content-around">
+                    
+                    <div>
+                         
+                      <h6>Precio: ₡{{food.precio}}</h6>
+                     
+                    </div>
+                    
+                
+                    <button mat-fab aria-label="crear" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Crear"
+                      data-bs-whatever="@mdo" (click)="setFoodResObject(food)" [disabled]="identity == null">Reservar
                     </button>
                   </div>
                 </div>
