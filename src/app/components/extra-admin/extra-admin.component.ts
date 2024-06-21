@@ -153,7 +153,7 @@ export class ExtraAdminComponent {
     this.extra.imagen = filename;
     this.extraService.create(this.extra).subscribe({
       next: (response: any) => {
-        this.msgAlert("Agregadp", "Extra agregado correctamente", "success");
+        this.msgAlert("Agregado", "Extra agregado correctamente", "success");
 
       },
       error: (error: Error) => {

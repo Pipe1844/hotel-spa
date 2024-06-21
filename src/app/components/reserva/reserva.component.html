@@ -1,378 +1,383 @@
 <body>
-    
+
 
 
     <nav class="navbar navbar-expand-lg"> <!--navbar-->
         <div class="container-fluid">
-    
-    
-          <a class="navbar-brand logo" href="#">Hades Ressorts</a> <!--logo-->
-    
-    
-          <button class="navbar-toggler shadow-none border-0 text-dark" type="button" data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-    
-            <span class="navbar-toggler-icon dark"></span>
-    
-          </button> <!--toggle Btn-->
-    
-    
-    
-          <div class="sidebar offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar"
-            aria-labelledby="offcanvasNavbarLabel"> <!--sidebar-->
-            <div class="offcanvas-header text-white border-bottom"> <!--sidebar header-->
-              <h5 class="offcanvas-title logo" id="offcanvasNavbarLabel">Hades Ressorts</h5>
-              <button type="button" class="btn-close btn-close-dark shadow-none" data-bs-dismiss="offcanvas"
-                aria-label="Close"></button>
-            </div>
-    
-    
-    
-            <div class="offcanvas-body d-flex flex-column p-4 flex-lg-row"> <!--sidebar Body-->
-              <ul class="navbar-nav justify-content-center align-items-center fs-6 flex-grow-1 pe-3">
-                <li class="nav-item mx-2">
-                  <a class="nav-link active text-dark fw-bold" aria-current="page" [routerLink]="['']">Inicio</a>
-                </li>
-    
-                <li class="nav-item mx-2">
-                  <a class="nav-link text-dark fw-bold" [routerLink]="['reservar']">Reservar</a>
-                </li>
-    
-                <li class="nav-item mx-2">
-                  <a class="nav-link text-dark fw-bold" href="#">Nosotros</a>
-                </li>
-    
-                <li class="nav-item mx-2">
-                  <a class="nav-link text-dark fw-bold" >Contacto</a>
-                </li>
-    
-              </ul>
-    
-              @if(!identity){
-              <div class="d-flex flex-column align-items-center gap-3 flex-lg-row"> <!--SingIn & LogIn-->
-    
-    
-    
-                <a [routerLink]="['../login']" class="text-dark text-decoration-none fw-bold">Ingresar</a>
-                <a [routerLink]="['../signup']" class="text-white text-decoration-none px-3 py-1 rounded-4 fw-bold" style="
+
+
+            <a class="navbar-brand logo" href="#">Hades Ressorts</a> <!--logo-->
+
+
+            <button class="navbar-toggler shadow-none border-0 text-dark" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+
+                <span class="navbar-toggler-icon dark"></span>
+
+            </button> <!--toggle Btn-->
+
+
+
+            <div class="sidebar offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel"> <!--sidebar-->
+                <div class="offcanvas-header text-white border-bottom"> <!--sidebar header-->
+                    <h5 class="offcanvas-title logo" id="offcanvasNavbarLabel">Hades Ressorts</h5>
+                    <button type="button" class="btn-close btn-close-dark shadow-none" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+                </div>
+
+
+
+                <div class="offcanvas-body d-flex flex-column p-4 flex-lg-row"> <!--sidebar Body-->
+                    <ul class="navbar-nav justify-content-center align-items-center fs-6 flex-grow-1 pe-3">
+                        <li class="nav-item mx-2">
+                            <a class="nav-link active text-dark fw-bold" aria-current="page"
+                                [routerLink]="['']">Inicio</a>
+                        </li>
+
+                        <li class="nav-item mx-2">
+                            <a class="nav-link text-dark fw-bold">Reservar</a>
+                        </li>
+
+                        <li class="nav-item mx-2">
+                            <a class="nav-link text-dark fw-bold" href="#">Nosotros</a>
+                        </li>
+
+                        <li class="nav-item mx-2">
+                            <a class="nav-link text-dark fw-bold">Contacto</a>
+                        </li>
+
+                    </ul>
+
+                    @if(!identity){
+                    <div class="d-flex flex-column align-items-center gap-3 flex-lg-row"> <!--SingIn & LogIn-->
+
+
+
+                        <a [routerLink]="['../login']" class="text-dark text-decoration-none fw-bold">Ingresar</a>
+                        <a [routerLink]="['../signup']"
+                            class="text-white text-decoration-none px-3 py-1 rounded-4 fw-bold" style="
                           background-color: rgba(255, 0, 197, 1);
                           font-weight: 600;
                           color: #fff;
                         
                       ">Registrarse</a>
-              </div>
-              }@else{
-              <div class="d-flex flex-column align-items-center gap-3 flex-lg-row"> <!--SingIn & LogIn-->
-                @if(identity.correo){
-                <a class="text-dark text-decoration-none px-3 py-1 rounded-4 fw-bold" style="
+                    </div>
+                    }@else{
+                    <div class="d-flex flex-column align-items-center gap-3 flex-lg-row"> <!--SingIn & LogIn-->
+                        @if(identity.correo){
+                        <a class="text-dark text-decoration-none px-3 py-1 rounded-4 fw-bold" style="
                           background-color: rgba(255, 0, 197, 1);
                           color: #fff;
                           font-weight: 600;
                       ">{{identity.correo}}</a>
-    
-                <a href="" (click)="logOut()" class="text-dark text-decoration-none px-3 py-1 rounded-4 fw-bold" style="
+
+                        <a href="" (click)="logOut()" class="text-dark text-decoration-none px-3 py-1 rounded-4 fw-bold"
+                            style="
                           color: #000;
                           font-weight: 600;
                       "><i class="fa-solid fa-right-from-bracket"></i></a>
-    
-                @if (identity.rol == 'admin') {
-                <a [routerLink]="['../admin']" style="
+
+                        @if (identity.rol == 'admin') {
+                        <a [routerLink]="['../admin']" style="
                 color: #000;
-                font-weight: 600;
+                font-weight: 600;   
             "><i class="fa-solid fa-gears"></i></a>
-                }
-                }
-              </div>
-              }
-    
+                        }
+                        }
+                    </div>
+                    }
+
+                </div>
             </div>
-          </div>
-    
-    
-    
+
+
+
         </div>
-      </nav>
-
-
-
-      
+    </nav>
 
 
 
 
-      <div class="contentCards">
+
+
+
+
+    <div class="contentCards">
         <div class="container py-5">
-          <h1 class="T">Habitaciones</h1>
-          <div class="row g-4 py-5">
-            @for (room of rooms; track $index) {
-            <div class="col-12 col-md-6 col-lg-4">
-              <div class="card">
-                <img src="{{urlGetRoomImage}}{{room.imagen}}" class="card-img-top img-fixed" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Habitacion Numero {{room.id}}</h5>
-                  <p class="card-text">{{room.ubicacion}}</p>
+            <h1 class="T">Habitaciones</h1>
+            <div class="row g-4 py-5">
+                @for (room of rooms; track $index) {
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card">
+                        <img src="{{urlGetRoomImage}}{{room.imagen}}" class="card-img-top img-fixed" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Habitacion número: {{room.id}}</h5>
+                            <p class="card-text">{{room.ubicacion}}</p>
+                        </div>
+                        <div class="mb-5 d-flex justify-content-around">
+                            @for (roomType of roomTypes; track $index) {
+                            @if (room.idTipoHabitacion == roomType.id) {
+                            <div>
+                                <h6>Precio: ₡{{roomType.precio}}</h6>
+                                <h6>Capacidad: {{roomType.capacidad}} personas</h6>
+                            </div>
+                            }
+                            }
+                            <button mat-fab aria-label="CrearRoomRes" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#CrearRoomRes" data-bs-whatever="@mdo" (click)="setRoomResObject(room)"
+                                [disabled]="identity == null">Reservar
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <div class="mb-5 d-flex justify-content-around">
-                  @for (roomType of roomTypes; track $index) {
-                  @if (room.idTipoHabitacion == roomType.id) {
-                  <div>
-                    <h6>Precio: ₡{{roomType.precio}}</h6>
-                    <h6>Capacidad: {{roomType.capacidad}} personas</h6>
-                  </div>
-                  }
-                  }
-                  <button mat-fab aria-label="crear" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Crear"
-                    data-bs-whatever="@mdo" (click)="setRoomResObject(room)" [disabled]="identity == null">Reservar
-                  </button>
-                </div>
-              </div>
+                }
             </div>
-            }
-          </div>
         </div>
 
 
         <div class="container py-5">
             <h1 class="T">Extras</h1>
             <div class="row g-4 py-5">
-              @for (extra of extras; track $index) {
-              <div class="col-12 col-md-6 col-lg-4">
-                <div class="card">
-                  <img src="{{urlGetExtraImage}}{{room.imagen}}" class="card-img-top img-fixed" alt="...">
-                  <div class="card-body">
-                    <h5 class="card-title">Habitacion Numero {{extra.nombre}}</h5>
-                    <p class="card-text">{{extra.ubicacion}}</p>
-                  </div>
-                  <div class="mb-5 d-flex justify-content-around">
-                    
-                    <div>
-                        <h6>Ubicacion: {{extra.ubicacion}}</h6>
-                      <h6>Precio: ₡{{extra.precio}}</h6>
-                      <h6>Capacidad: {{extra.capacidad}} personas</h6>
+                @for (extra of extras; track $index) {
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card">
+                        <img src="{{urlGetExtraImage}}{{extra.imagen}}" class="card-img-top img-fixed" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{extra.nombre}}</h5>
+                            <p class="card-text">{{extra.ubicacion}}</p>
+                        </div>
+                        <div class="mb-5 d-flex justify-content-around">
+
+                            <div>
+                                <h6>Ubicacion: {{extra.ubicacion}}</h6>
+                                <h6>Precio: ₡{{extra.precio}}</h6>
+                                <h6>Capacidad: {{extra.capacidad}} personas</h6>
+                            </div>
+
+
+                            <button mat-fab aria-label="CrearExtraRes" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#CrearExtraRes" data-bs-whatever="@mdo"
+                                (click)="setExtraResObject(extra)" [disabled]="identity == null">Reservar
+                            </button>
+                        </div>
                     </div>
-                    
-                
-                    <button mat-fab aria-label="crear" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Crear"
-                      data-bs-whatever="@mdo" (click)="setRoomResObject(room)" [disabled]="identity == null">Reservar
-                    </button>
-                  </div>
                 </div>
-              </div>
-              }
+                }
             </div>
-          </div>
+        </div>
 
-      </div>
-      
+    </div>
 
 
-<!--Dialogo RoomRes-->
-<div class="modal fade" id="CrearRoomRes" tabindex="-1" aria-labelledby="CrearRoomRes" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="heading" id="Crear">Reservar habitación</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="mb-3" style="display: flex;">
-                        <div style="width: 50%; padding: 0 10px 0 0;">
-                            <label for="fechaEntrada">Fecha entrada</label>
-                            <input id="fechaEntrada" class="form-control" name="fechaEntrada" type="date"
-                                (change)="formatDate($event)" #fechaEntrada="ngModel" [(ngModel)]="roomRes.fechaEntrada"
-                                required class="input">
-                        </div>
-                        <div style="width: 50%; padding: 0 0 0 10px;">
-                            <label for="fechaEntrada">Fecha salida</label>
-                            <input id="fechaSalida" class="form-control" name="fechaSalida" type="date"
-                                (change)="formatDate($event)" #fechaSalida="ngModel" [(ngModel)]="roomRes.fechaSalida"
-                                required class="input">
-                        </div>
-                    </div>
-                    <hr>
-                    <div>
-                        <label for="numTarjeta">Número de tarjeta</label>
-                        <input id="numTarjeta" type="number" name="numTarjeta" autocomplete="off" name="cedula"
-                            class="input" placeholder="1234 5678 9101 1121" required>
-                        <label for="nameTarjeta">Nombre del titular de la Tarjeta</label>
-                        <input id="nameTarjeta" type="text" name="nameTarjeta" autocomplete="off" name="cedula"
-                            class="input" placeholder="Juancho Rodriguez" required>
-                    </div>
-                    <div class="" style="display: flex;">
-                        <div style="width: 50%; padding: 0 10px 0 0;">
-                            <label for="caducidad">Fecha Caducidad</label>
-                            <div id="caducidad" style="display: flex; align-items: center">
-                                <input id="MM" class="form-control" name="month" type="text" class="input"
-                                    placeholder="MM" style="width: 40%;" required>
-                                <h5 style="padding: 0 5px 0 5px;">/</h5>
-                                <input id="YY" class="form-control" name="year" type="text" class="input"
-                                    placeholder="YY" style="width: 40%;" required>
+
+    <!--Dialogo RoomRes-->
+    <div class="modal fade" id="CrearRoomRes" tabindex="-1" aria-labelledby="CrearRoomRes" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="heading" id="Crear">Reservar habitación</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3" style="display: flex;">
+                            <div style="width: 50%; padding: 0 10px 0 0;">
+                                <label for="fechaEntrada">Fecha entrada</label>
+                                <input id="fechaEntrada" class="form-control" name="fechaEntrada" type="date"
+                                    (change)="formatDate($event)" #fechaEntrada="ngModel"
+                                    [(ngModel)]="roomRes.fechaEntrada" required class="input">
+                            </div>
+                            <div style="width: 50%; padding: 0 0 0 10px;">
+                                <label for="fechaEntrada">Fecha salida</label>
+                                <input id="fechaSalida" class="form-control" name="fechaSalida" type="date"
+                                    (change)="formatDate($event)" #fechaSalida="ngModel"
+                                    [(ngModel)]="roomRes.fechaSalida" required class="input">
                             </div>
                         </div>
-                        <div style="width: 50%; padding: 0 0 0 10px;">
-                            <label for="CVC">Código de seguridad</label>
-                            <div style="display: flex; align-items: center">
-                                <input id="CVC" class="form-control" name="CVC" type="password" class="input"
-                                    placeholder="111" style="width: 45%;" required>
-                                <mat-icon style="margin-bottom: 10px; margin-left: 15px;">info</mat-icon>
+                        <hr>
+                        <div>
+                            <label for="numTarjeta">Número de tarjeta</label>
+                            <input id="numTarjeta" type="number" name="numTarjeta" autocomplete="off" name="cedula"
+                                class="input" placeholder="1234 5678 9101 1121" required>
+                            <label for="nameTarjeta">Nombre del titular de la Tarjeta</label>
+                            <input id="nameTarjeta" type="text" name="nameTarjeta" autocomplete="off" name="cedula"
+                                class="input" placeholder="Juancho Rodriguez" required>
+                        </div>
+                        <div class="" style="display: flex;">
+                            <div style="width: 50%; padding: 0 10px 0 0;">
+                                <label for="caducidad">Fecha Caducidad</label>
+                                <div id="caducidad" style="display: flex; align-items: center">
+                                    <input id="MM" class="form-control" name="month" type="text" class="input"
+                                        placeholder="MM" style="width: 40%;" required>
+                                    <h5 style="padding: 0 5px 0 5px;">/</h5>
+                                    <input id="YY" class="form-control" name="year" type="text" class="input"
+                                        placeholder="YY" style="width: 40%;" required>
+                                </div>
+                            </div>
+                            <div style="width: 50%; padding: 0 0 0 10px;">
+                                <label for="CVC">Código de seguridad</label>
+                                <div style="display: flex; align-items: center">
+                                    <input id="CVC" class="form-control" name="CVC" type="password" class="input"
+                                        placeholder="111" style="width: 45%;" required>
+                                    <mat-icon style="margin-bottom: 10px; margin-left: 15px;">info</mat-icon>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div>
-                        <label for="direccion">Dirección de facturación</label>
-                        <input id="direccion" type="text" name="direccion" autocomplete="off" name="direccion"
-                            class="input" placeholder="Costa Rica, Guanacaste..." required>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                    (click)="createRoomRes()">Pagar</button>
+                        <div>
+                            <label for="direccion">Dirección de facturación</label>
+                            <input id="direccion" type="text" name="direccion" autocomplete="off" name="direccion"
+                                class="input" placeholder="Costa Rica, Guanacaste..." required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                        (click)="createRoomRes()">Pagar</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<!--Dialogo RoomRes-->
+    <!--Dialogo RoomRes-->
 
-<!--Dialogo ExtraRes-->
-<div class="modal fade" id="CrearExtraRes" tabindex="-1" aria-labelledby="CrearExtraRes" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="heading" id="Crear">Reservar Extra</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="mb-3" style="display: flex;">
-                        <div style="padding: 0 10px 0 0;">
-                            <label for="fechaServicio">Fecha de servicio</label>
-                            <input id="fechaServicio" class="form-control" name="fechaServicio" type="date"
-                                (change)="formatDate($event)" #fechaServicio="ngModel"
-                                [(ngModel)]="extraRes.fechaServicio" required class="input">
-                        </div>
-                    </div>
-                    <hr>
-                    <div>
-                        <label for="numTarjeta">Número de tarjeta</label>
-                        <input id="numTarjeta" type="number" name="numTarjeta" autocomplete="off" name="cedula"
-                            class="input" placeholder="1234 5678 9101 1121" required>
-                        <label for="nameTarjeta">Nombre del titular de la Tarjeta</label>
-                        <input id="nameTarjeta" type="text" name="nameTarjeta" autocomplete="off" name="cedula"
-                            class="input" placeholder="Juancho Rodriguez" required>
-                    </div>
-                    <div class="" style="display: flex;">
-                        <div style="width: 50%; padding: 0 10px 0 0;">
-                            <label for="caducidad">Fecha Caducidad</label>
-                            <div id="caducidad" style="display: flex; align-items: center">
-                                <input id="MM" class="form-control" name="month" type="text" class="input"
-                                    placeholder="MM" style="width: 40%;" required>
-                                <h5 style="padding: 0 5px 0 5px;">/</h5>
-                                <input id="YY" class="form-control" name="year" type="text" class="input"
-                                    placeholder="YY" style="width: 40%;" required>
+    <!--Dialogo ExtraRes-->
+    <div class="modal fade" id="CrearExtraRes" tabindex="-1" aria-labelledby="CrearExtraRes" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="heading" id="Crear">Reservar Extra</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3" style="display: flex;">
+                            <div style="padding: 0 10px 0 0;">
+                                <label for="fechaServicio">Fecha de servicio</label>
+                                <input id="fechaServicio" class="form-control" name="fechaServicio" type="date"
+                                    (change)="formatDate($event)" #fechaServicio="ngModel"
+                                    [(ngModel)]="extraRes.fechaServicio" required class="input">
                             </div>
                         </div>
-                        <div style="width: 50%; padding: 0 0 0 10px;">
-                            <label for="CVC">Código de seguridad</label>
-                            <div style="display: flex; align-items: center">
-                                <input id="CVC" class="form-control" name="CVC" type="password" class="input"
-                                    placeholder="111" style="width: 45%;" required>
-                                <mat-icon style="margin-bottom: 10px; margin-left: 15px;">info</mat-icon>
+                        <hr>
+                        <div>
+                            <label for="numTarjeta">Número de tarjeta</label>
+                            <input id="numTarjeta" type="number" name="numTarjeta" autocomplete="off" name="cedula"
+                                class="input" placeholder="1234 5678 9101 1121" required>
+                            <label for="nameTarjeta">Nombre del titular de la Tarjeta</label>
+                            <input id="nameTarjeta" type="text" name="nameTarjeta" autocomplete="off" name="cedula"
+                                class="input" placeholder="Juancho Rodriguez" required>
+                        </div>
+                        <div class="" style="display: flex;">
+                            <div style="width: 50%; padding: 0 10px 0 0;">
+                                <label for="caducidad">Fecha Caducidad</label>
+                                <div id="caducidad" style="display: flex; align-items: center">
+                                    <input id="MM" class="form-control" name="month" type="text" class="input"
+                                        placeholder="MM" style="width: 40%;" required>
+                                    <h5 style="padding: 0 5px 0 5px;">/</h5>
+                                    <input id="YY" class="form-control" name="year" type="text" class="input"
+                                        placeholder="YY" style="width: 40%;" required>
+                                </div>
+                            </div>
+                            <div style="width: 50%; padding: 0 0 0 10px;">
+                                <label for="CVC">Código de seguridad</label>
+                                <div style="display: flex; align-items: center">
+                                    <input id="CVC" class="form-control" name="CVC" type="password" class="input"
+                                        placeholder="111" style="width: 45%;" required>
+                                    <mat-icon style="margin-bottom: 10px; margin-left: 15px;">info</mat-icon>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div>
-                        <label for="direccion">Dirección de facturación</label>
-                        <input id="direccion" type="text" name="direccion" autocomplete="off" name="direccion"
-                            class="input" placeholder="Costa Rica, Guanacaste..." required>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                    (click)="createExtraRes()">Pagar</button>
+                        <div>
+                            <label for="direccion">Dirección de facturación</label>
+                            <input id="direccion" type="text" name="direccion" autocomplete="off" name="direccion"
+                                class="input" placeholder="Costa Rica, Guanacaste..." required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                        (click)="createExtraRes()">Pagar</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<!--Dialogo ExtraRes-->
+    <!--Dialogo ExtraRes-->
 
-<!--Dialogo FoodRes-->
-<div class="modal fade" id="CrearFoodRes" tabindex="-1" aria-labelledby="CrearFoodRes" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="heading" id="Crear">Reservar Alimentación</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="mb-3" style="display: flex;">
-                        <div style="padding: 0 10px 0 0;">
-                            <label for="fechaServicio">Fecha de servicio</label>
-                            <input id="fechaServicio" class="form-control" name="fechaServicio" type="date"
-                                (change)="formatDate($event)" #fechaServicio="ngModel"
-                                [(ngModel)]="foodRes.fechaServicio" required class="input">
-                        </div>
-                        <div style="width: 50%; padding: 0 0 0 10px;">
-                            <label for="cantidad">Cantidad de personas</label>
-                            <input id="cantidad" class="form-control" name="cantidad" type="number" #cantidad="ngModel"
-                                [(ngModel)]="foodRes.cantidad" required class="input" placeholder="Ej. 3">
-                            @if (!cantidad.valid && cantidad.touched) {
-                            <small class="invalid-feedback d-block">Formato invalido</small>
-                            }
-                        </div>
-                    </div>
-                    <hr>
-                    <div>
-                        <label for="numTarjeta">Número de tarjeta</label>
-                        <input id="numTarjeta" type="number" name="numTarjeta" autocomplete="off" name="cedula"
-                            class="input" placeholder="1234 5678 9101 1121" required>
-                        <label for="nameTarjeta">Nombre del titular de la Tarjeta</label>
-                        <input id="nameTarjeta" type="text" name="nameTarjeta" autocomplete="off" name="cedula"
-                            class="input" placeholder="Juancho Rodriguez" required>
-                    </div>
-                    <div class="" style="display: flex;">
-                        <div style="width: 50%; padding: 0 10px 0 0;">
-                            <label for="caducidad">Fecha Caducidad</label>
-                            <div id="caducidad" style="display: flex; align-items: center">
-                                <input id="MM" class="form-control" name="month" type="text" class="input"
-                                    placeholder="MM" style="width: 40%;" required>
-                                <h5 style="padding: 0 5px 0 5px;">/</h5>
-                                <input id="YY" class="form-control" name="year" type="text" class="input"
-                                    placeholder="YY" style="width: 40%;" required>
+    <!--Dialogo FoodRes-->
+    <div class="modal fade" id="CrearFoodRes" tabindex="-1" aria-labelledby="CrearFoodRes" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="heading" id="Crear">Reservar Alimentación</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3" style="display: flex;">
+                            <div style="padding: 0 10px 0 0;">
+                                <label for="fechaServicio">Fecha de servicio</label>
+                                <input id="fechaServicio" class="form-control" name="fechaServicio" type="date"
+                                    (change)="formatDate($event)" #fechaServicio="ngModel"
+                                    [(ngModel)]="foodRes.fechaServicio" required class="input">
+                            </div>
+                            <div style="width: 50%; padding: 0 0 0 10px;">
+                                <label for="cantidad">Cantidad de personas</label>
+                                <input id="cantidad" class="form-control" name="cantidad" type="number"
+                                    #cantidad="ngModel" [(ngModel)]="foodRes.cantidad" required class="input"
+                                    placeholder="Ej. 3">
+                                @if (!cantidad.valid && cantidad.touched) {
+                                <small class="invalid-feedback d-block">Formato invalido</small>
+                                }
                             </div>
                         </div>
-                        <div style="width: 50%; padding: 0 0 0 10px;">
-                            <label for="CVC">Código de seguridad</label>
-                            <div style="display: flex; align-items: center">
-                                <input id="CVC" class="form-control" name="CVC" type="password" class="input"
-                                    placeholder="111" style="width: 45%;" required>
-                                <mat-icon style="margin-bottom: 10px; margin-left: 15px;">info</mat-icon>
+                        <hr>
+                        <div>
+                            <label for="numTarjeta">Número de tarjeta</label>
+                            <input id="numTarjeta" type="number" name="numTarjeta" autocomplete="off" name="cedula"
+                                class="input" placeholder="1234 5678 9101 1121" required>
+                            <label for="nameTarjeta">Nombre del titular de la Tarjeta</label>
+                            <input id="nameTarjeta" type="text" name="nameTarjeta" autocomplete="off" name="cedula"
+                                class="input" placeholder="Juancho Rodriguez" required>
+                        </div>
+                        <div class="" style="display: flex;">
+                            <div style="width: 50%; padding: 0 10px 0 0;">
+                                <label for="caducidad">Fecha Caducidad</label>
+                                <div id="caducidad" style="display: flex; align-items: center">
+                                    <input id="MM" class="form-control" name="month" type="text" class="input"
+                                        placeholder="MM" style="width: 40%;" required>
+                                    <h5 style="padding: 0 5px 0 5px;">/</h5>
+                                    <input id="YY" class="form-control" name="year" type="text" class="input"
+                                        placeholder="YY" style="width: 40%;" required>
+                                </div>
+                            </div>
+                            <div style="width: 50%; padding: 0 0 0 10px;">
+                                <label for="CVC">Código de seguridad</label>
+                                <div style="display: flex; align-items: center">
+                                    <input id="CVC" class="form-control" name="CVC" type="password" class="input"
+                                        placeholder="111" style="width: 45%;" required>
+                                    <mat-icon style="margin-bottom: 10px; margin-left: 15px;">info</mat-icon>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div>
-                        <label for="direccion">Dirección de facturación</label>
-                        <input id="direccion" type="text" name="direccion" autocomplete="off" name="direccion"
-                            class="input" placeholder="Costa Rica, Guanacaste..." required>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                    (click)="createFoodRes()">Pagar</button>
+                        <div>
+                            <label for="direccion">Dirección de facturación</label>
+                            <input id="direccion" type="text" name="direccion" autocomplete="off" name="direccion"
+                                class="input" placeholder="Costa Rica, Guanacaste..." required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                        (click)="createFoodRes()">Pagar</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<!--Dialogo FoodRes-->
+    <!--Dialogo FoodRes-->
 
 
 
 </body>
-

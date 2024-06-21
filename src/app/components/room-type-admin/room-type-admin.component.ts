@@ -163,7 +163,7 @@ export class RoomTypeAdminComponent implements AfterViewInit {
     this.selection.selected.forEach(roomType => {
       this.roomTypeService.delete(roomType.id).subscribe({
         next: (response: any) => {
-          this.msgAlert("Eliminado", "Tipo de habitación eliminados correctamente", "success");
+          this.msgAlert("Eliminado", "Tipos de habitación eliminados correctamente", "success");
         },
         error: (err: Error) => {
           this.msgAlert("Error", "Error al eliminar los tipos de habitación", "error");

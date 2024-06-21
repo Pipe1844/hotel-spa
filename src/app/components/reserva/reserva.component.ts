@@ -18,6 +18,7 @@ import { Food } from '../../models/Food';
 import { RoomRes } from '../../models/RoomRes';
 import { ExtraRes } from '../../models/ExtraRes';
 import { FoodRes } from '../../models/FoodRes';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-reserva',
@@ -85,7 +86,7 @@ export class ReservaComponent {
   foodIndex() {
     this.foodService.index().subscribe({
       next: (response: any) => {
-        this.foods = response['data'];
+        this.foods = response['alimentos'];
       },
       error: (err: Error) => {
         console.log(err);
@@ -119,7 +120,8 @@ export class ReservaComponent {
 
   createRoomRes() {
     if (this.roomRes.fechaEntrada == this.roomRes.fechaSalida) {
-      console.log("La fecha de entrada y de salida no pueden ser las mismas");
+      this.msgAlert("Error", "La fecha de entrada y de salida no pueden ser las mismas", "error");
+
     } else {
       this.roomResService.create(this.roomRes).subscribe({
         next: (response: any) => {
@@ -178,6 +180,14 @@ export class ReservaComponent {
 
   logOut() {
     sessionStorage.clear();
+  }
+
+  msgAlert = (title: any, text: any, icon: any) => {
+    Swal.fire({
+      title,
+      text,
+      icon,
+    })
   }
 }
 
