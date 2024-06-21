@@ -1,3 +1,171 @@
+<body>
+    
+
+
+    <nav class="navbar navbar-expand-lg"> <!--navbar-->
+        <div class="container-fluid">
+    
+    
+          <a class="navbar-brand logo" href="#">Hades Ressorts</a> <!--logo-->
+    
+    
+          <button class="navbar-toggler shadow-none border-0 text-dark" type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+    
+            <span class="navbar-toggler-icon dark"></span>
+    
+          </button> <!--toggle Btn-->
+    
+    
+    
+          <div class="sidebar offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar"
+            aria-labelledby="offcanvasNavbarLabel"> <!--sidebar-->
+            <div class="offcanvas-header text-white border-bottom"> <!--sidebar header-->
+              <h5 class="offcanvas-title logo" id="offcanvasNavbarLabel">Hades Ressorts</h5>
+              <button type="button" class="btn-close btn-close-dark shadow-none" data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
+            </div>
+    
+    
+    
+            <div class="offcanvas-body d-flex flex-column p-4 flex-lg-row"> <!--sidebar Body-->
+              <ul class="navbar-nav justify-content-center align-items-center fs-6 flex-grow-1 pe-3">
+                <li class="nav-item mx-2">
+                  <a class="nav-link active text-dark fw-bold" aria-current="page" [routerLink]="['']">Inicio</a>
+                </li>
+    
+                <li class="nav-item mx-2">
+                  <a class="nav-link text-dark fw-bold" [routerLink]="['reservar']">Reservar</a>
+                </li>
+    
+                <li class="nav-item mx-2">
+                  <a class="nav-link text-dark fw-bold" href="#">Nosotros</a>
+                </li>
+    
+                <li class="nav-item mx-2">
+                  <a class="nav-link text-dark fw-bold" >Contacto</a>
+                </li>
+    
+              </ul>
+    
+              @if(!identity){
+              <div class="d-flex flex-column align-items-center gap-3 flex-lg-row"> <!--SingIn & LogIn-->
+    
+    
+    
+                <a [routerLink]="['../login']" class="text-dark text-decoration-none fw-bold">Ingresar</a>
+                <a [routerLink]="['../signup']" class="text-white text-decoration-none px-3 py-1 rounded-4 fw-bold" style="
+                          background-color: rgba(255, 0, 197, 1);
+                          font-weight: 600;
+                          color: #fff;
+                        
+                      ">Registrarse</a>
+              </div>
+              }@else{
+              <div class="d-flex flex-column align-items-center gap-3 flex-lg-row"> <!--SingIn & LogIn-->
+                @if(identity.correo){
+                <a class="text-dark text-decoration-none px-3 py-1 rounded-4 fw-bold" style="
+                          background-color: rgba(255, 0, 197, 1);
+                          color: #fff;
+                          font-weight: 600;
+                      ">{{identity.correo}}</a>
+    
+                <a href="" (click)="logOut()" class="text-dark text-decoration-none px-3 py-1 rounded-4 fw-bold" style="
+                          color: #000;
+                          font-weight: 600;
+                      "><i class="fa-solid fa-right-from-bracket"></i></a>
+    
+                @if (identity.rol == 'admin') {
+                <a [routerLink]="['../admin']" style="
+                color: #000;
+                font-weight: 600;
+            "><i class="fa-solid fa-gears"></i></a>
+                }
+                }
+              </div>
+              }
+    
+            </div>
+          </div>
+    
+    
+    
+        </div>
+      </nav>
+
+
+
+      
+
+
+
+
+      <div class="contentCards">
+        <div class="container py-5">
+          <h1 class="T">Habitaciones</h1>
+          <div class="row g-4 py-5">
+            @for (room of rooms; track $index) {
+            <div class="col-12 col-md-6 col-lg-4">
+              <div class="card">
+                <img src="{{urlGetRoomImage}}{{room.imagen}}" class="card-img-top img-fixed" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">Habitacion Numero {{room.id}}</h5>
+                  <p class="card-text">{{room.ubicacion}}</p>
+                </div>
+                <div class="mb-5 d-flex justify-content-around">
+                  @for (roomType of roomTypes; track $index) {
+                  @if (room.idTipoHabitacion == roomType.id) {
+                  <div>
+                    <h6>Precio: ₡{{roomType.precio}}</h6>
+                    <h6>Capacidad: {{roomType.capacidad}} personas</h6>
+                  </div>
+                  }
+                  }
+                  <button mat-fab aria-label="crear" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Crear"
+                    data-bs-whatever="@mdo" (click)="setRoomResObject(room)" [disabled]="identity == null">Reservar
+                  </button>
+                </div>
+              </div>
+            </div>
+            }
+          </div>
+        </div>
+
+
+        <div class="container py-5">
+            <h1 class="T">Extras</h1>
+            <div class="row g-4 py-5">
+              @for (extra of extras; track $index) {
+              <div class="col-12 col-md-6 col-lg-4">
+                <div class="card">
+                  <img src="{{urlGetExtraImage}}{{room.imagen}}" class="card-img-top img-fixed" alt="...">
+                  <div class="card-body">
+                    <h5 class="card-title">Habitacion Numero {{extra.nombre}}</h5>
+                    <p class="card-text">{{extra.ubicacion}}</p>
+                  </div>
+                  <div class="mb-5 d-flex justify-content-around">
+                    
+                    <div>
+                        <h6>Ubicacion: {{extra.ubicacion}}</h6>
+                      <h6>Precio: ₡{{extra.precio}}</h6>
+                      <h6>Capacidad: {{extra.capacidad}} personas</h6>
+                    </div>
+                    
+                
+                    <button mat-fab aria-label="crear" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Crear"
+                      data-bs-whatever="@mdo" (click)="setRoomResObject(room)" [disabled]="identity == null">Reservar
+                    </button>
+                  </div>
+                </div>
+              </div>
+              }
+            </div>
+          </div>
+
+      </div>
+      
+
+
 <!--Dialogo RoomRes-->
 <div class="modal fade" id="CrearRoomRes" tabindex="-1" aria-labelledby="CrearRoomRes" aria-hidden="true">
     <div class="modal-dialog">
@@ -203,70 +371,8 @@
     </div>
 </div>
 <!--Dialogo FoodRes-->
-<div class="containerH">
-    <div class="section">
 
-        <div class="textSection">
-            <h2 class="titleSection">
-                ¡Realiza tu reserva en el mejor Hotel de la zona!
-            </h2>
-            <p class="text">Con una historia rica y un compromiso con la excelencia, el Hotel Hades es un oasis en el
-                corazón de Liberia, Guanacaste. Administrado por un equipo de profesionales dedicados, el Hotel Hades
-                ofrece una experiencia inigualable con programas excepcionales de hospitalidad, gastronomía y
-                actividades recreativas. Nuestro enfoque en el servicio al cliente, la comodidad y el disfrute hace de
-                cada estancia una experiencia memorable. Además, promovemos la sostenibilidad y la preservación del
-                entorno local, integrando prácticas ecológicas en todas nuestras operaciones.</p>
-        </div>
-    </div>
 
-    <div class="section">
-        <div class="textSection">
-            <h2 class="titleSection">
-                Programa de Sostenibilidad Global de la organización internacional EarthCheck
-            </h2>
-            <p class="text">
-                En 2022, el Hotel Hades recibió una prestigiosa certificación del “Programa de Sostenibilidad Global de
-                la organización internacional EarthCheck”, que reconoce su compromiso con la sostenibilidad y la
-                responsabilidad ambiental. Tras superar un riguroso proceso de auditoría externa, el Hotel Hades,
-                ubicado en Liberia, Guanacaste, se hizo acreedor del sello de aprobación “EarthCheck CertifiedTM”. Este
-                logro convierte al Hotel Hades en uno de los pocos establecimientos en la región que han alcanzado esta
-                distinción, uniéndose a un grupo selecto de hoteles a nivel mundial que han demostrado un desempeño
-                sobresaliente en prácticas sostenibles y ecológicas.
-            </p>
-        </div>
-        <div class="imageSection">
-            <img class="image" src="https://upload.wikimedia.org/wikipedia/commons/3/3b/EC_large_Word.png" alt="">
-        </div>
-    </div>
 
-    <div class="section">
-        <div class="imageSection">
-            <img class="image"
-                src="https://cdn0.ecologiaverde.com/es/posts/3/9/0/la_contaminacion_en_costa_rica_93_600.jpg" alt="">
-        </div>
-        <div class="textSection">
-            <h2 class="titleSection">
-                Iniciativas Medioambientales y de Conservación en el Hotel Hades
-            </h2>
-            <p class="text">
-                El Hotel Hades se dedica a la conservación y restauración de los ecosistemas locales mediante la
-                implementación de diversas iniciativas medioambientales.
+</body>
 
-                Se ha desarrollado un plan integral para preservar y promover la biodiversidad autóctona de Guanacaste.
-                Este plan incluye la creación y mantenimiento de jardines con especies nativas, contribuyendo a la
-                conservación de la flora local.
-
-                El hotel también se compromete a la salud y seguridad del entorno, realizando inspecciones regulares de
-                los árboles y otras plantas para asegurar su sanidad y prevenir riesgos. Además, el personal del hotel
-                se encarga del mantenimiento continuo de las áreas verdes, garantizando que los jardines y espacios
-                naturales estén en óptimas condiciones.
-
-                Para fomentar la educación ambiental entre sus huéspedes y la comunidad, el Hotel Hades organiza
-                talleres y exposiciones sobre el manejo sostenible de plantas y jardines. También participa en programas
-                de recolección de semillas, colaborando con iniciativas locales para la propagación de especies nativas
-                en distintas regiones de Costa Rica.
-            </p>
-        </div>
-    </div>
-
-</div>

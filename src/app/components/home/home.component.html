@@ -30,11 +30,11 @@
         <div class="offcanvas-body d-flex flex-column p-4 flex-lg-row"> <!--sidebar Body-->
           <ul class="navbar-nav justify-content-center align-items-center fs-6 flex-grow-1 pe-3">
             <li class="nav-item mx-2">
-              <a class="nav-link active text-dark fw-bold" aria-current="page" href="#">Inicio</a>
+              <a class="nav-link active text-dark fw-bold" aria-current="page" [routerLink]="['']">Inicio</a>
             </li>
 
             <li class="nav-item mx-2">
-              <a class="nav-link text-dark fw-bold" href="#">Reservar</a>
+              <a class="nav-link text-dark fw-bold" [routerLink]="['reservar']">Reservar</a>
             </li>
 
             <li class="nav-item mx-2">
@@ -42,7 +42,7 @@
             </li>
 
             <li class="nav-item mx-2">
-              <a class="nav-link text-dark fw-bold" href="#">Contacto</a>
+              <a class="nav-link text-dark fw-bold" >Contacto</a>
             </li>
 
           </ul>
@@ -232,6 +232,11 @@
   </div>
   <!--Dialogo-->
 
+  
+  
+
+
+
   <!-- Dialogo Actualizar-->
 
   <div class="modal fade" id="Actualizar" tabindex="-1" aria-labelledby="Actualizar" aria-hidden="true">
@@ -288,6 +293,46 @@
   </div>
 
   <!-- Dialogo Actualizar-->
+  <section id="footer">
+		<div class="container">
+			<div class="row text-center text-xs-center text-sm-left text-md-left">
+				<div class="col-xs-12 col-sm-4 col-md-4">
+					
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-4">
+					
+					<ul class="list-unstyled quick-links">
+						<li><a >Home</a></li>
+						<li><a >Reserva</a></li>
+					</ul>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-4">
+				
+					<ul class="list-unstyled quick-links">
+						<li><a >Login</a></li>
+						<li><a >Reserva</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5">
+					<ul class="list-unstyled list-inline social text-center">
+						<li class="list-inline-item"><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-facebook"></i></a></li>
+						<li class="list-inline-item"><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-twitter"></i></a></li>
+						<li class="list-inline-item"><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-instagram"></i></a></li>
+					</ul>
+				</div>
+				<hr>
+			</div>	
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
+					<p><u></u>Hades Ressorts</p>
+					<p class="h6">© The best Ressorts.<a class="text-green ml-2" href="https://www.sunlimetech.com" target="_blank">Hades</a></p>
+				</div>
+				<hr>
+			</div>	
+		</div>
+	</section>
 
 </body>
 

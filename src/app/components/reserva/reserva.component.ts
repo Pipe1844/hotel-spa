@@ -175,4 +175,9 @@ export class ReservaComponent {
     const fecha = new Date(input.value);
     return `${fecha.getFullYear()}-${('0' + (fecha.getMonth() + 1)).slice(-2)}-${('0' + fecha.getDate()).slice(-2)}`;
   }
+
+  logOut() {
+    sessionStorage.clear();
+  }
 }
+
