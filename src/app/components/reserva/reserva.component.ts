@@ -191,10 +191,13 @@ export class ReservaComponent {
   setAuxArrays(aux:number){
     if (aux == 1) {
       this.fillRooms();
+      console.log(this.auxRooms);
     } else if (aux == 2) {
       this.fillExtras();
+      console.log(this.auxExtras);
     } else {
       this.fillFoods();
+      console.log(this.auxFoods);
     }
   }
 
