@@ -81,7 +81,7 @@ export class ReservaComponent {
   extraIndex() {
     this.extraService.index().subscribe({
       next: (response: any) => {
-        this.extras = response['data'];
+        this.auxExtras = this.extras = response['data'];
       },
       error: (err: Error) => {
         console.log(err);
@@ -92,7 +92,7 @@ export class ReservaComponent {
   foodIndex() {
     this.foodService.index().subscribe({
       next: (response: any) => {
-        this.foods = response['alimentos'];
+        this.auxFoods = this.foods = response['alimentos'];
       },
       error: (err: Error) => {
         console.log(err);
@@ -103,7 +103,7 @@ export class ReservaComponent {
   roomIndex() {
     this.roomService.index().subscribe({
       next: (response: any) => {
-        this.rooms = response['data'];
+        this.auxRooms = this.rooms = response['data'];
       },
       error: (err: Error) => {
         console.log(err);
